@@ -1,2 +1,2 @@
-export const SIGNIN = '/';
+export const SIGNIN = '/login';
 export const USERS = '/users';
