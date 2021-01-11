@@ -1,4 +1,8 @@
+import React from 'react';
+
 import SignIn from '../src/containers/Auth/auth';
+import Navbar from '../src/components/Navbar/navbar'
+
 import './App.css';
 
 function App() {
@@ -6,8 +10,9 @@ function App() {
   .then(response => {
     console.log(response)
   });
+
   return (
-    <SignIn />
+    <Navbar />
   );
 }
 
