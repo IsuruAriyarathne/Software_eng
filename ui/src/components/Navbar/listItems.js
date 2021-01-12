@@ -1,70 +1,64 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
+
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import PeopleIcon from '@material-ui/icons/People';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import LayersIcon from '@material-ui/icons/Layers';
-import AssignmentIcon from '@material-ui/icons/Assignment';
 
-export const mainListItems = (
+import PeopleIcon from '@material-ui/icons/People';
+import HomeIcon from '@material-ui/icons/Home';
+import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import LocationCityIcon from '@material-ui/icons/LocationCity';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+
+import * as routez from '../../shared/routes';
+import { List } from '@material-ui/core';
+
+
+export const MainListItems = (
   <div>
-    <ListItem button>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary="Dashboard" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <ShoppingCartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Orders" />
-    </ListItem>
-    <ListItem button>
+    <ListItem button >
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Customers" />
+      <ListItemText primary="Users" />
+    </ListItem>
+    <ListItem button >
+      <ListItemIcon>
+        <HomeIcon />
+      </ListItemIcon>
+      <ListItemText primary="Stations" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <BarChartIcon />
+        <ArrowDropDownCircleIcon />
       </ListItemIcon>
-      <ListItemText primary="Reports" />
+      <ListItemText primary="Weapons" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <LayersIcon />
+        <ArrowForwardIosIcon />
       </ListItemIcon>
-      <ListItemText primary="Integrations" />
-    </ListItem>
-  </div>
-);
-
-export const secondaryListItems = (
-  <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Current month" />
+      <ListItemText primary="Ammunation" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <AssignmentIcon />
+        <LocationCityIcon />
       </ListItemIcon>
-      <ListItemText primary="Last quarter" />
+      <ListItemText primary="Companies" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <AssignmentIcon />
+        <AddCircleOutlineIcon />
       </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
+      <ListItemText primary="Criminal Weapons" />
+    </ListItem>
+    <ListItem button>
+      <ListItemIcon>
+        <AddCircleOutlineIcon />
+      </ListItemIcon>
+      <ListItemText primary="Criminal Ammunations" />
     </ListItem>
   </div>
 );

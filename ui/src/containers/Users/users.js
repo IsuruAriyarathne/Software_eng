@@ -10,6 +10,56 @@ const tableOptions = {
 };
 
 const Users = props => {
+
+  // const { addAlert } = props;
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [lessons, setLessons] = useState([]);
+
+  // const deleteLesson = useCallback(
+  //   (id) => {
+  //     alert("You want to delete " + id)
+  //     deleteLessons(id)
+  //       .then((response) => {
+  //           console.log(response);
+  //           addAlert({
+  //             message: "Lesson deletion Successful!",
+  //           });
+          
+  //       })
+  //   },
+  //   [addAlert]
+  // );
+
+  // const updateLesson = useCallback(
+  //   (id,data) => {
+  //     console.log(data)
+  //     updateLessons(id,data)
+  //       .then((response) => {
+  //           console.log(response);
+  //           addAlert({
+  //             message: "Lesson Updated Successfully!",
+  //           });
+          
+  //       })
+  //   },
+  //   [addAlert]
+  // );
+
+  // const saveLesson = useCallback(
+  //   (data) => {
+  //     saveLessons(data)
+  //       .then((response) => {
+  //         if (!response.error){
+  //           addAlert({
+  //             message: "Lesson Saved Successfully!",
+  //           });
+  //         }else{
+  //           console.log(response.error)
+  //         }
+  //       })
+  //   },
+  //   [addAlert]
+  // );
   
   const [lessons, setLessons] = useState([{id:"null", title:"null", topicid:"null", videoUrl:"null", description:"null",}]);
 
@@ -50,5 +100,13 @@ const Users = props => {
     />
   }
 };
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     addAlert: alert => dispatch(actions.addAlert(alert))
+//   };
+// }
+
+// export default connect(null, mapDispatchToProps)(Users);
 
 export default (Users);

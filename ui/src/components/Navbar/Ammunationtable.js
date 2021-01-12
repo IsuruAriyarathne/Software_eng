@@ -19,8 +19,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 
-import { mainListItems, secondaryListItems } from './listItems';
-import Users from '../../containers/Users/users'
+import { MainListItems } from './listItems';
+import Ammunation from '../../containers/Ammunination/Ammunation'
 
 function Copyright() {
   return (
@@ -164,9 +164,7 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
-        <Divider />
-        <List>{secondaryListItems}</List>
+        <List>{MainListItems}</List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
@@ -175,7 +173,7 @@ export default function Dashboard() {
             {/* Chart */}
             <Grid item xs={12} md={12} lg={12}>
               <Paper className={fixedHeightPaper}>
-                <Users />
+                <Ammunation />
               </Paper>
             </Grid>
           </Grid>
