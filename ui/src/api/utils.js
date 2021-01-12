@@ -1,4 +1,4 @@
-import axios from "../axios-learnone-admin";
+import axios from "../axios-SE";
 
 // Utility functions
 export const getRequest = async (uri) => {

@@ -1,4 +1,4 @@
-import axios from '../../axios-learnone-admin';
+import axios from '../../axios-SE';
 import * as actionTypes from './actionTypes';
 import { loginRoute, authRequestTimeoutSec } from '../../shared/consts';
 

@@ -1,4 +1,6 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
+
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -19,7 +21,19 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 
-import { MainListItems } from './listItems';
+
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import PeopleIcon from '@material-ui/icons/People';
+import HomeIcon from '@material-ui/icons/Home';
+import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import LocationCityIcon from '@material-ui/icons/LocationCity';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import * as routez from '../../shared/routes';
+
+// import { MainListItems } from './listItems';
 import Users from '../../containers/Users/users'
 
 function Copyright() {
@@ -118,6 +132,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
   const classes = useStyles();
+  const history = useHistory();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -164,7 +179,50 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
-        <List>{MainListItems}</List>
+        <List>
+          <ListItem button onClick={() => history.push(`${routez.USERS}`)}>
+            <ListItemIcon>
+              <PeopleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Users" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.STATIONS}`)}>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary="Stations" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.WEAPONS}`)}>
+            <ListItemIcon>
+              <ArrowDropDownCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Weapons" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.AMMUNATIONS}`)}>
+            <ListItemIcon>
+              <ArrowForwardIosIcon />
+            </ListItemIcon>
+            <ListItemText primary="Ammunation" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.COMPANIES}`)}>
+            <ListItemIcon>
+              <LocationCityIcon />
+            </ListItemIcon>
+            <ListItemText primary="Companies" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.CRIMINALWEAPONS}`)}>
+            <ListItemIcon>
+              <AddCircleOutlineIcon />
+            </ListItemIcon>
+            <ListItemText primary="Criminal Weapons" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.CRIMINALAMMUNATION}`)}>
+            <ListItemIcon>
+              <AddCircleOutlineIcon />
+            </ListItemIcon>
+            <ListItemText primary="Criminal Ammunations" />
+          </ListItem>
+        </List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />

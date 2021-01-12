@@ -1,6 +1,6 @@
 import { getRequest, postRequest, putRequest, deleteRequest} from "./utils";
 
-const BASE_URL = "/v1/admin/lessons";
+const BASE_URL = "/admin/stations";
 
 export const getAllLessons = () => getRequest(`${BASE_URL}`);
 

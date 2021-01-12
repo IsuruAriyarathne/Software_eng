@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { selleroneAPIHost } from './shared/consts';
+import { SEHost } from './shared/consts';
 
 const instance = axios.create({
-    baseURL: selleroneAPIHost
+    baseURL: SEHost
 });
 
 export default instance;  
