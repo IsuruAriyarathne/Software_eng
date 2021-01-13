@@ -2,10 +2,10 @@ import { getRequest, postRequest, putRequest, deleteRequest} from "./utils";
 
 const BASE_URL = "/admin/users";
 
-export const getAllLessons = () => getRequest(`${BASE_URL}`);
+export const getAllUsers = () => getRequest(`${BASE_URL}`);
 
-export const deleteLessons = (id) => deleteRequest(`${BASE_URL}/${id}`);
+export const deleteUsers = (id) => deleteRequest(`${BASE_URL}/${id}`);
 
-export const updateLessons = (id,data) => putRequest(`${BASE_URL}/${id}`,data);
+export const updateUsers = (id,data) => putRequest(`${BASE_URL}/${id}`,data);
 
-export const saveLessons = (data) => postRequest(`${BASE_URL}`,data);
+export const saveUsers = (data) => postRequest(`${BASE_URL}`,data);

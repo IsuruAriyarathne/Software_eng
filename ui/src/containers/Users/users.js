@@ -1,4 +1,4 @@
-import React , {useState} from "react";
+import React , {useState, useEffect} from "react";
 
 import Table from "../../components/UI/Table/MaterialTable/Table";
 
@@ -10,7 +10,16 @@ const tableOptions = {
 };
 
 const Users = props => {
-
+  const [users, setUsers] = useState([]);
+ 
+  useEffect(() => {
+      getAllUsers()
+        .then((response) => {
+          if (!response.error) {
+            setUsers(response.data);
+          }
+        })
+  }, []);
   // const { addAlert } = props;
   // const [isLoading, setIsLoading] = useState(true);
   // const [lessons, setLessons] = useState([]);
@@ -61,21 +70,20 @@ const Users = props => {
   //   [addAlert]
   // );
   
-  const [lessons, setLessons] = useState([{id:"null", title:"null", topicid:"null", videoUrl:"null", description:"null",}]);
 
   const tableColumns = [
-    { title: "Id", field: "id" },
-    { title: "Title", field: "title" },
-    { title: "Topic Id", field: "topicid" },
-    { title: "Video URL", field: "videoUrl" },
-    { title: "Description", field: "description" },
+    { title: "Id", field: "officerId" },
+    { title: "Name", field: "name" },
+    { title: "Location", field: "location" },
+    // { title: "Role", field: "role" },
+    { title: "stationId", field: "stationID" },
   ];
 
   if (false) {
     //return <Spinner />
   } else {
     return <Table
-      data={lessons}
+      data={users}
       title={LessonTable}
       columns={tableColumns}
       tableOptions={tableOptions}
