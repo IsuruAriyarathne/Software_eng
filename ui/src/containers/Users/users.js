@@ -1,8 +1,9 @@
 import React , {useState, useEffect} from "react";
 
+import {getAllUsers } from "../../api/UsersAPI"
 import Table from "../../components/UI/Table/MaterialTable/Table";
 
-const LessonTable = "User Table";
+const UserTable = "User Table";
 
 const tableOptions = {
   pageSize: 10,
@@ -11,12 +12,12 @@ const tableOptions = {
 
 const Users = props => {
   const [users, setUsers] = useState([]);
- 
   useEffect(() => {
       getAllUsers()
         .then((response) => {
+          console.log(response.data);
           if (!response.error) {
-            setUsers(response.data);
+            (response.data).forEach(user => setUsers(user));
           }
         })
   }, []);
@@ -84,11 +85,12 @@ const Users = props => {
   } else {
     return <Table
       data={users}
-      title={LessonTable}
+      title={UserTable}
       columns={tableColumns}
       tableOptions={tableOptions}
       editable={{
         onRowAdd: newData =>{
+          console.log(newData)
         //   var data=({
         //     "id": newData.id,
         //     "title": newData.title,
@@ -99,9 +101,12 @@ const Users = props => {
         //   saveLesson(data)
         },
         onRowUpdate: (newData, oldData) =>{
+          console.log(newData)
+          console.log(oldData)
           //updateLesson(oldData.id, newData )
         },
         onRowDelete: oldData =>{
+          console.log(oldData)
           //deleteLesson(oldData.id);
         },
       }}

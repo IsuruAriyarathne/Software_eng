@@ -15,10 +15,6 @@ import * as routez from './shared/routes';
 import './App.css';
 
 function App() {
-  fetch("http://localhost:9000/testapi")
-  .then(response => {
-    console.log(response)
-  });
 
   let routes = (
     <Suspense >
