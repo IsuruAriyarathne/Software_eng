@@ -1,8 +1,9 @@
-import React , {useState} from "react";
+import React , {useState, useEffect} from "react";
 
+import {getAllAmmunition } from "../../api/AmmunitionAPI"
 import Table from "../../components/UI/Table/MaterialTable/Table";
 
-const LessonTable = "Ammunation Table";
+const AmmunitionTable = "Ammunation Table";
 
 const tableOptions = {
   pageSize: 10,
@@ -11,7 +12,16 @@ const tableOptions = {
 
 const Ammunation = props => {
   
-  const [lessons, setLessons] = useState([{id:"null", title:"null", topicid:"null", videoUrl:"null", description:"null",}]);
+  const [ammunition, setAmmunition] = useState([]);
+  useEffect(() => {
+    getAllAmmunition()
+      .then((response) => {
+        if (!response.error) {
+          // (response.data).forEach(user => setUsers(user));
+          setAmmunition(response.data)
+        }
+      })
+}, []);
 
   const tableColumns = [
     { title: "Id", field: "id" },
@@ -25,8 +35,8 @@ const Ammunation = props => {
     //return <Spinner />
   } else {
     return <Table
-      data={lessons}
-      title={LessonTable}
+      data={ammunition}
+      title={AmmunitionTable}
       columns={tableColumns}
       tableOptions={tableOptions}
       editable={{

@@ -1,8 +1,9 @@
-import React , {useState} from "react";
+import React , {useState, useEffect} from "react";
 
+import {getAllWeapons } from "../../api/WeaponsAPI"
 import Table from "../../components/UI/Table/MaterialTable/Table";
 
-const LessonTable = "Weapons Table";
+const WeaponTable = "Weapons Table";
 
 const tableOptions = {
   pageSize: 10,
@@ -11,7 +12,17 @@ const tableOptions = {
 
 const Weapons = props => {
   
-  const [lessons, setLessons] = useState([{id:"null", title:"null", topicid:"null", videoUrl:"null", description:"null",}]);
+  const [weapons, setWeapons] = useState([]);
+  useEffect(() => {
+    getAllWeapons()
+        .then((response) => {
+          console.log(response.data);
+          if (!response.error) {
+            // (response.data).forEach(user => setUsers(user));
+            setWeapons(response.data)
+          }
+        })
+  }, []);
 
   const tableColumns = [
     { title: "Id", field: "id" },
@@ -25,8 +36,8 @@ const Weapons = props => {
     //return <Spinner />
   } else {
     return <Table
-      data={lessons}
-      title={LessonTable}
+      data={weapons}
+      title={WeaponTable}
       columns={tableColumns}
       tableOptions={tableOptions}
       editable={{

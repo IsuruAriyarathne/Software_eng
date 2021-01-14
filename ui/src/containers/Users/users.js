@@ -15,9 +15,9 @@ const Users = props => {
   useEffect(() => {
       getAllUsers()
         .then((response) => {
-          console.log(response.data);
           if (!response.error) {
-            (response.data).forEach(user => setUsers(user));
+            // (response.data).forEach(user => setUsers(user));
+            setUsers(response.data)
           }
         })
   }, []);

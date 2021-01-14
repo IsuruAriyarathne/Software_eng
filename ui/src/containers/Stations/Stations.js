@@ -1,8 +1,9 @@
-import React , {useState} from "react";
+import React , {useState, useEffect} from "react";
 
+import {getAllStations } from "../../api/Stations"
 import Table from "../../components/UI/Table/MaterialTable/Table";
 
-const LessonTable = "Stations Table";
+const stationsTable = "Stations Table";
 
 const tableOptions = {
   pageSize: 10,
@@ -11,7 +12,16 @@ const tableOptions = {
 
 const Stations = props => {
   
-  const [lessons, setLessons] = useState([{id:"null", title:"null", topicid:"null", videoUrl:"null", description:"null",}]);
+  const [stations, setStations] = useState([]);
+  useEffect(() => {
+    getAllStations()
+        .then((response) => {
+          if (!response.error) {
+            // (response.data).forEach(user => setUsers(user));
+            setStations(response.data)
+          }
+        })
+  }, []);
 
   const tableColumns = [
     { title: "Id", field: "id" },
@@ -25,8 +35,8 @@ const Stations = props => {
     //return <Spinner />
   } else {
     return <Table
-      data={lessons}
-      title={LessonTable}
+      data={stations}
+      title={stationsTable}
       columns={tableColumns}
       tableOptions={tableOptions}
       editable={{

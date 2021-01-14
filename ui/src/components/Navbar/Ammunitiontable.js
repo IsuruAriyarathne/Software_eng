@@ -32,8 +32,8 @@ import LocationCityIcon from '@material-ui/icons/LocationCity';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import * as routez from '../../shared/routes';
 
-import { MainListItems } from './listItems';
-import Ammunation from '../../containers/Ammunination/Ammunation'
+// import { MainListItems } from './listItems';
+import Ammunation from '../../containers/Ammuninition/Ammunation'
 
 function Copyright() {
   return (

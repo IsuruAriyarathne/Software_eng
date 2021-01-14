@@ -3,7 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 
 import SignIn from '../src/containers/Auth/auth';
 import UserTable from './components/Navbar/UserTable'
-import Ammunationtable from './components/Navbar/Ammunationtable'
+import Ammunationtable from './components/Navbar/Ammunitiontable'
 import CompaniesTable from './components/Navbar/CompaniesTable'
 import CriminalAmmunationTable from './components/Navbar/CriminalAmmunationTable'
 import CriminalWeaponsTable from './components/Navbar/CriminalWeaponsTable'

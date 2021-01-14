@@ -1,8 +1,9 @@
-import React , {useState} from "react";
+import React , {useState, useEffect} from "react";
 
+import {getAllCompanies } from "../../api/CompaniesAPI"
 import Table from "../../components/UI/Table/MaterialTable/Table";
 
-const LessonTable = "Companies Table";
+const CompaniesTable = "Companies Table";
 
 const tableOptions = {
   pageSize: 10,
@@ -11,7 +12,16 @@ const tableOptions = {
 
 const Companies = props => {
   
-  const [lessons, setLessons] = useState([{id:"null", title:"null", topicid:"null", videoUrl:"null", description:"null",}]);
+  const [companies, setCompanies] = useState([]);
+  useEffect(() => {
+    getAllCompanies()
+        .then((response) => {
+          if (!response.error) {
+            // (response.data).forEach(user => setUsers(user));
+            setCompanies(response.data)
+          }
+        })
+  }, []);
 
   const tableColumns = [
     { title: "Id", field: "id" },
@@ -25,8 +35,8 @@ const Companies = props => {
     //return <Spinner />
   } else {
     return <Table
-      data={lessons}
-      title={LessonTable}
+      data={companies}
+      title={CompaniesTable}
       columns={tableColumns}
       tableOptions={tableOptions}
       editable={{
