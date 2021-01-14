@@ -1,7 +1,9 @@
-import React , {useState, useEffect} from "react";
+import React , {useState, useEffect, useCallback } from "react";
+import { connect } from 'react-redux';
 
-import {getAllUsers } from "../../api/UsersAPI"
+import {getAllUsers, deleteUsers, updateUsers, saveUsers } from "../../api/UsersAPI"
 import Table from "../../components/UI/Table/MaterialTable/Table";
+import * as actions from '../../store/actions/index';
 
 const UserTable = "User Table";
 
@@ -21,62 +23,60 @@ const Users = props => {
           }
         })
   }, []);
-  // const { addAlert } = props;
+   const { addAlert } = props;
   // const [isLoading, setIsLoading] = useState(true);
-  // const [lessons, setLessons] = useState([]);
 
-  // const deleteLesson = useCallback(
-  //   (id) => {
-  //     alert("You want to delete " + id)
-  //     deleteLessons(id)
-  //       .then((response) => {
-  //           console.log(response);
-  //           addAlert({
-  //             message: "Lesson deletion Successful!",
-  //           });
+  const deleteUser = useCallback(
+    (officerID) => {
+      alert("You want to delete " + officerID)
+      deleteUsers(officerID)
+        .then((response) => {
+            console.log(response);
+            addAlert({
+              message: "User deletion Successful!",
+            });
           
-  //       })
-  //   },
-  //   [addAlert]
-  // );
+        })
+    },
+    [addAlert]
+  );
 
-  // const updateLesson = useCallback(
-  //   (id,data) => {
-  //     console.log(data)
-  //     updateLessons(id,data)
-  //       .then((response) => {
-  //           console.log(response);
-  //           addAlert({
-  //             message: "Lesson Updated Successfully!",
-  //           });
+  const updateUser = useCallback(
+    (id,data) => {
+      console.log(data)
+      updateUsers(id,data)
+        .then((response) => {
+            console.log(response);
+            addAlert({
+              message: "User Updated Successfully!",
+            });
           
-  //       })
-  //   },
-  //   [addAlert]
-  // );
+        })
+    },
+    [addAlert]
+  );
 
-  // const saveLesson = useCallback(
-  //   (data) => {
-  //     saveLessons(data)
-  //       .then((response) => {
-  //         if (!response.error){
-  //           addAlert({
-  //             message: "Lesson Saved Successfully!",
-  //           });
-  //         }else{
-  //           console.log(response.error)
-  //         }
-  //       })
-  //   },
-  //   [addAlert]
-  // );
+  const saveUser = useCallback(
+    (data) => {
+      saveUsers(data)
+        .then((response) => {
+          if (!response.error){
+            addAlert({
+              message: "User Saved Successfully!",
+            });
+          }else{
+            console.log(response.error)
+          }
+        })
+    },
+    [addAlert]
+  );
   
 
   const tableColumns = [
     { title: "Id", field: "officerId" },
     { title: "Name", field: "name" },
     { title: "Location", field: "location" },
-    // { title: "Role", field: "role" },
     { title: "stationId", field: "stationID" },
   ];
 
@@ -90,36 +90,31 @@ const Users = props => {
       tableOptions={tableOptions}
       editable={{
         onRowAdd: newData =>{
-          console.log(newData)
-        //   var data=({
-        //     "id": newData.id,
-        //     "title": newData.title,
-        //     "topicId": newData.topic.id,
-        //     "videoUrl": newData.videoUrl,
-        //     "description": newData.description
-        //   })
-        //   saveLesson(data)
+          var data=({
+            "officerId": newData.officerId,
+            "name": newData.name,
+            "location": newData.location,
+            "stationID": newData.stationID,
+          })
+          saveUser(data)
         },
         onRowUpdate: (newData, oldData) =>{
-          console.log(newData)
-          console.log(oldData)
-          //updateLesson(oldData.id, newData )
+          updateUser(oldData.officerId, newData )
         },
         onRowDelete: oldData =>{
-          console.log(oldData)
-          //deleteLesson(oldData.id);
+          deleteUser(oldData.officerId);
         },
       }}
     />
   }
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     addAlert: alert => dispatch(actions.addAlert(alert))
-//   };
-// }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addAlert: alert => dispatch(actions.addAlert(alert))
+  };
+}
 
-// export default connect(null, mapDispatchToProps)(Users);
+export default connect(null, mapDispatchToProps)(Users);
 
-export default (Users);
+// export default (Users);

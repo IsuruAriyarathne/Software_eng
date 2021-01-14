@@ -51,7 +51,9 @@ export const deleteRequest = async (uri) => {
 
 export const putRequest = async (uri, data) => {
 	try {
+		console.log(uri);
 		let response = await axios.put(uri, data);
+		console.log(response);
 
 		return {
 			data: response.data,
