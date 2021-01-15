@@ -19,6 +19,7 @@ const Users = props => {
         .then((response) => {
           if (!response.error) {
             // (response.data).forEach(user => setUsers(user));
+            console.log(response)
             setUsers(response.data)
           }
         })
@@ -46,7 +47,6 @@ const Users = props => {
       console.log(data)
       updateUsers(id,data)
         .then((response) => {
-            console.log(response);
             addAlert({
               message: "User Updated Successfully!",
             });
@@ -74,10 +74,11 @@ const Users = props => {
   
 
   const tableColumns = [
-    { title: "Id", field: "officerID" },
+    { title: "Id", field: "officerId" },
     { title: "Name", field: "name" },
     { title: "Location", field: "location" },
     { title: "stationId", field: "stationID" },
+    { title: "Type", field: "role" },
   ];
 
   if (false) {
@@ -91,23 +92,22 @@ const Users = props => {
       editable={{
         onRowAdd: newData =>{
           var data=({
-            "officerID": newData.officerID,
+            "officerId": newData.officerId,
             "name": newData.name,
             "location": newData.location,
             "stationID": newData.stationID,
+            "role":newData.role,
           })
           saveUser(data)
         },
         onRowUpdate: (newData, oldData) =>{
-          updateUser(oldData.officerID, newData )
+          updateUser(oldData.officerId, newData )
         },
-        onRowDelete: oldData =>
-          new Promise((resolve, reject) => {
-            deleteUser(oldData.officerID);
-          }),
-        // {
-        //   deleteUser(oldData.officerID);
-        // },
+        onRowDelete: oldData =>{
+          console.log(oldData)
+          console.log(oldData.officerId)
+          deleteUser(oldData.officerId);
+        },
       }}
     />
   }
