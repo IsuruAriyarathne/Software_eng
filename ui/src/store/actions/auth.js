@@ -10,7 +10,7 @@ const authStart = () => {
     };
 };
 
-const authSuccess = (token, id) => {
+const authSuccess = (token, type) => {
     authRequestInterceptor = axios.interceptors.request.use(request => {
         request.headers.Authorization = `Bearer ${token}`;
         return request;
@@ -19,7 +19,7 @@ const authSuccess = (token, id) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
         idToken: token,
-        userId: id
+        usertype: type
     };
 };
 
@@ -32,7 +32,7 @@ const authFail = (error) => {
 
 export const authLogout = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('userId');
+    localStorage.removeItem('usertype');
     localStorage.removeItem('expirationDate');
     axios.interceptors.request.eject(authRequestInterceptor);
     return {
@@ -49,20 +49,22 @@ const checkAuthTimeout = (expirationTime) => (dispatch) => {
 export const auth = (email, password) => (dispatch) => {
     dispatch(authStart());
     let authData = {
-        email: email,
+        officerID: email,
         password: password,
     }
     let url = loginRoute;
+    console.log(authData);
 
     axios.post(url,
         authData)
         .then((response) => {
-            if (response.data.isAdmin) {
+            if (response.data) {
                 const expirationDate = new Date(new Date().getTime() + authRequestTimeoutSec * 1000);
+                console.log(response.data.type);
                 localStorage.setItem('token', response.data.token);
-                localStorage.setItem('userId', response.data.email);
+                localStorage.setItem('usertype', response.data.type);
                 localStorage.setItem('expirationDate', expirationDate);
-                dispatch(authSuccess(response.data.token, response.data.email));
+                dispatch(authSuccess(response.data.token, response.data.type));
                 dispatch(checkAuthTimeout(authRequestTimeoutSec));
             } else {
                 dispatch(authFail('User must be an admin'));
@@ -79,8 +81,8 @@ export const authCheckState = () => (dispatch) => {
         if (expirationDate <= new Date()) {
             dispatch(authLogout());
         } else {
-            const userId = localStorage.getItem('userId');
-            dispatch(authSuccess(token, userId));
+            const usertype = localStorage.getItem('type');
+            dispatch(authSuccess(token, usertype));
             dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
         }
     }

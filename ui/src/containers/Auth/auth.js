@@ -1,5 +1,6 @@
-import React, { useState, useCallback}  from 'react';
+import React, { useState, useCallback, useEffect}  from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from "react-router-dom";
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -13,14 +14,15 @@ import { checkValidity } from '../../shared/validate';
 import { updateObject, formIsValid } from '../../shared/utility';
 import { buildTextFields } from '../../helpers/uiHelpers';
 import { auth } from '../../store/actions/index';
-import { addAlert } from '../../store/actions/index'
+import { addAlert } from '../../store/actions/index';
+import * as routez from '../../shared/routes';
 
 const inputDefinitions = {
     username: {
         label: 'Username*',
         validations: {
             required: true,
-            minLength: 2,
+            minLength: 0,
             maxLength: 40,
             validationErrStr: 'Use between 2 and 40 characters for your password'
         }
@@ -30,7 +32,7 @@ const inputDefinitions = {
         type: 'password',
         validations: {
             required: true,
-            minLength: 6,
+            minLength: 0,
             maxLength: 40,
             validationErrStr: 'Use between 6 and 40 characters for your password'
         }
@@ -66,6 +68,7 @@ const useStyles = makeStyles((theme) => ({
 
 function SignIn(props) {
     const classes = useStyles();
+    let history = useHistory();
 
     const [inputIsValid, setInputIsValid] = useState({
         username: true,
@@ -112,14 +115,36 @@ function SignIn(props) {
         setInputIsValid(localInputIsValid);
 
         if (localInputIsValid['username'] && localInputIsValid['password']) {
-            console.log(authObj.email)
+            console.log(authObj.username)
             console.log(authObj.password)
             props.onAuth(
-                authObj.email,
+                authObj.username,
                 authObj.password
             );
         }
     }, [authObj, checkInputValidity, inputIsValid]);
+
+    const authError = props.error;
+    console.log(authError);
+    const addAlert = props.addAlert;
+    useEffect(() => {
+        if (authError) {
+            addAlert({
+                severity: 'error',
+                message: authError
+            });
+        }
+    }, [authError, addAlert]);
+
+    if (props.isAuthenticated){
+        if(props.usertype==="Admin"){
+            history.push(routez.USERS);
+        }else if (props.usertype==="Officer"){
+            history.push(routez.WEAPONS);
+        } else {
+            history.push(routez.COMPANIES);
+        }
+    }
 
   return (
     <React.Fragment>
@@ -140,6 +165,7 @@ function SignIn(props) {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        disabled={!formIsValid(inputIsValid)}
                     >
                         Sign In
                     </Button>
@@ -152,17 +178,18 @@ function SignIn(props) {
 
 const mapStateToProps = (state) => {
     return {
-        // error: state.auth.error,
-        // loading: state.auth.loading,
-        // isAuthenticated: state.auth.token != null,
-        // authRedirectPath: state.auth.authRedirectPath
+        error: state.auth.error,
+        loading: state.auth.loading,
+        isAuthenticated: state.auth.token != null,
+        authRedirectPath: state.auth.authRedirectPath,
+        usertype:state.auth.usertype,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAuth: (email, password) => dispatch(auth(email, password)),
-        // addAlert: (alert) => dispatch(addAlert(alert))
+        onAuth: (username, password) => dispatch(auth(username, password)),
+        addAlert: (alert) => dispatch(addAlert(alert))
     }
 };
 

@@ -74,7 +74,7 @@ const Users = props => {
   
 
   const tableColumns = [
-    { title: "Id", field: "officerId" },
+    { title: "Id", field: "officerID" },
     { title: "Name", field: "name" },
     { title: "Location", field: "location" },
     { title: "stationId", field: "stationID" },
@@ -91,7 +91,7 @@ const Users = props => {
       editable={{
         onRowAdd: newData =>{
           var data=({
-            "officerId": newData.officerId,
+            "officerID": newData.officerID,
             "name": newData.name,
             "location": newData.location,
             "stationID": newData.stationID,
@@ -99,11 +99,15 @@ const Users = props => {
           saveUser(data)
         },
         onRowUpdate: (newData, oldData) =>{
-          updateUser(oldData.officerId, newData )
+          updateUser(oldData.officerID, newData )
         },
-        onRowDelete: oldData =>{
-          deleteUser(oldData.officerId);
-        },
+        onRowDelete: oldData =>
+          new Promise((resolve, reject) => {
+            deleteUser(oldData.officerID);
+          }),
+        // {
+        //   deleteUser(oldData.officerID);
+        // },
       }}
     />
   }
