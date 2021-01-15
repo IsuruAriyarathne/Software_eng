@@ -1,7 +1,9 @@
-import React , {useState, useEffect} from "react";
+import React , {useState, useEffect, useCallback } from "react";
+import { connect } from 'react-redux';
 
-import {getAllStations } from "../../api/Stations"
+import {getAllStations, deleteStations, updateStations, saveStations } from "../../api/Stations"
 import Table from "../../components/UI/Table/MaterialTable/Table";
+import * as actions from '../../store/actions/index';
 
 const stationsTable = "Stations Table";
 
@@ -17,18 +19,67 @@ const Stations = props => {
     getAllStations()
         .then((response) => {
           if (!response.error) {
-            // (response.data).forEach(user => setUsers(user));
+            // (response.data).forEach(Station => setStations(Station));
             setStations(response.data)
           }
         })
   }, []);
+  const { addAlert } = props;
+  // const [isLoading, setIsLoading] = useState(true);
+
+  const deleteStation = useCallback(
+    (stationID) => {
+      alert("You want to delete " + stationID)
+      deleteStations(stationID)
+        .then((response) => {
+            console.log(response);
+            addAlert({
+              message: "Station deletion Successful!",
+            });
+          
+        })
+    },
+    [addAlert]
+  );
+
+  const updateStation= useCallback(
+    (id,data) => {
+      console.log(data)
+      updateStations(id,data)
+        .then((response) => {
+            console.log(response);
+            addAlert({
+              message: "Station Updated Successfully!",
+            });
+          
+        })
+    },
+    [addAlert]
+  );
+
+  const saveStation = useCallback(
+    (data) => {
+      saveStations(data)
+        .then((response) => {
+          if (!response.error){
+            addAlert({
+              message: "Station Saved Successfully!",
+            });
+          }else{
+            console.log(response.error)
+          }
+        })
+    },
+    [addAlert]
+  );
+  
 
   const tableColumns = [
-    { title: "Id", field: "id" },
-    { title: "Title", field: "title" },
-    { title: "Topic Id", field: "topicid" },
-    { title: "Video URL", field: "videoUrl" },
-    { title: "Description", field: "description" },
+    { title: "ID", field: "stationID" },
+    { title: "Name", field: "name" },
+    { title: "Location", field: "location" },
+    
+
   ];
 
   if (false) {
@@ -41,24 +92,38 @@ const Stations = props => {
       tableOptions={tableOptions}
       editable={{
         onRowAdd: newData =>{
-        //   var data=({
-        //     "id": newData.id,
-        //     "title": newData.title,
-        //     "topicId": newData.topic.id,
-        //     "videoUrl": newData.videoUrl,
-        //     "description": newData.description
-        //   })
-        //   saveLesson(data)
+          var data=({
+            "stationID": newData.stationID,
+            "name": newData.name,
+            "location": newData.location,
+            
+          })
+          saveStations(data)
         },
         onRowUpdate: (newData, oldData) =>{
-          //updateLesson(oldData.id, newData )
+          updateStations(oldData.stationID, newData )
         },
-        onRowDelete: oldData =>{
-          //deleteLesson(oldData.id);
-        },
+        onRowDelete: oldData =>
+          new Promise((resolve, reject) => {
+            deleteStation(oldData.stationID);
+          }),
+        // {
+        //   deleteStations(oldData.stationID);
+        // },
       }}
     />
   }
 };
 
-export default (Stations);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addAlert: alert => dispatch(actions.addAlert(alert))
+  };
+}
+
+export default connect(null, mapDispatchToProps)(Stations);
+
+// export default (Stations);
+
+
+  
