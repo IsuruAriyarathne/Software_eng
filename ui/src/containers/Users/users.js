@@ -13,6 +13,7 @@ const tableOptions = {
 };
 
 const Users = props => {
+
   const [users, setUsers] = useState([]);
   useEffect(() => {
       getAllUsers()
@@ -78,6 +79,7 @@ const Users = props => {
     { title: "Name", field: "name" },
     { title: "Location", field: "location" },
     { title: "stationId", field: "stationID" },
+
   ];
 
   if (false) {
