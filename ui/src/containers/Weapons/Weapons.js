@@ -28,7 +28,7 @@ const Weapons = props => {
   const { addAlert } = props;
   // const [isLoading, setIsLoading] = useState(true);
 
-  const deleteWeapons = useCallback(
+  const deleteWeapon = useCallback(
     (weaponID) => {
       alert("You want to delete " + weaponID)
       deleteWeapons(weaponID)
@@ -106,7 +106,7 @@ const Weapons = props => {
         },
         onRowDelete: oldData =>
           new Promise((resolve, reject) => {
-            deleteUser(oldData.weaponID);
+            deleteWeapon(oldData.weaponID);
           }),
           // {
         //   deleteUser(oldData.officerID);
