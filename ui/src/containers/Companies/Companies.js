@@ -1,7 +1,9 @@
-import React , {useState, useEffect} from "react";
+import React , {useState, useEffect, useCallback } from "react";
+import { connect } from 'react-redux';
 
-import {getAllCompanies } from "../../api/CompaniesAPI"
+import {getAllCompanies, deleteCompanies, updateCompanies,saveCompanies } from "../../api/CompaniesAPI"
 import Table from "../../components/UI/Table/MaterialTable/Table";
+import * as actions from '../../store/actions/index';
 
 const CompaniesTable = "Companies Table";
 
@@ -23,12 +25,62 @@ const Companies = props => {
         })
   }, []);
 
+  const { addAlert } = props;
+  // const [isLoading, setIsLoading] = useState(true);
+
+  const deleteCompany = useCallback(
+    (supplierID) => {
+      alert("You want to delete " + supplierID)
+      deleteCompanies(supplierID)
+        .then((response) => {
+            console.log(response);
+            addAlert({
+              message: "Company deletion Successful!",
+            });
+          
+        })
+    },
+    [addAlert]
+  );
+
+  const updateCompany = useCallback(
+    (id,data) => {
+      console.log(data)
+      updateCompanies(id,data)
+        .then((response) => {
+            console.log(response);
+            addAlert({
+              message: "Company Updated Successfully!",
+            });
+          
+        })
+    },
+    [addAlert]
+  );
+
+  const saveCompany = useCallback(
+    (data) => {
+      saveCompanies(data)
+        .then((response) => {
+          if (!response.error){
+            addAlert({
+              message: "Company Saved Successfully!",
+            });
+          }else{
+            console.log(response.error)
+          }
+        })
+    },
+    [addAlert]
+  );
+  
+
   const tableColumns = [
-    { title: "Id", field: "id" },
-    { title: "Title", field: "title" },
-    { title: "Topic Id", field: "topicid" },
-    { title: "Video URL", field: "videoUrl" },
-    { title: "Description", field: "description" },
+    { title: "Supplier ID", field: "supplierID" },
+    { title: "Name", field: "name" },
+    { title: "Contact Number", field: "contactNumber" },
+    { title: "Address", field: "address" },
+    { title: "Description", field: "decription" },
   ];
 
   if (false) {
@@ -41,24 +93,41 @@ const Companies = props => {
       tableOptions={tableOptions}
       editable={{
         onRowAdd: newData =>{
-        //   var data=({
-        //     "id": newData.id,
-        //     "title": newData.title,
-        //     "topicId": newData.topic.id,
-        //     "videoUrl": newData.videoUrl,
-        //     "description": newData.description
-        //   })
-        //   saveLesson(data)
+          var data=({
+             "supplierID": newData.supplierID,
+             "name": newData.name,
+             "contactNumber": newData.contactNumber,
+             "address": newData.address,
+             "decription": newData.decription,
+           })
+           saveCompany(data)
         },
+
         onRowUpdate: (newData, oldData) =>{
-          //updateLesson(oldData.id, newData )
+          updateCompany(oldData.supplierID, newData )
         },
-        onRowDelete: oldData =>{
-          //deleteLesson(oldData.id);
-        },
+        onRowDelete: oldData =>
+          new Promise((resolve, reject) => {
+            deleteCompany(oldData.supplierID);
+          }),
+        // {
+        //   deleteCompany(oldData.supplierID);
+        // },
       }}
     />
   }
 };
 
-export default (Companies);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addAlert: alert => dispatch(actions.addAlert(alert))
+  };
+}
+
+export default connect(null, mapDispatchToProps)(Companies);
+
+// export default (Companies);
+
+       
+
+
