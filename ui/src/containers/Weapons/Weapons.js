@@ -108,9 +108,6 @@ const Weapons = props => {
           new Promise((resolve, reject) => {
             deleteWeapon(oldData.weaponID);
           }),
-          // {
-        //   deleteUser(oldData.officerID);
-        // },
       }}
     />
   }
