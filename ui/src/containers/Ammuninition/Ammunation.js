@@ -1,9 +1,12 @@
-import React , {useState, useEffect} from "react";
+import React , {useState, useEffect, useCallback} from "react";
+import { connect } from 'react-redux';
 
-import {getAllAmmunition } from "../../api/AmmunitionAPI"
+import {getAllAmmunition, deleteAmmunition,updateAmmunition, saveAmmunition  } from "../../api/AmmunitionAPI"
 import Table from "../../components/UI/Table/MaterialTable/Table";
+import * as actions from '../../store/actions/index';
 
 const AmmunitionTable = "Ammunation Table";
+
 
 const tableOptions = {
   pageSize: 10,
@@ -23,42 +26,101 @@ const Ammunation = props => {
       })
 }, []);
 
+  const { addAlert } = props;
+  // const [isLoading, setIsLoading] = useState(true);
+
+  const deleteAmmunitions = useCallback(
+    (ammoModelID) => {
+      alert("You want to delete " + ammoModelID)
+      deleteAmmunition(ammoModelID)
+        .then((response) => {
+            console.log(response);
+            addAlert({
+              message: "Ammunition deletion Successful!",
+            });
+          
+        })
+    },
+    [addAlert]
+  );
+
+  const updateAmmunitions = useCallback(
+    (id,data) => {
+      console.log(data)
+      updateAmmunition(id,data)
+        .then((response) => {
+            console.log(response);
+            addAlert({
+              message: "Weapon Ammunition Updated Successfully!",
+            });
+          
+        })
+    },
+    [addAlert]
+  );
+
+  const saveAmmunitions = useCallback(
+    (data) => {
+      saveAmmunition(data)
+        .then((response) => {
+          if (!response.error){
+            addAlert({
+              message: "Ammunition Saved Successfully!",
+            });
+          }else{
+            console.log(response.error)
+          }
+        })
+    },
+    [addAlert]
+  );
+  
+
   const tableColumns = [
-    { title: "Id", field: "id" },
-    { title: "Title", field: "title" },
-    { title: "Topic Id", field: "topicid" },
-    { title: "Video URL", field: "videoUrl" },
-    { title: "Description", field: "description" },
+    { title: "Ammunition Model ID", field: "ammoModelID" },
+    { title: "Weapon Model ID", field: "weaponModelID" },
+    
+    
   ];
 
   if (false) {
     //return <Spinner />
   } else {
     return <Table
-      data={ammunition}
-      title={AmmunitionTable}
-      columns={tableColumns}
-      tableOptions={tableOptions}
-      editable={{
+    data={ammunition}
+    title={AmmunitionTable}
+    columns={tableColumns}
+    tableOptions={tableOptions}
+    editable={{
         onRowAdd: newData =>{
-        //   var data=({
-        //     "id": newData.id,
-        //     "title": newData.title,
-        //     "topicId": newData.topic.id,
-        //     "videoUrl": newData.videoUrl,
-        //     "description": newData.description
-        //   })
-        //   saveLesson(data)
+           var data=({
+            "ammoModelID": newData.ammoModelID,
+            "weaponModelID": newData.weaponModelID,
+             
+            })
+            saveAmmunitions(data)
         },
         onRowUpdate: (newData, oldData) =>{
-          //updateLesson(oldData.id, newData )
+          updateAmmunitions(oldData.ammoModelID, newData )
         },
-        onRowDelete: oldData =>{
-          //deleteLesson(oldData.id);
-        },
+        onRowDelete: oldData =>
+          new Promise((resolve, reject) => {
+            deleteAmmunitions(oldData.ammoModelID);
+          }),
+          // {
+        //   deleteUser(oldData.officerID);
+        // },
       }}
     />
   }
 };
 
-export default (Ammunation);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addAlert: alert => dispatch(actions.addAlert(alert))
+  };
+}
+
+export default connect(null, mapDispatchToProps)(Ammunation);
+
+//export default (Ammunation);
