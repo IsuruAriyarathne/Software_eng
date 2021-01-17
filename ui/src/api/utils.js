@@ -1,9 +1,16 @@
 import axios from "../axios-SE";
 
 // Utility functions
-export const getRequest = async (uri) => {
+export const getRequest = async (uri,body) => {
 	try {
-		let response = await axios.get(uri);
+		console.log(uri);
+		let response=null;
+		if(body){
+			console.log(body);
+			response = await axios.get(uri,body);
+		}else{
+			response = await axios.get(uri);
+		}
 
 		return {
 			data: response.data,

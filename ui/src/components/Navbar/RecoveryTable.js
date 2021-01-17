@@ -15,7 +15,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -29,7 +28,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import * as routez from '../../shared/routes';
 
-import CriminalAmmunation from '../../containers/CriminalAmmunation/CriminalAmmunation'
+import Recovery from '../../containers/Recovery/Recovery'
 
 function Copyright() {
   return (
@@ -120,9 +119,9 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
     flexDirection: 'column',
   },
-  fixedHeight: {
-    height: '100%',
-  },
+  // fixedHeight: {
+  //   height: '100%',
+  // },
 }));
 
 export default function Dashboard() {
@@ -135,7 +134,7 @@ export default function Dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
     <div className={classes.root}>
@@ -152,7 +151,7 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
+          SLFire
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -187,17 +186,11 @@ export default function Dashboard() {
             </ListItemIcon>
             <ListItemText primary="Ammunation" />
           </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.CRIMINALWEAPONS}`)}>
+          <ListItem button onClick={() => history.push(`${routez.RECOVERY}`)}>
             <ListItemIcon>
               <AddCircleOutlineIcon />
             </ListItemIcon>
-            <ListItemText primary="Criminal Weapons" />
-          </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.CRIMINALAMMUNATION}`)}>
-            <ListItemIcon>
-              <AddCircleOutlineIcon />
-            </ListItemIcon>
-            <ListItemText primary="Criminal Ammunations" />
+            <ListItemText primary="Recovery" />
           </ListItem>
         </List>
       </Drawer>
@@ -207,9 +200,7 @@ export default function Dashboard() {
           <Grid container spacing={3}>
             {/* Chart */}
             <Grid item xs={12} md={12} lg={12}>
-              <Paper className={fixedHeightPaper}>
-                <CriminalAmmunation />
-              </Paper>
+                <Recovery />
             </Grid>
           </Grid>
           <Box pt={4}>

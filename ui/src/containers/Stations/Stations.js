@@ -91,37 +91,29 @@ const Stations = props => {
       columns={tableColumns}
       tableOptions={tableOptions}
       editable={{
-        onRowAdd: newData =>{
-          var data=({
-            "stationID": newData.stationID,
-            "name": newData.name,
-            "location": newData.location,
-            
-          })
-          saveStations(data)
-        },
-        onRowUpdate: (newData, oldData) =>{
-          updateStations(oldData.stationID, newData )
-        },
-        onRowDelete: oldData =>
-          new Promise((resolve, reject) => {
-            deleteStation(oldData.stationID);
-          }),
-        // {
-        //   deleteStations(oldData.stationID);
-        // },
+        onRowAdd: newData => saveStations(newData),
+        onRowUpdate: (newData, oldData) =>updateStations(newData, oldData),
+        onRowDelete: oldData =>deleteStation(oldData),
+
       }}
     />
   }
 };
 
+const mapStateToProps = (state) => {
+  return {
+      error: state.auth.error,
+      stationID:state.auth.stationID,
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    addAlert: alert => dispatch(actions.addAlert(alert))
+    addAlert: alert => dispatch(actions.addAlert(alert)),
   };
 }
 
-export default connect(null, mapDispatchToProps)(Stations);
+export default connect(mapStateToProps, mapDispatchToProps)(Stations);
 
 // export default (Stations);
 

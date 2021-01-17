@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from "react-router-dom";
 
 import clsx from 'clsx';
+import grey from '@material-ui/core/colors/grey';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -15,7 +16,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   toolbar: {
+    backgroundColor: grey[800],
     paddingRight: 24, // keep right padding when drawer closed
   },
   toolbarIcon: {
@@ -119,10 +120,15 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
+    height: '80%',
+    backgroundColor: grey[300],
   },
-  fixedHeight: {
+  listview:{
     height: '100%',
-  },
+  }
+  // fixedHeight: {
+  //   height: '100%',
+  // },
 }));
 
 export default function Dashboard() {
@@ -135,7 +141,7 @@ export default function Dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
     <div className={classes.root}>
@@ -152,7 +158,7 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
+            SLFire
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -174,7 +180,7 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
-        <List>
+        <List className={classes.paper}>
           <ListItem button onClick={() => history.push(`${routez.WEAPONS}`)}>
             <ListItemIcon>
               <ArrowDropDownCircleIcon />
@@ -187,17 +193,11 @@ export default function Dashboard() {
             </ListItemIcon>
             <ListItemText primary="Ammunation" />
           </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.CRIMINALWEAPONS}`)}>
+          <ListItem button onClick={() => history.push(`${routez.RECOVERY}`)}>
             <ListItemIcon>
               <AddCircleOutlineIcon />
             </ListItemIcon>
-            <ListItemText primary="Criminal Weapons" />
-          </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.CRIMINALAMMUNATION}`)}>
-            <ListItemIcon>
-              <AddCircleOutlineIcon />
-            </ListItemIcon>
-            <ListItemText primary="Criminal Ammunations" />
+            <ListItemText primary="Recovery" />
           </ListItem>
         </List>
       </Drawer>
@@ -207,9 +207,7 @@ export default function Dashboard() {
           <Grid container spacing={3}>
             {/* Chart */}
             <Grid item xs={12} md={12} lg={12}>
-              <Paper className={fixedHeightPaper}>
                 <Ammunation />
-              </Paper>
             </Grid>
           </Grid>
           <Box pt={4}>

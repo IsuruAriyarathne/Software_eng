@@ -10,7 +10,9 @@ const authStart = () => {
     };
 };
 
-const authSuccess = (token, type) => {
+const authSuccess = (token, type, stationId) => {
+    console.log(type);
+    console.log(stationId);
     authRequestInterceptor = axios.interceptors.request.use(request => {
         request.headers.Authorization = `Bearer ${token}`;
         return request;
@@ -19,7 +21,8 @@ const authSuccess = (token, type) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
         idToken: token,
-        usertype: type
+        usertype: type,
+        station: stationId,
     };
 };
 
@@ -33,6 +36,7 @@ const authFail = (error) => {
 export const authLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('usertype');
+    localStorage.removeItem('station');
     localStorage.removeItem('expirationDate');
     axios.interceptors.request.eject(authRequestInterceptor);
     return {
@@ -63,8 +67,10 @@ export const auth = (email, password) => (dispatch) => {
                 console.log(response.data.type);
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('usertype', response.data.type);
+                console.log(response.data.stationID);
+                localStorage.setItem('station', response.data.stationID);
                 localStorage.setItem('expirationDate', expirationDate);
-                dispatch(authSuccess(response.data.token, response.data.type));
+                dispatch(authSuccess(response.data.token, response.data.type,response.data.stationID));
                 dispatch(checkAuthTimeout(authRequestTimeoutSec));
             } else {
                 dispatch(authFail('User must be an admin'));
@@ -81,8 +87,10 @@ export const authCheckState = () => (dispatch) => {
         if (expirationDate <= new Date()) {
             dispatch(authLogout());
         } else {
-            const usertype = localStorage.getItem('type');
-            dispatch(authSuccess(token, usertype));
+            const usertype = localStorage.getItem('usertype');
+            const stationId = localStorage.getItem('station');
+            console.log(stationId);
+            dispatch(authSuccess(token, usertype, stationId));
             dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
         }
     }

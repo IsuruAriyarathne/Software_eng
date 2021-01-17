@@ -140,6 +140,7 @@ function SignIn(props) {
         if(props.usertype==="Admin"){
             history.push(routez.USERS);
         }else if (props.usertype==="Officer"){
+            console.log(props.stationID)
             history.push(routez.WEAPONS);
         } else {
             history.push(routez.COMPANIES);
@@ -183,6 +184,7 @@ const mapStateToProps = (state) => {
         isAuthenticated: state.auth.token != null,
         authRedirectPath: state.auth.authRedirectPath,
         usertype:state.auth.usertype,
+        stationID:state.auth.stationID,
     }
 }
 
