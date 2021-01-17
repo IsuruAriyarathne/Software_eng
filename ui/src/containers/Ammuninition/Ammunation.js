@@ -34,13 +34,13 @@ const Ammunation = props => {
   const updateAmmunitions = useCallback(
     (newAmmunition,oldAmmunition) => {
       return new Promise((resolve, reject) => {
-        updateAmmunition(oldAmmunition.ammunitionID, newAmmunition)
+        updateAmmunition(oldAmmunition.ammoModelID, newAmmunition)
               .then((response) => {
                   if (!response.error) {
                       addAlert({
                           message: "Ammunition Updated Successfully!",
                       });
-                      setAmmunition(replaceItemInArray(ammunition, 'ammunitionID', newAmmunition, oldAmmunition.ammunitionID))
+                      setAmmunition(replaceItemInArray(ammunition, 'ammunitionID', newAmmunition, oldAmmunition.ammoModelID))
                       return resolve();
                   }
                   return reject();
@@ -53,7 +53,8 @@ const Ammunation = props => {
 
   const tableColumns = [
     { title: "Ammunition Model ID", field: "ammoModelID" },
-    { title: "Weapon Model ID", field: "weaponModelID" },  
+    { title: "count", field: "count" }, 
+    { title: "Assigned Date", field: "allocatedDate" }, 
   ];
 
   if (false) {

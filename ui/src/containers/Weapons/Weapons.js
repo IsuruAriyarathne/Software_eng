@@ -53,7 +53,6 @@ const Weapons = props => {
     { title: "weapon ID", field: "weaponID" },
     { title: "Assigned", field: "assigned" },
     { title: "Assigned Date", field: "assignedDate" },
-    { title: "Weapon ID", field: "weaponID" },
   ];
 
   if (false) {

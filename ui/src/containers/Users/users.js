@@ -73,7 +73,7 @@ const Users = props => {
       var data=({
         "officerID": newUser.officerID,
         "name": newUser.name,
-        "location": newUser.location,
+        "email": newUser.email,
         "stationID": newUser.stationID,
       })
       return new Promise((resolve, reject) => {
@@ -97,7 +97,7 @@ const Users = props => {
   const tableColumns = [
     { title: "Id", field: "officerID" },
     { title: "Name", field: "name" },
-    { title: "Location", field: "location" },
+    { title: "Email", field: "email" },
     { title: "stationId", field: "stationID" },
   ];
 

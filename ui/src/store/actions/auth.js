@@ -63,6 +63,7 @@ export const auth = (email, password) => (dispatch) => {
         authData)
         .then((response) => {
             if (response.data) {
+                console.log(response);
                 const expirationDate = new Date(new Date().getTime() + authRequestTimeoutSec * 1000);
                 console.log(response.data.type);
                 localStorage.setItem('token', response.data.token);

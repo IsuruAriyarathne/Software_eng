@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from "react-router-dom";
 
 import clsx from 'clsx';
+import grey from '@material-ui/core/colors/grey';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -30,19 +31,6 @@ import * as routez from '../../shared/routes';
 
 import Recovery from '../../containers/Recovery/Recovery'
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -50,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   toolbar: {
+    backgroundColor: grey[800],
     paddingRight: 24, // keep right padding when drawer closed
   },
   toolbarIcon: {
@@ -87,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     whiteSpace: 'nowrap',
     width: drawerWidth,
+    backgroundColor: grey[800],
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -118,6 +108,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
+  },
+  papernav: {
+    height: '100%',
+    backgroundColor: grey[300],
   },
   // fixedHeight: {
   //   height: '100%',
@@ -151,7 +145,7 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-          SLFire
+            SLFire
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -173,7 +167,7 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
-        <List>
+        <List  className={classes.papernav}>
           <ListItem button onClick={() => history.push(`${routez.WEAPONS}`)}>
             <ListItemIcon>
               <ArrowDropDownCircleIcon />
@@ -203,9 +197,6 @@ export default function Dashboard() {
                 <Recovery />
             </Grid>
           </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
         </Container>
       </main>
     </div>

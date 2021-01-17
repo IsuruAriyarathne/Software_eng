@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from "react-router-dom";
 
 import clsx from 'clsx';
+import grey from '@material-ui/core/colors/grey';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -23,23 +24,12 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import LocationCityIcon from '@material-ui/icons/LocationCity';
+import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import * as routez from '../../shared/routes';
 
 import Companies from '../../containers/Companies/Companies'
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const drawerWidth = 240;
 
@@ -48,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   toolbar: {
+    backgroundColor: grey[800],
     paddingRight: 24, // keep right padding when drawer closed
   },
   toolbarIcon: {
@@ -85,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     whiteSpace: 'nowrap',
     width: drawerWidth,
+    backgroundColor: grey[800],
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -116,6 +108,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
+  },
+  papernav: {
+    height: '100%',
+    backgroundColor: grey[300],
   },
   // fixedHeight: {
   //   height: '100%',
@@ -149,7 +145,7 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-          SLFire
+            SLFire
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -171,12 +167,24 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
-        <List>
-          <ListItem button onClick={() => history.push(`${routez.COMPANIES}`)}>
+        <List  className={classes.papernav}>
+          <ListItem button onClick={() => history.push(`${routez.WEAPONS}`)}>
             <ListItemIcon>
-              <LocationCityIcon />
+              <ArrowDropDownCircleIcon />
             </ListItemIcon>
-            <ListItemText primary="Companies" />
+            <ListItemText primary="Weapons" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.AMMUNATIONS}`)}>
+            <ListItemIcon>
+              <ArrowForwardIosIcon />
+            </ListItemIcon>
+            <ListItemText primary="Ammunation" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.RECOVERY}`)}>
+            <ListItemIcon>
+              <AddCircleOutlineIcon />
+            </ListItemIcon>
+            <ListItemText primary="Recovery" />
           </ListItem>
         </List>
       </Drawer>
@@ -189,9 +197,6 @@ export default function Dashboard() {
                 <Companies />
             </Grid>
           </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
         </Container>
       </main>
     </div>

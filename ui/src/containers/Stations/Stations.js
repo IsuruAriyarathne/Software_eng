@@ -19,6 +19,7 @@ const Stations = props => {
     getAllStations()
         .then((response) => {
           if (!response.error) {
+            console.log(response.data);
             // (response.data).forEach(Station => setStations(Station));
             setStations(response.data)
           }
@@ -78,7 +79,7 @@ const Stations = props => {
     { title: "ID", field: "stationID" },
     { title: "Name", field: "name" },
     { title: "Location", field: "location" },
-    
+    { title: "Contact Number", field: "contactNo" },
 
   ];
 
