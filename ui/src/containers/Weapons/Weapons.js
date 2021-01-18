@@ -51,8 +51,11 @@ const Weapons = props => {
   
   const tableColumns = [
     { title: "weapon ID", field: "weaponID" },
+    { title: "Name", field: "name" },
     { title: "Assigned", field: "assigned" },
     { title: "Assigned Date", field: "assignedDate" },
+    { title: "Description", field: "description" },
+    { title: "Status", field: "state",  lookup: { Available:"Available", Lost:"Lost", Maintainance:"Maintainance"},},
   ];
 
   if (false) {
