@@ -20,6 +20,7 @@ const Companies = props => {
         .then((response) => {
           if (!response.error) {
             // (response.data).forEach(user => setUsers(user));
+            console.log(response.data)
             setCompanies(response.data)
           }
         })

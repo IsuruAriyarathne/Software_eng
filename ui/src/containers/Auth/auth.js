@@ -140,9 +140,9 @@ function SignIn(props) {
         if(props.usertype==="Admin"){
             history.push(routez.USERS);
         }else if (props.usertype==="Officer"){
-            console.log(props.stationID)
             history.push(routez.WEAPONS);
         } else {
+            console.log("hiiii");
             history.push(routez.COMPANIES);
         }
     }
