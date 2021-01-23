@@ -12,6 +12,7 @@ import WeaponsModel from './components/Navbar/WeaponModel'
 import AmmunitionModel from './components/Navbar/AmmunitionModels'
 import WeaponsCentralized from './components/Navbar/WeaponCentralized'
 import AmmunitionCentralized from './components/Navbar/AmmunitionCentralized'
+import MaintenanceTable from './components/Navbar/MaintenanceTable'
 
 import * as routez from './shared/routes';
 
@@ -33,6 +34,7 @@ function App() {
         <Route exact path={routez.AMMUNITIONMODELS} component={AmmunitionModel}/>
         <Route exact path={routez.WEAPONSCEN} component={WeaponsCentralized}/>
         <Route exact path={routez.AMMUNATIONSCEN} component={AmmunitionCentralized}/>
+        <Route exact path={routez.MAINTENANCE} component={MaintenanceTable}/>
         <Redirect path="/" to={routez.SIGNIN} />
       </Switch>
     </Suspense>

@@ -18,6 +18,8 @@ import Grid from '@material-ui/core/Grid';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import LoopIcon from '@material-ui/icons/Loop';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -184,6 +186,18 @@ export default function Dashboard() {
               <AddCircleOutlineIcon />
             </ListItemIcon>
             <ListItemText primary="Recovery" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.MAINTENANCE}`)}>
+            <ListItemIcon>
+              <LoopIcon />
+            </ListItemIcon>
+            <ListItemText primary="Maintenance" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.REQUEST}`)}>
+            <ListItemIcon>
+              <ShoppingBasketIcon />
+            </ListItemIcon>
+            <ListItemText primary="Order Request" />
           </ListItem>
         </List>
       </Drawer>

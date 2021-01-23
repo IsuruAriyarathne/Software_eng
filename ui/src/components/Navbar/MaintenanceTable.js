@@ -21,14 +21,16 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import LoopIcon from '@material-ui/icons/Loop';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 
-
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import * as routez from '../../shared/routes';
 
-import Companies from '../../containers/Companies/Companies'
+import Maintenance from '../../containers/Maintenance/Maintenance'
+
 
 const drawerWidth = 240;
 
@@ -167,35 +169,23 @@ export default function Dashboard() {
         </div>
         <Divider />
         <List  className={classes.papernav}>
-          <ListItem button onClick={() => history.push(`${routez.COMPANIES}`)}>
-            <ListItemIcon>
-              <ArrowDropDownCircleIcon />
-            </ListItemIcon>
-            <ListItemText primary="Companies" />
-          </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.AMMUNATIONSCEN}`)}>
-            <ListItemIcon>
-              <ArrowDropDownCircleIcon />
-            </ListItemIcon>
-            <ListItemText primary="Ammunitions" />
-          </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.WEAPONSCEN}`)}>
+          <ListItem button onClick={() => history.push(`${routez.WEAPONS}`)}>
             <ListItemIcon>
               <ArrowDropDownCircleIcon />
             </ListItemIcon>
             <ListItemText primary="Weapons" />
           </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.WEAPONMODELS}`)}>
+          <ListItem button onClick={() => history.push(`${routez.AMMUNATIONS}`)}>
             <ListItemIcon>
-              <ArrowDropDownCircleIcon />
+              <ArrowForwardIosIcon />
             </ListItemIcon>
-            <ListItemText primary="Weapon Moedls" />
+            <ListItemText primary="Ammunation" />
           </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.AMMUNITIONMODELS}`)}>
+          <ListItem button onClick={() => history.push(`${routez.RECOVERY}`)}>
             <ListItemIcon>
-              <ArrowDropDownCircleIcon />
+              <AddCircleOutlineIcon />
             </ListItemIcon>
-            <ListItemText primary="Ammunition Models" />
+            <ListItemText primary="Recovery" />
           </ListItem>
           <ListItem button onClick={() => history.push(`${routez.MAINTENANCE}`)}>
             <ListItemIcon>
@@ -217,7 +207,7 @@ export default function Dashboard() {
           <Grid container spacing={3}>
             {/* Chart */}
             <Grid item xs={12} md={12} lg={12}>
-                <Companies />
+                <Maintenance />
             </Grid>
           </Grid>
         </Container>

@@ -9,4 +9,5 @@ export const AMMUNATIONSCEN = '/ammunitioncentralized';
 export const WEAPONSCEN = '/weaponcentralized';
 export const WEAPONMODELS = '/weaponmodels';
 export const AMMUNITIONMODELS = '/ammunitionmodels';
-
+export const MAINTENANCE = '/maintenance';
+export const REQUEST = '/request';

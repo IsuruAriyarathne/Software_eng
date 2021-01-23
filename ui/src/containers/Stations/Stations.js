@@ -99,7 +99,7 @@ const Stations = props => {
     { title: "ID", field: "stationID" },
     { title: "Name", field: "stationName" },
     { title: "Location", field: "location" },
-    { title: "Type", field: "type" },
+    { title: "Type", field: "type",  lookup: { office:"office", inventory:"inventory"} },
     { title: "Contact Number", field: "contactNo" },
 
   ];
