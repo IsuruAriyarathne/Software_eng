@@ -58,8 +58,14 @@ const Stations = props => {
     [addAlert]
   );
 
-  const saveStation = useCallback(
-    (data) => {
+  const saveStations = useCallback(
+    (newStation) => {
+      var data=({
+        "stationID": newStation.stationID,
+        "stationName": newStation.stationName,
+        "location": newStation.location,
+        "contactNo": newStation.contactNo,
+      })
       saveStations(data)
         .then((response) => {
           if (!response.error){
@@ -77,7 +83,7 @@ const Stations = props => {
 
   const tableColumns = [
     { title: "ID", field: "stationID" },
-    { title: "Name", field: "name" },
+    { title: "Name", field: "stationName" },
     { title: "Location", field: "location" },
     { title: "Contact Number", field: "contactNo" },
 

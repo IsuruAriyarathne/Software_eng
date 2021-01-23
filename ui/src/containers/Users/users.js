@@ -98,7 +98,7 @@ const Users = props => {
     { title: "Id", field: "officerID" },
     { title: "Name", field: "name" },
     { title: "Email", field: "email" },
-    { title: "Role", field: "role" },
+    { title: "Role", field: "role", lookup: { Admin:"Admin", Cenofficer:"Cenofficer", officer:"officer"} },
     { title: "station Name", field: "stationName" },
   ];
 
