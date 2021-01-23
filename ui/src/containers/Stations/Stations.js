@@ -43,7 +43,7 @@ const Stations = props => {
     [addAlert]
   );
 
-  const updateStation= useCallback(
+  const updateStations= useCallback(
     (id,data) => {
       console.log(data)
       updateStations(id,data)

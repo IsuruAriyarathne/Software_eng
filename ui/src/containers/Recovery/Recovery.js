@@ -32,14 +32,14 @@ const Users = props => {
   const deleteRecoveries = useCallback(
     (oldWeapon) => {
       return new Promise((resolve, reject) => {
-        deleteRecovery(oldWeapon.id)
+        deleteRecovery(oldWeapon.recoveryID)
               .then((response) => {
                 console.log(response);
                   if (!response.error) {
                       addAlert({
                           message: "Weapon deletion Successful!",
                       });
-                      setRecovery(removeItemFromArray(recovery, 'id', oldWeapon.id, oldWeapon))
+                      setRecovery(removeItemFromArray(recovery, 'recoveryID', oldWeapon.recoveryID, oldWeapon))
                       return resolve();
                   }
                   return reject();
@@ -52,13 +52,13 @@ const Users = props => {
   const updateRecoveries = useCallback(
     (newWeapon,oldWeapon) => {
       return new Promise((resolve, reject) => {
-        updateRecovery(oldWeapon.id, newWeapon)
+        updateRecovery(oldWeapon.recoveryID, newWeapon)
               .then((response) => {
                   if (!response.error) {
                       addAlert({
                           message: "Weapon Updated Successfully!",
                       });
-                      setRecovery(replaceItemInArray(recovery, 'officerID', newWeapon, oldWeapon.id))
+                      setRecovery(replaceItemInArray(recovery, 'officerID', newWeapon, oldWeapon.recoveryID))
                       return resolve();
                   }
                   return reject();

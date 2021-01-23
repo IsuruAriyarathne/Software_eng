@@ -74,6 +74,7 @@ const Users = props => {
         "officerID": newUser.officerID,
         "name": newUser.name,
         "email": newUser.email,
+        "role": newUser.role,
         "stationName": newUser.stationName,
       })
       return new Promise((resolve, reject) => {
