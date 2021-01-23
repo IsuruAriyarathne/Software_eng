@@ -2,6 +2,7 @@ import React , {useState, useEffect, useCallback } from "react";
 import { connect } from 'react-redux';
 
 import {getAllStations, deleteStations, updateStations, saveStations } from "../../api/Stations"
+import {replaceItemInArray, removeItemFromArray, addItemToArray} from "../../shared/utility";
 import Table from "../../components/UI/Table/MaterialTable/Table";
 import * as actions from '../../store/actions/index';
 
@@ -29,53 +30,66 @@ const Stations = props => {
   // const [isLoading, setIsLoading] = useState(true);
 
   const deleteStation = useCallback(
-    (stationID) => {
-      alert("You want to delete " + stationID)
-      deleteStations(stationID)
-        .then((response) => {
-            console.log(response);
-            addAlert({
-              message: "Station deletion Successful!",
-            });
-          
-        })
+    (oldData) => {
+      return new Promise((resolve, reject) => {
+        deleteStations(oldData.stationID)
+              .then((response) => {
+                console.log(response);
+                  if (!response.error) {
+                      addAlert({
+                          message: "Station deletion Successful!",
+                      });
+                      setStations(removeItemFromArray(stations, 'stationID', oldData.stationID, oldData))
+                      return resolve();
+                  }
+                  return reject();
+              })
+      });
     },
-    [addAlert]
+    [addAlert, stations]
   );
 
-  const updateStations= useCallback(
-    (id,data) => {
-      console.log(data)
-      updateStations(id,data)
-        .then((response) => {
-            console.log(response);
-            addAlert({
-              message: "Station Updated Successfully!",
-            });
-          
-        })
+  const updateStation= useCallback(
+    (newData,oldData) => {
+      return new Promise((resolve, reject) => {
+        updateStations(oldData.stationID,newData)
+            .then((response) => {
+                if (!response.error) {
+                    addAlert({
+                        message: "Statin Updated Successfully!",
+                    });
+                    setStations(replaceItemInArray(stations, 'stationID', newData, oldData.stationID))
+                    return resolve();
+                }
+                return reject();
+            })
+      })
     },
-    [addAlert]
+    [addAlert, stations]
   );
 
-  const saveStations = useCallback(
+  const saveStation = useCallback(
     (newStation) => {
       var data=({
         "stationID": newStation.stationID,
         "stationName": newStation.stationName,
         "location": newStation.location,
+        "type": newStation.type,
         "contactNo": newStation.contactNo,
       })
-      saveStations(data)
-        .then((response) => {
-          if (!response.error){
-            addAlert({
-              message: "Station Saved Successfully!",
-            });
-          }else{
-            console.log(response.error)
-          }
-        })
+      return new Promise((resolve, reject) => {
+        saveStations(data)
+              .then((response) => {
+                  if (!response.error) {
+                      addAlert({
+                          message: "Station Saved Successfully!",
+                      });
+                      setStations(addItemToArray(stations, data))
+                      return resolve();
+                  }
+                  return reject();
+              })
+        });
     },
     [addAlert]
   );
@@ -85,6 +99,7 @@ const Stations = props => {
     { title: "ID", field: "stationID" },
     { title: "Name", field: "stationName" },
     { title: "Location", field: "location" },
+    { title: "Type", field: "type" },
     { title: "Contact Number", field: "contactNo" },
 
   ];
@@ -98,10 +113,9 @@ const Stations = props => {
       columns={tableColumns}
       tableOptions={tableOptions}
       editable={{
-        onRowAdd: newData => saveStations(newData),
-        onRowUpdate: (newData, oldData) =>updateStations(newData, oldData),
+        onRowAdd: newData => saveStation(newData),
+        onRowUpdate: (newData, oldData) =>updateStation(newData, oldData ),
         onRowDelete: oldData =>deleteStation(oldData),
-
       }}
     />
   }

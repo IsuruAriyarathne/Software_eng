@@ -26,6 +26,8 @@ export const getRequest = async (uri,body) => {
 
 export const postRequest = async (uri, data) => {
 	try {
+		console.log(uri)
+		console.log(data)
 		let response = await axios.post(uri, data);
 
 		return {
