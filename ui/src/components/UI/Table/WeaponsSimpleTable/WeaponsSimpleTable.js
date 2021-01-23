@@ -9,29 +9,36 @@ const useStyles = makeStyles(theme => ({
 
 const simpleTableColumns = [
     {
-        field: 'ammoModelID',
-        name: 'Ammunition Id'
+        field: 'recoveryID',
+        name: 'Recovery ID'
     },
     {
-        field: 'description',
-        name: 'Description'
+        field: 'ammoModelID',
+        name: 'Ammunition Model ID'
+    },
+    {
+        field: 'amount',
+        name: 'Amount'
     },
     {
         field: 'name',
         name: 'Name'
+    },
+    {
+        field: 'description',
+        name: 'Description'
     }
 ];
 
-const detailPanelTableHeading = "Topics"
+const detailPanelTableHeading = "Recoveries"
 
 const TopicsSimpleTable = props => {
-    console.log(props.ammunitions);
     const classes = useStyles();
-
+    console.log(props.recoveries);
     return <SimpleTable
         tableWrapperClass={classes.tableWrapper}
         tableTitle={detailPanelTableHeading}
-        data={props.ammunitions}
+        data={props.recoveries}
         columns={simpleTableColumns} />
 }
 

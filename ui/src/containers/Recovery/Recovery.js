@@ -5,6 +5,7 @@ import {getAllRecovery, deleteRecovery, updateRecovery, saveRecovery } from "../
 import {replaceItemInArray, removeItemFromArray, addItemToArray} from "../../shared/utility";
 import Table from "../../components/UI/Table/MaterialTable/Table";
 import * as actions from '../../store/actions/index';
+import RecoverySimpletable from "../../components/UI/Table/WeaponsSimpleTable/WeaponsSimpleTable";
 
 const ReoveryTable = "Recovery Table";
 
@@ -94,7 +95,11 @@ const Users = props => {
     [addAlert, recovery]
   );
   
+  const renderRecoveries = useCallback(rowData => 
+    <RecoverySimpletable recoveries={[rowData.RecoveredAmmunitions]} />, []
+  );
 
+  
   const tableColumns = [
     { title: "Recovery ID", field: "recoveryID" },
     { title: "Recovery Date", field: "recoveryDate" },
@@ -115,6 +120,12 @@ const Users = props => {
         onRowUpdate: (newData, oldData) =>updateRecoveries(newData, oldData ),
         onRowDelete: oldData => deleteRecoveries(oldData),
       }}
+      detailPanel={[
+        {
+            tooltip: "Show Recoveriews",
+            render: renderRecoveries
+        }]
+      }
     />
   }
 };

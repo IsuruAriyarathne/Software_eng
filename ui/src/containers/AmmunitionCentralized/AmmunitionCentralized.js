@@ -5,7 +5,6 @@ import {getAllAmmunitions, deleteAmmunitions, updateAmmunitions, saveAmmunitions
 import {replaceItemInArray, removeItemFromArray, addItemToArray} from "../../shared/utility";
 import Table from "../../components/UI/Table/MaterialTable/Table";
 import * as actions from '../../store/actions/index';
-import WeaponsSimpleTable from "../../components/UI/Table/WeaponsSimpleTable/WeaponsSimpleTable";
 
 const AmmunitionTable = "Ammunition Table";
 
@@ -93,10 +92,6 @@ const Users = props => {
     },
     [addAlert, users]
   );
-  
-  const renderWeapons = useCallback(rowData => 
-    <WeaponsSimpleTable ammunitions={[rowData.AmmunitionType]} />, []
-  );
 
   const tableColumns = [
     { title: "Id", field: "ammoModelID" },
@@ -118,12 +113,6 @@ const Users = props => {
         onRowUpdate: (newData, oldData) =>updateUser(newData, oldData ),
         onRowDelete: oldData => deleteUser(oldData),
       }}
-      detailPanel={[
-        {
-            tooltip: "Show Weapons",
-            render: renderWeapons
-        }]
-      }
     />
   }
 };
