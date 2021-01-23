@@ -2,6 +2,7 @@ import React , {useState, useEffect, useCallback } from "react";
 import { connect } from 'react-redux';
 
 import {getAllCompanies, deleteCompanies, updateCompanies,saveCompanies } from "../../api/CompaniesAPI"
+import {replaceItemInArray, removeItemFromArray, addItemToArray} from "../../shared/utility";
 import Table from "../../components/UI/Table/MaterialTable/Table";
 import * as actions from '../../store/actions/index';
 
@@ -30,49 +31,68 @@ const Companies = props => {
   // const [isLoading, setIsLoading] = useState(true);
 
   const deleteCompany = useCallback(
-    (supplierID) => {
-      alert("You want to delete " + supplierID)
-      deleteCompanies(supplierID)
-        .then((response) => {
-            console.log(response);
-            addAlert({
-              message: "Company deletion Successful!",
-            });
-          
-        })
+    (oldData) => {
+      return new Promise((resolve, reject) => {
+        deleteCompanies(oldData.supplierID)
+              .then((response) => {
+                console.log(response);
+                  if (!response.error) {
+                      addAlert({
+                          message: "Company deletion Successful!",
+                      });
+                      setCompanies(removeItemFromArray(companies, 'stationID', oldData.supplierID, oldData))
+                      return resolve();
+                  }
+                  return reject();
+              })
+      });
     },
-    [addAlert]
+    [addAlert, companies]
   );
 
-  const updateCompany = useCallback(
-    (id,data) => {
-      console.log(data)
-      updateCompanies(id,data)
-        .then((response) => {
-            console.log(response);
-            addAlert({
-              message: "Company Updated Successfully!",
-            });
-          
-        })
+  const updateCompany= useCallback(
+    (newData,oldData) => {
+      return new Promise((resolve, reject) => {
+        updateCompanies(oldData.supplierID,newData)
+            .then((response) => {
+                if (!response.error) {
+                    addAlert({
+                        message: "Company Updated Successfully!",
+                    });
+                    setCompanies(replaceItemInArray(companies, 'supplierID', newData, oldData.supplierID))
+                    return resolve();
+                }
+                return reject();
+            })
+      })
     },
-    [addAlert]
+    [addAlert, companies]
   );
 
   const saveCompany = useCallback(
-    (data) => {
-      saveCompanies(data)
-        .then((response) => {
-          if (!response.error){
-            addAlert({
-              message: "Company Saved Successfully!",
-            });
-          }else{
-            console.log(response.error)
-          }
-        })
+    (newStation) => {
+      var data=({
+        "supplierID": newStation.supplierID,
+        "name": newStation.name,
+        "contactNumber": newStation.contactNumber,
+        "address": newStation.address,
+        "decription": newStation.decription,
+      })
+      return new Promise((resolve, reject) => {
+        saveCompanies(data)
+              .then((response) => {
+                  if (!response.error) {
+                      addAlert({
+                          message: "Company Saved Successfully!",
+                      });
+                      setCompanies(addItemToArray(companies, data))
+                      return resolve();
+                  }
+                  return reject();
+              })
+        });
     },
-    [addAlert]
+    [addAlert,companies]
   );
   
 
@@ -93,27 +113,9 @@ const Companies = props => {
       columns={tableColumns}
       tableOptions={tableOptions}
       editable={{
-        onRowAdd: newData =>{
-          var data=({
-             "supplierID": newData.supplierID,
-             "name": newData.name,
-             "contactNumber": newData.contactNumber,
-             "address": newData.address,
-             "decription": newData.decription,
-           })
-           saveCompany(data)
-        },
-
-        onRowUpdate: (newData, oldData) =>{
-          updateCompany(oldData.supplierID, newData )
-        },
-        onRowDelete: oldData =>
-          new Promise((resolve, reject) => {
-            deleteCompany(oldData.supplierID);
-          }),
-        // {
-        //   deleteCompany(oldData.supplierID);
-        // },
+        onRowAdd: newData => saveCompany(newData),
+        onRowUpdate: (newData, oldData) =>updateCompany(newData, oldData ),
+        onRowDelete: oldData =>deleteCompany(oldData),
       }}
     />
   }

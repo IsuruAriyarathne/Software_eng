@@ -13,6 +13,11 @@ import AmmunitionModel from './components/Navbar/AmmunitionModels'
 import WeaponsCentralized from './components/Navbar/WeaponCentralized'
 import AmmunitionCentralized from './components/Navbar/AmmunitionCentralized'
 import MaintenanceTable from './components/Navbar/MaintenanceTable'
+import ResetPasswordTable from './components/Navbar/ResetPassword'
+import RecoveredItems from './components/Navbar/RecoverViewTable'
+import CenStations from './components/Navbar/CENStations'
+import CenRecovery from './components/Navbar/CENRecoverTale'
+import CenMaintenance from './components/Navbar/CENMaintenance'
 
 import * as routez from './shared/routes';
 
@@ -35,6 +40,11 @@ function App() {
         <Route exact path={routez.WEAPONSCEN} component={WeaponsCentralized}/>
         <Route exact path={routez.AMMUNATIONSCEN} component={AmmunitionCentralized}/>
         <Route exact path={routez.MAINTENANCE} component={MaintenanceTable}/>
+        <Route exact path={routez.USERS_DETAIL} component={ResetPasswordTable}/>
+        <Route exact path={routez.RECOVERY_DETAIL} component={RecoveredItems}/>
+        <Route exact path={routez.CENSTATIONS} component={CenStations}/>
+        <Route exact path={routez.CENRECOVERY} component={CenRecovery}/>
+        <Route exact path={routez.CENMAINTENANCE} component={CenMaintenance}/>
         <Redirect path="/" to={routez.SIGNIN} />
       </Switch>
     </Suspense>

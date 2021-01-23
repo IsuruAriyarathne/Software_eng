@@ -91,7 +91,7 @@ const Stations = props => {
               })
         });
     },
-    [addAlert]
+    [addAlert,stations]
   );
   
 

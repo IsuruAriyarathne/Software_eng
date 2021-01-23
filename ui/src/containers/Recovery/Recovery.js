@@ -1,11 +1,12 @@
 import React , {useState, useEffect, useCallback } from "react";
 import { connect } from 'react-redux';
+import { useHistory } from "react-router-dom";
 
 import {getAllRecovery, deleteRecovery, updateRecovery, saveRecovery } from "../../api/RecoverAPI"
 import {replaceItemInArray, removeItemFromArray, addItemToArray} from "../../shared/utility";
 import Table from "../../components/UI/Table/MaterialTable/Table";
 import * as actions from '../../store/actions/index';
-import RecoverySimpletable from "../../components/UI/Table/WeaponsSimpleTable/WeaponsSimpleTable";
+import { Button } from "@material-ui/core";
 
 const ReoveryTable = "Recovery Table";
 
@@ -14,8 +15,8 @@ const tableOptions = {
   pageSizeOptions: [10, 30, 50]
 };
 
-const Users = props => {
-
+const RecoveryView = props => {
+  let history = useHistory();
   const [recovery, setRecovery] = useState([]);
   useEffect(() => {
     getAllRecovery(props.stationID)
@@ -95,15 +96,20 @@ const Users = props => {
     [addAlert, recovery]
   );
   
-  const renderRecoveries = useCallback(rowData => 
-    <RecoverySimpletable recoveries={[rowData.RecoveredAmmunitions]} />, []
-  );
+  // const renderRecoveries = useCallback(rowData => 
+  //   <RecoverySimpletable recoveries={[rowData.RecoveredAmmunitions]} />, []
+  // );
 
+  const renderRecoverybtn = useCallback(
+    (rowData) => <Button color="primary" onClick={() => history.push(`recovery/stationid/${rowData.recoveryID}`)}>Recovery</Button>,
+    [history]
+  );
   
   const tableColumns = [
     { title: "Recovery ID", field: "recoveryID" },
     { title: "Recovery Date", field: "recoveryDate" },
     { title: "Description", field: "description" },
+    { title: "Profile", render: renderRecoverybtn},
     // { title: "station Id", field: "stationID" },
   ];
 
@@ -120,12 +126,12 @@ const Users = props => {
         onRowUpdate: (newData, oldData) =>updateRecoveries(newData, oldData ),
         onRowDelete: oldData => deleteRecoveries(oldData),
       }}
-      detailPanel={[
-        {
-            tooltip: "Show Recoveriews",
-            render: renderRecoveries
-        }]
-      }
+      // detailPanel={[
+      //   {
+      //       tooltip: "Show Recoveriews",
+      //       render: renderRecoveries
+      //   }]
+      // }
     />
   }
 };
@@ -143,6 +149,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Users);
+export default connect(mapStateToProps, mapDispatchToProps)(RecoveryView);
 
 // export default (Users);

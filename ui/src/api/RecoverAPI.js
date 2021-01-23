@@ -9,3 +9,5 @@ export const deleteRecovery = (id) => deleteRequest(`${BASE_URL}/${id}`);
 export const updateRecovery = (id,data) => putRequest(`${BASE_URL}/${id}`,data);
 
 export const saveRecovery = (data) => postRequest(`${BASE_URL}`,data);
+
+export const getRecovery = (station,id) => getRequest(`${BASE_URL}/${station}/${id}`);

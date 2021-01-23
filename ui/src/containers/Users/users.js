@@ -1,10 +1,12 @@
 import React , {useState, useEffect, useCallback } from "react";
 import { connect } from 'react-redux';
+import { useHistory } from "react-router-dom";
 
 import {getAllUsers, deleteUsers, updateUsers, saveUsers } from "../../api/UsersAPI"
 import {replaceItemInArray, removeItemFromArray, addItemToArray} from "../../shared/utility";
 import Table from "../../components/UI/Table/MaterialTable/Table";
 import * as actions from '../../store/actions/index';
+import { Button } from "@material-ui/core";
 
 const UserTable = "User Table";
 
@@ -14,6 +16,7 @@ const tableOptions = {
 };
 
 const Users = props => {
+  let history = useHistory();
 
   const [users, setUsers] = useState([]);
   useEffect(() => {
@@ -94,6 +97,10 @@ const Users = props => {
     [addAlert, users]
   );
   
+  const renderProfileBtn = useCallback(
+    (rowData) => <Button color="primary" onClick={() => history.push(`users/${rowData.officerID}`)}>Profile</Button>,
+    [history]
+  );
 
   const tableColumns = [
     { title: "Id", field: "officerID" },
@@ -101,6 +108,7 @@ const Users = props => {
     { title: "Email", field: "email" },
     { title: "Role", field: "role", lookup: { admin:"admin", cenofficer:"cenofficer", officer:"officer"} },
     { title: "station Name", field: "stationName" },
+    { title: "Profile", render: renderProfileBtn },
   ];
 
   if (false) {

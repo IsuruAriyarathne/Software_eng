@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
 
 import clsx from 'clsx';
 import grey from '@material-ui/core/colors/grey';
@@ -24,6 +25,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import PeopleIcon from '@material-ui/icons/People';
 import HomeIcon from '@material-ui/icons/Home';
+import { authLogout } from "../../store/actions/index";
+import { Button } from "@material-ui/core";
 
 import * as routez from '../../shared/routes';
 import Stations from '../../containers/Stations/Stations'
@@ -106,6 +109,9 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
     flexDirection: 'column',
   },
+  menuButtonlog: {
+    color: "white"
+  },
   papernav: {
     height: '100%',
     backgroundColor: grey[300],
@@ -115,7 +121,7 @@ const useStyles = makeStyles((theme) => ({
   // },
 }));
 
-export default function Dashboard() {
+function Dashboard(props) {
   const classes = useStyles();
   const history = useHistory();
   const [open, setOpen] = React.useState(true);
@@ -126,6 +132,13 @@ export default function Dashboard() {
     setOpen(false);
   };
   // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  const { onauthLogout, isAuthenticated } = props;
+
+  const handleLogout = () => {
+		onauthLogout();
+		history.push("/");
+	};
 
   return (
     <div className={classes.root}>
@@ -144,11 +157,9 @@ export default function Dashboard() {
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             SLFire
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
+          <Button className={classes.menuButtonlog} onClick={() => handleLogout()}>
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -193,3 +204,17 @@ export default function Dashboard() {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+	return {
+		isAuthenticated: state.auth.token != null,
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onauthLogout: () => dispatch(authLogout()),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

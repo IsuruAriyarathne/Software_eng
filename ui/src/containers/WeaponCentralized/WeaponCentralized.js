@@ -32,14 +32,14 @@ const Users = props => {
   const deleteUser = useCallback(
     (oldUser) => {
       return new Promise((resolve, reject) => {
-        deleteWeapons(oldUser.officerID)
+        deleteWeapons(oldUser.weaponID)
               .then((response) => {
                 console.log(response);
                   if (!response.error) {
                       addAlert({
                           message: "User deletion Successful!",
                       });
-                      setUsers(removeItemFromArray(users, 'officerID', oldUser.officerID, oldUser))
+                      setUsers(removeItemFromArray(users, 'weaponID', oldUser.weaponID, oldUser))
                       return resolve();
                   }
                   return reject();
@@ -52,13 +52,13 @@ const Users = props => {
   const updateUser = useCallback(
     (newUser,oldUser) => {
       return new Promise((resolve, reject) => {
-        updateWeapons(oldUser.officerID, newUser)
+        updateWeapons(oldUser.weaponID, newUser)
               .then((response) => {
                   if (!response.error) {
                       addAlert({
                           message: "User Updated Successfully!",
                       });
-                      setUsers(replaceItemInArray(users, 'officerID', newUser, oldUser.officerID))
+                      setUsers(replaceItemInArray(users, 'weaponID', newUser, oldUser.weaponID))
                       return resolve();
                   }
                   return reject();
@@ -71,10 +71,11 @@ const Users = props => {
   const saveUser = useCallback(
     (newUser) => {
       var data=({
-        "officerID": newUser.officerID,
+        "weaponID": newUser.weaponID,
         "name": newUser.name,
-        "email": newUser.email,
-        "stationID": newUser.stationID,
+        "totalCost": newUser.totalCost,
+        "date": newUser.date,
+        "supplierID": newUser.supplierID,
       })
       return new Promise((resolve, reject) => {
         saveWeapons(data)
@@ -94,11 +95,11 @@ const Users = props => {
   );
 
   const tableColumns = [
-    { title: "Id", field: "officerID" },
+    { title: "Weapon ID", field: "weaponID" },
     { title: "Name", field: "name" },
-    { title: "Email", field: "email" },
-    { title: "Role", field: "role" },
-    { title: "stationId", field: "stationID" },
+    { title: "Total Cost", field: "totalCost" },
+    { title: "Date", field: "date" },
+    { title: "Supplier ID", field: "supplierID" },
   ];
 
   if (false) {

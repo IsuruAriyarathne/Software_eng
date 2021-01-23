@@ -18,9 +18,9 @@ import Grid from '@material-ui/core/Grid';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import LoopIcon from '@material-ui/icons/Loop';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import BallotIcon from '@material-ui/icons/Ballot';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -197,17 +197,23 @@ export default function Dashboard() {
             </ListItemIcon>
             <ListItemText primary="Ammunition Models" />
           </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.MAINTENANCE}`)}>
+          <ListItem button onClick={() => history.push(`${routez.CENRECOVERY}`)}>
             <ListItemIcon>
-              <LoopIcon />
+              <AssignmentIcon />
+            </ListItemIcon>
+            <ListItemText primary="Recovery" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.CENMAINTENANCE}`)}>
+            <ListItemIcon>
+              <BallotIcon />
             </ListItemIcon>
             <ListItemText primary="Maintenance" />
           </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.REQUEST}`)}>
+          <ListItem button onClick={() => history.push(`${routez.CENSTATIONS}`)}>
             <ListItemIcon>
-              <ShoppingBasketIcon />
+              <AccountBalanceIcon />
             </ListItemIcon>
-            <ListItemText primary="Order Request" />
+            <ListItemText primary="Stations" />
           </ListItem>
         </List>
       </Drawer>

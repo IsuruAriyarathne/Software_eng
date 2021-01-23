@@ -28,7 +28,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
 import * as routez from '../../shared/routes';
 
-import AmmunitionCentralized from '../../containers/AmmunitionCentralized/AmmunitionCentralized'
+import Maintenance from '../../containers/CENViews/CENMaintenance'
 
 const drawerWidth = 240;
 
@@ -223,7 +223,7 @@ export default function Dashboard() {
           <Grid container spacing={3}>
             {/* Chart */}
             <Grid item xs={12} md={12} lg={12}>
-                <AmmunitionCentralized />
+                <Maintenance />
             </Grid>
           </Grid>
         </Container>

@@ -71,7 +71,7 @@ const Users = props => {
   const saveUser = useCallback(
     (newUser) => {
       var data=({
-        "id": newUser.id,
+        "weaponID": newUser.weaponID,
         "amount": newUser.amount,
         "date": newUser.date,
         "description": newUser.description,
@@ -96,6 +96,7 @@ const Users = props => {
 
   const tableColumns = [
     { title: "Id", field: "id" },
+    { title: "Weapon ID", field: "weaponID" },
     { title: "Ammount", field: "amount" },
     { title: "Date", field: "date" },
     { title: "Description", field: "description" },

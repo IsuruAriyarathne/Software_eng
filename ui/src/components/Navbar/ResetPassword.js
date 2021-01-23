@@ -17,18 +17,17 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
-import BallotIcon from '@material-ui/icons/Ballot';
-import AssignmentIcon from '@material-ui/icons/Assignment';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
+import PeopleIcon from '@material-ui/icons/People';
+import HomeIcon from '@material-ui/icons/Home';
 import * as routez from '../../shared/routes';
 
-import AmmunitionCentralized from '../../containers/AmmunitionCentralized/AmmunitionCentralized'
+import Users from '../../containers/Users/users'
+import ResetPAssword from '../../containers/UserDetails/UserDetails'
 
 const drawerWidth = 240;
 
@@ -147,8 +146,8 @@ export default function Dashboard() {
             SLFire
           </Typography>
           <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
+            <Badge >
+              <ExitToAppIcon />
             </Badge>
           </IconButton>
         </Toolbar>
@@ -167,51 +166,15 @@ export default function Dashboard() {
         </div>
         <Divider />
         <List  className={classes.papernav}>
-          <ListItem button onClick={() => history.push(`${routez.COMPANIES}`)}>
+          <ListItem button onClick={() => history.push(`${routez.USERS}`)}>
             <ListItemIcon>
-              <ArrowDropDownCircleIcon />
+              <PeopleIcon />
             </ListItemIcon>
-            <ListItemText primary="Companies" />
+            <ListItemText primary="Users" />
           </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.AMMUNATIONSCEN}`)}>
+          <ListItem button onClick={() => history.push(`${routez.STATIONS}`)}>
             <ListItemIcon>
-              <ArrowDropDownCircleIcon />
-            </ListItemIcon>
-            <ListItemText primary="Ammunitions" />
-          </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.WEAPONSCEN}`)}>
-            <ListItemIcon>
-              <ArrowDropDownCircleIcon />
-            </ListItemIcon>
-            <ListItemText primary="Weapons" />
-          </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.WEAPONMODELS}`)}>
-            <ListItemIcon>
-              <ArrowDropDownCircleIcon />
-            </ListItemIcon>
-            <ListItemText primary="Weapon Moedls" />
-          </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.AMMUNITIONMODELS}`)}>
-            <ListItemIcon>
-              <ArrowDropDownCircleIcon />
-            </ListItemIcon>
-            <ListItemText primary="Ammunition Models" />
-          </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.CENRECOVERY}`)}>
-            <ListItemIcon>
-              <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Recovery" />
-          </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.CENMAINTENANCE}`)}>
-            <ListItemIcon>
-              <BallotIcon />
-            </ListItemIcon>
-            <ListItemText primary="Maintenance" />
-          </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.CENSTATIONS}`)}>
-            <ListItemIcon>
-              <AccountBalanceIcon />
+              <HomeIcon />
             </ListItemIcon>
             <ListItemText primary="Stations" />
           </ListItem>
@@ -223,7 +186,8 @@ export default function Dashboard() {
           <Grid container spacing={3}>
             {/* Chart */}
             <Grid item xs={12} md={12} lg={12}>
-                <AmmunitionCentralized />
+                <ResetPAssword />
+                <Users />
             </Grid>
           </Grid>
         </Container>

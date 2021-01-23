@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
 
 import clsx from 'clsx';
 import grey from '@material-ui/core/colors/grey';
@@ -12,12 +13,10 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -25,6 +24,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import PeopleIcon from '@material-ui/icons/People';
 import HomeIcon from '@material-ui/icons/Home';
 import * as routez from '../../shared/routes';
+import { authLogout } from "../../store/actions/index";
+import { Button } from "@material-ui/core";
 
 import Users from '../../containers/Users/users'
 
@@ -110,12 +111,15 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     backgroundColor: grey[300],
   },
+  menuButtonlog: {
+    color: "white"
+  }
   // fixedHeight: {
   //   height: '100%',
   // },
 }));
 
-export default function Dashboard() {
+function Dashboard(props) {
   const classes = useStyles();
   const history = useHistory();
   const [open, setOpen] = React.useState(true);
@@ -126,6 +130,13 @@ export default function Dashboard() {
     setOpen(false);
   };
   // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  const { onauthLogout, isAuthenticated } = props;
+
+  const handleLogout = () => {
+		onauthLogout();
+		history.push("/");
+	};
 
   return (
     <div className={classes.root}>
@@ -144,11 +155,9 @@ export default function Dashboard() {
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             SLFire
           </Typography>
-          <IconButton color="inherit">
-            <Badge >
-              <ExitToAppIcon />
-            </Badge>
-          </IconButton>
+          <Button className={classes.menuButtonlog} onClick={() => handleLogout()}>
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -193,3 +202,17 @@ export default function Dashboard() {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+	return {
+		isAuthenticated: state.auth.token != null,
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onauthLogout: () => dispatch(authLogout()),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
