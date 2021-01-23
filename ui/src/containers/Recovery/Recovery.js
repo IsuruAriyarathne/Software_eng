@@ -68,30 +68,31 @@ const Users = props => {
     [addAlert, recovery]
   );
 
-  // const saveRecoveries = useCallback(
-  //   (newUser) => {
-  //     var data=({
-  //       "officerID": newUser.officerID,
-  //       "name": newUser.name,
-  //       "location": newUser.location,
-  //       "stationID": newUser.stationID,
-  //     })
-  //     return new Promise((resolve, reject) => {
-  //       saveRecovery(data)
-  //             .then((response) => {
-  //                 if (!response.error) {
-  //                     addAlert({
-  //                         message: "User Saved Successfully!",
-  //                     });
-  //                     setRecovery(addItemToArray(recovery, data))
-  //                     return resolve();
-  //                 }
-  //                 return reject();
-  //             })
-  //       });
-  //   },
-  //   [addAlert, recovery]
-  // );
+  const saveRecoveries = useCallback(
+    (newRecovery) => {
+      var data=({
+        "stationID": props.stationID,
+        "recoveryID": newRecovery.recoveryID,
+        "recoveryDate": newRecovery.recoveryDate,
+        "description": newRecovery.description,
+      })
+      console.log(data)
+      return new Promise((resolve, reject) => {
+        saveRecovery(data)
+              .then((response) => {
+                  if (!response.error) {
+                      addAlert({
+                          message: "Recovery Saved Successfully!",
+                      });
+                      setRecovery(addItemToArray(recovery, data))
+                      return resolve();
+                  }
+                  return reject();
+              })
+        });
+    },
+    [addAlert, recovery]
+  );
   
 
   const tableColumns = [
@@ -110,7 +111,7 @@ const Users = props => {
       columns={tableColumns}
       tableOptions={tableOptions}
       editable={{
-        // onRowAdd: newData =>saveRecoveries(newData),
+        onRowAdd: newData =>saveRecoveries(newData),
         onRowUpdate: (newData, oldData) =>updateRecoveries(newData, oldData ),
         onRowDelete: oldData => deleteRecoveries(oldData),
       }}

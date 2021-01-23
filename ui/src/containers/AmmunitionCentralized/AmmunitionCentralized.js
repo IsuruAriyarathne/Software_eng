@@ -5,8 +5,9 @@ import {getAllAmmunitions, deleteAmmunitions, updateAmmunitions, saveAmmunitions
 import {replaceItemInArray, removeItemFromArray, addItemToArray} from "../../shared/utility";
 import Table from "../../components/UI/Table/MaterialTable/Table";
 import * as actions from '../../store/actions/index';
+import WeaponsSimpleTable from "../../components/UI/Table/WeaponsSimpleTable/WeaponsSimpleTable";
 
-const UserTable = "User Table";
+const AmmunitionTable = "Ammunition Table";
 
 const tableOptions = {
   pageSize: 10,
@@ -93,13 +94,15 @@ const Users = props => {
     [addAlert, users]
   );
   
+  const renderWeapons = useCallback(rowData => 
+    <WeaponsSimpleTable ammunitions={[rowData.AmmunitionType]} />, []
+  );
 
   const tableColumns = [
-    { title: "Id", field: "officerID" },
-    { title: "Name", field: "name" },
-    { title: "Email", field: "email" },
-    { title: "Role", field: "role" },
-    { title: "stationId", field: "stationID" },
+    { title: "Id", field: "ammoModelID" },
+    { title: "Count", field: "count" },
+    { title: "Order ID", field: "orderID" },
+    { title: "Remain", field: "remain" },
   ];
 
   if (false) {
@@ -107,7 +110,7 @@ const Users = props => {
   } else {
     return <Table
       data={users}
-      title={UserTable}
+      title={AmmunitionTable}
       columns={tableColumns}
       tableOptions={tableOptions}
       editable={{
@@ -115,6 +118,12 @@ const Users = props => {
         onRowUpdate: (newData, oldData) =>updateUser(newData, oldData ),
         onRowDelete: oldData => deleteUser(oldData),
       }}
+      detailPanel={[
+        {
+            tooltip: "Show Weapons",
+            render: renderWeapons
+        }]
+      }
     />
   }
 };

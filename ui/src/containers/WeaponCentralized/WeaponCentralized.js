@@ -5,6 +5,7 @@ import {getAllWeapons, deleteWeapons, updateWeapons, saveWeapons } from "../../a
 import {replaceItemInArray, removeItemFromArray, addItemToArray} from "../../shared/utility";
 import Table from "../../components/UI/Table/MaterialTable/Table";
 import * as actions from '../../store/actions/index';
+import WeaponsSimpleTable from "../../components/UI/Table/WeaponsSimpleTable/WeaponsSimpleTable";
 
 const UserTable = "User Table";
 
@@ -93,6 +94,7 @@ const Users = props => {
     [addAlert, users]
   );
   
+  const renderWeapons = useCallback(rowData => <WeaponsSimpleTable topics={rowData.topics} />, []);
 
   const tableColumns = [
     { title: "Id", field: "officerID" },
@@ -115,6 +117,12 @@ const Users = props => {
         onRowUpdate: (newData, oldData) =>updateUser(newData, oldData ),
         onRowDelete: oldData => deleteUser(oldData),
       }}
+      detailPanel={[
+        {
+            tooltip: "Show Weapons",
+            render: renderWeapons
+        }]
+      }
     />
   }
 };

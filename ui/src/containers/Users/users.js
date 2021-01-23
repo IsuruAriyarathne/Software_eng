@@ -74,7 +74,7 @@ const Users = props => {
         "officerID": newUser.officerID,
         "name": newUser.name,
         "email": newUser.email,
-        "stationID": newUser.stationID,
+        "stationName": newUser.stationName,
       })
       return new Promise((resolve, reject) => {
         saveUsers(data)
@@ -99,7 +99,7 @@ const Users = props => {
     { title: "Name", field: "name" },
     { title: "Email", field: "email" },
     { title: "Role", field: "role" },
-    { title: "stationId", field: "stationID" },
+    { title: "station Name", field: "stationName" },
   ];
 
   if (false) {

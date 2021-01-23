@@ -5,6 +5,7 @@ import {getAllWeaponModels, deleteWeaponModels, updateWeaponModels, saveWeaponMo
 import {replaceItemInArray, removeItemFromArray, addItemToArray} from "../../shared/utility";
 import Table from "../../components/UI/Table/MaterialTable/Table";
 import * as actions from '../../store/actions/index';
+import WeaponsSimpleTable from "../../components/UI/Table/WeaponsSimpleTable/WeaponsSimpleTable";
 
 const WeaponTable = "Weapon Table";
 
@@ -99,6 +100,8 @@ const Users = props => {
     { title: "Description", field: "description" },
   ];
 
+  const renderWeapons = useCallback(rowData => <WeaponsSimpleTable topics={rowData.topics} />, []);
+
   if (false) {
     //return <Spinner />
   } else {
@@ -112,6 +115,12 @@ const Users = props => {
         onRowUpdate: (newData, oldData) =>updateWeaponModel(newData, oldData ),
         onRowDelete: oldData => deleteWeaponModel(oldData),
       }}
+      detailPanel={[
+        {
+            tooltip: "Show Weapons",
+            render: renderWeapons
+        }]
+      }
     />
   }
 };

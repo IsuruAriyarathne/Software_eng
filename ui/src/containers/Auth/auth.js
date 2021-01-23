@@ -18,8 +18,8 @@ import { addAlert } from '../../store/actions/index';
 import * as routez from '../../shared/routes';
 
 const inputDefinitions = {
-    username: {
-        label: 'Username*',
+    gmail: {
+        label: 'Email*',
         validations: {
             required: true,
             minLength: 0,
@@ -71,17 +71,17 @@ function SignIn(props) {
     let history = useHistory();
 
     const [inputIsValid, setInputIsValid] = useState({
-        username: true,
+        gmail: true,
         password: true
     });
 
     const [authObj, setAuthObj] = useState({
-        username: '',
+        gmail: '',
         password: ''
     });
 
     const inputProperties = {
-        username: {
+        gmail: {
             styleClass: classes.loginInput
         },
         password: {
@@ -110,15 +110,15 @@ function SignIn(props) {
         event.preventDefault()
 
         let localInputIsValid = { ...inputIsValid };
-        localInputIsValid['username'] = checkInputValidity('username');
+        localInputIsValid['gmail'] = checkInputValidity('gmail');
         localInputIsValid['password'] = checkInputValidity('password');
         setInputIsValid(localInputIsValid);
 
-        if (localInputIsValid['username'] && localInputIsValid['password']) {
+        if (localInputIsValid['gmail'] && localInputIsValid['password']) {
             console.log(authObj.username)
             console.log(authObj.password)
             props.onAuth(
-                authObj.username,
+                authObj.gmail,
                 authObj.password
             );
         }
@@ -137,9 +137,10 @@ function SignIn(props) {
     }, [authError, addAlert]);
 
     if (props.isAuthenticated){
-        if(props.usertype==="Admin"){
+        if(props.usertype.toUpperCase()==="ADMIN" ){
+            console.log("hiiii")
             history.push(routez.USERS);
-        }else if (props.usertype==="Officer"){
+        }else if (props.usertype.toUpperCase()==="OFFICER"){
             history.push(routez.WEAPONS);
         } else {
             console.log("hiiii");
@@ -190,7 +191,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAuth: (username, password) => dispatch(auth(username, password)),
+        onAuth: (gmail, password) => dispatch(auth(gmail, password)),
         addAlert: (alert) => dispatch(addAlert(alert))
     }
 };

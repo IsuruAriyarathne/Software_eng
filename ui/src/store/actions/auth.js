@@ -53,7 +53,7 @@ const checkAuthTimeout = (expirationTime) => (dispatch) => {
 export const auth = (email, password) => (dispatch) => {
     dispatch(authStart());
     let authData = {
-        officerID: email,
+        email: email,
         password: password,
     }
     let url = loginRoute;
