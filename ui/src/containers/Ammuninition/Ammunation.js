@@ -52,12 +52,12 @@ const Ammunation = props => {
 
 
   const tableColumns = [
-    { title: "Ammunition Model ID", field: "ammoModelID" },
-    { title: "count", field: "count" }, 
-    { title: "Name", field: "name" }, 
+    { title: "Ammunition Model ID", field: "ammoModelID", editable: 'never' },
+    { title: "count", field: "count", editable: 'never' }, 
+    { title: "Name", field: "name", editable: 'never' }, 
     { title: "Remanig", field: "remaining" }, 
-    { title: "Description", field: "description" }, 
-    { title: "Allocated Date", field: "allocatedDate" }, 
+    { title: "Description", field: "description", editable: 'never' }, 
+    { title: "Allocated Date", field: "allocatedDate", editable: 'never' }, 
   ];
 
   if (false) {

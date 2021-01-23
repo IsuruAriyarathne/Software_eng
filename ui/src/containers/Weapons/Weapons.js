@@ -50,11 +50,11 @@ const Weapons = props => {
   );
   
   const tableColumns = [
-    { title: "weapon ID", field: "weaponID" },
-    { title: "Name", field: "name" },
+    { title: "weapon ID", field: "weaponID", editable: 'never' },
+    { title: "Name", field: "name", editable: 'never' },
     // { title: "Assigned", field: "assigned" },
-    { title: "Assigned Date", field: "assignedDate" },
-    { title: "Description", field: "description" },
+    { title: "Assigned Date", field: "assignedDate" , editable: 'never'},
+    { title: "Description", field: "description", editable: 'never' },
     { title: "Status", field: "state",  lookup: { Available:"Available", Lost:"Lost", Maintainance:"Maintainance"},},
   ];
 
