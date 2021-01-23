@@ -1,7 +1,8 @@
 import React , {useState, useEffect, useCallback} from "react";
 import { connect } from 'react-redux';
 
-import {getAllWeapons, deleteWeapons,updateWeapons, saveWeapons  } from "../../api/WeaponsAPI"
+import {getAllWeapons,updateWeapons  } from "../../api/WeaponsAPI"
+import {replaceItemInArray} from "../../shared/utility";
 import Table from "../../components/UI/Table/MaterialTable/Table";
 import * as actions from '../../store/actions/index';
 
@@ -13,10 +14,10 @@ const tableOptions = {
 };
 
 const Weapons = props => {
-  
+  console.log(props.stationID);
   const [weapons, setWeapons] = useState([]);
   useEffect(() => {
-    getAllWeapons()
+    getAllWeapons(props.stationID)
         .then((response) => {
           console.log(response.data);
           if (!response.error) {
@@ -28,59 +29,33 @@ const Weapons = props => {
   const { addAlert } = props;
   // const [isLoading, setIsLoading] = useState(true);
 
-  const deleteWeapon = useCallback(
-    (weaponID) => {
-      alert("You want to delete " + weaponID)
-      deleteWeapons(weaponID)
-        .then((response) => {
-            console.log(response);
-            addAlert({
-              message: "Weapon deletion Successful!",
-            });
-          
-        })
-    },
-    [addAlert]
-  );
 
   const updateWeapon = useCallback(
-    (id,data) => {
-      console.log(data)
-      updateWeapons(id,data)
-        .then((response) => {
-            console.log(response);
-            addAlert({
-              message: "Weapon Updated Successfully!",
-            });
-          
-        })
+    (newWeapon,oldWeapon) => {
+      return new Promise((resolve, reject) => {
+        updateWeapons(oldWeapon.weaponID, newWeapon)
+              .then((response) => {
+                  if (!response.error) {
+                      addAlert({
+                          message: "Weapon Updated Successfully!",
+                      });
+                      setWeapons(replaceItemInArray(weapons, 'weaponID', newWeapon, oldWeapon.weaponID))
+                      return resolve();
+                  }
+                  return reject();
+              })
+      });
     },
-    [addAlert]
-  );
-
-  const saveWeapon = useCallback(
-    (data) => {
-      saveWeapons(data)
-        .then((response) => {
-          if (!response.error){
-            addAlert({
-              message: "Weapon Saved Successfully!",
-            });
-          }else{
-            console.log(response.error)
-          }
-        })
-    },
-    [addAlert]
+    [addAlert, weapons]
   );
   
-
   const tableColumns = [
-    { title: "ID", field: "weaponID" },
-    { title: "Model ID", field: "weaponModelID" },
-    { title: "Order ID", field: "orderID" },
-    { title: "State", field: "state" },
-    
+    { title: "weapon ID", field: "weaponID" },
+    { title: "Name", field: "name" },
+    // { title: "Assigned", field: "assigned" },
+    { title: "Assigned Date", field: "assignedDate" },
+    { title: "Description", field: "description" },
+    { title: "Status", field: "state",  lookup: { Available:"Available", Lost:"Lost", Maintainance:"Maintainance"},},
   ];
 
   if (false) {
@@ -92,26 +67,18 @@ const Weapons = props => {
       columns={tableColumns}
       tableOptions={tableOptions}
       editable={{
-        onRowAdd: newData =>{
-           var data=({
-            "weaponID": newData.weaponID,
-            "weaponModelID": newData.weaponModelID,
-             "orderID": newData.orderID,
-             "state": newData.state,
-            })
-            saveWeapon(data)
-        },
-        onRowUpdate: (newData, oldData) =>{
-          updateWeapon(oldData.weaponID, newData )
-        },
-        onRowDelete: oldData =>
-          new Promise((resolve, reject) => {
-            deleteWeapon(oldData.weaponID);
-          }),
+        onRowUpdate: (newData, oldData) =>updateWeapon(newData, oldData ),
       }}
     />
   }
 };
+
+const mapStateToProps = (state) => {
+  return {
+      error: state.auth.error,
+      stationID:state.auth.stationID,
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -119,6 +86,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-export default connect(null, mapDispatchToProps)(Weapons);
+export default connect(mapStateToProps, mapDispatchToProps)(Weapons);
 
 //export default (Weapons);

@@ -2,7 +2,7 @@ import { getRequest, postRequest, putRequest, deleteRequest} from "./utils";
 
 const BASE_URL = "/officer/ammunitions";
 
-export const getAllAmmunition = () => getRequest(`${BASE_URL}`);
+export const getAllAmmunition = (id) => getRequest(`${BASE_URL}/${id}`);
 
 export const deleteAmmunition = (id) => deleteRequest(`${BASE_URL}/${id}`);
 

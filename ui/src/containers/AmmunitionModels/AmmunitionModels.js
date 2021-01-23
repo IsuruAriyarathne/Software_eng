@@ -1,12 +1,12 @@
 import React , {useState, useEffect, useCallback } from "react";
 import { connect } from 'react-redux';
 
-import {getAllUsers, deleteUsers, updateUsers, saveUsers } from "../../api/UsersAPI"
+import {getAllAmmunitionsModels, deleteAmmunitionsModels, updateAmmunitionsModels, saveAmmunitionsModels } from "../../api/AmmunitionModelAPI"
 import {replaceItemInArray, removeItemFromArray, addItemToArray} from "../../shared/utility";
 import Table from "../../components/UI/Table/MaterialTable/Table";
 import * as actions from '../../store/actions/index';
 
-const UserTable = "User Table";
+const AmmunitionTable = "Ammunition Table";
 
 const tableOptions = {
   pageSize: 10,
@@ -15,105 +15,102 @@ const tableOptions = {
 
 const Users = props => {
 
-  const [users, setUsers] = useState([]);
+  const [ammunitionModels, setammunitionModels] = useState([]);
   useEffect(() => {
-      getAllUsers()
+    getAllAmmunitionsModels()
         .then((response) => {
           if (!response.error) {
             // (response.data).forEach(user => setUsers(user));
             console.log(response)
-            setUsers(response.data)
+            setammunitionModels(response.data)
           }
         })
   }, []);
    const { addAlert } = props;
   // const [isLoading, setIsLoading] = useState(true);
 
-  const deleteUser = useCallback(
-    (oldUser) => {
+  const deleteAmmunitionModel = useCallback(
+    (oldAmmunitions) => {
       return new Promise((resolve, reject) => {
-        deleteUsers(oldUser.officerID)
+        deleteAmmunitionsModels(oldAmmunitions.ammoModelID)
               .then((response) => {
                 console.log(response);
                   if (!response.error) {
                       addAlert({
-                          message: "User deletion Successful!",
+                          message: "Ammunition Model deletion Successful!",
                       });
-                      setUsers(removeItemFromArray(users, 'officerID', oldUser.officerID, oldUser))
+                      setammunitionModels(removeItemFromArray(ammunitionModels, 'ammoModelID', oldAmmunitions.ammoModelID, oldAmmunitions))
                       return resolve();
                   }
                   return reject();
               })
       });
     },
-    [addAlert, users]
+    [addAlert, ammunitionModels]
   );
 
-  const updateUser = useCallback(
-    (newUser,oldUser) => {
+  const updateAmmunitionModel = useCallback(
+    (newAmmunitions,oldAmmunitions) => {
       return new Promise((resolve, reject) => {
-          updateUsers(oldUser.officerID, newUser)
+        updateAmmunitionsModels(oldAmmunitions.ammoModelID, newAmmunitions)
               .then((response) => {
                   if (!response.error) {
                       addAlert({
-                          message: "User Updated Successfully!",
+                          message: "Ammunition Model Updated Successfully!",
                       });
-                      setUsers(replaceItemInArray(users, 'officerID', newUser, oldUser.officerID))
+                      setammunitionModels(replaceItemInArray(ammunitionModels, 'ammoModelID', newAmmunitions, oldAmmunitions.ammoModelID))
                       return resolve();
                   }
                   return reject();
               })
       });
     },
-    [addAlert, users]
+    [addAlert, ammunitionModels]
   );
 
-  const saveUser = useCallback(
-    (newUser) => {
+  const saveAmmunitionModel = useCallback(
+    (newAmmunitions) => {
       var data=({
-        "officerID": newUser.officerID,
-        "name": newUser.name,
-        "email": newUser.email,
-        "stationID": newUser.stationID,
+        "ammoModelID": newAmmunitions.ammoModelID,
+        "name": newAmmunitions.name,
+        "description": newAmmunitions.description,
       })
       return new Promise((resolve, reject) => {
-        saveUsers(data)
+        saveAmmunitionsModels(data)
               .then((response) => {
                   if (!response.error) {
                       addAlert({
-                          message: "User Saved Successfully!",
+                          message: "Ammunition Model Saved Successfully!",
                       });
-                      setUsers(addItemToArray(users, data))
+                      setammunitionModels(addItemToArray(ammunitionModels, data))
                       return resolve();
                   }
                   return reject();
               })
         });
     },
-    [addAlert, users]
+    [addAlert, ammunitionModels]
   );
   
 
   const tableColumns = [
-    { title: "Id", field: "officerID" },
+    { title: "Ammunition Id", field: "ammoModelID" },
     { title: "Name", field: "name" },
-    { title: "Email", field: "email" },
-    { title: "Role", field: "role" },
-    { title: "stationId", field: "stationID" },
+    { title: "Description", field: "description" },
   ];
 
   if (false) {
     //return <Spinner />
   } else {
     return <Table
-      data={users}
-      title={UserTable}
+      data={ammunitionModels}
+      title={AmmunitionTable}
       columns={tableColumns}
       tableOptions={tableOptions}
       editable={{
-        onRowAdd: newData =>saveUser(newData),
-        onRowUpdate: (newData, oldData) =>updateUser(newData, oldData ),
-        onRowDelete: oldData => deleteUser(oldData),
+        onRowAdd: newData =>saveAmmunitionModel(newData),
+        onRowUpdate: (newData, oldData) =>updateAmmunitionModel(newData, oldData ),
+        onRowDelete: oldData => deleteAmmunitionModel(oldData),
       }}
     />
   }

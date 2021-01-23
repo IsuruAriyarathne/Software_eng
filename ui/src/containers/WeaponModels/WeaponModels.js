@@ -1,12 +1,12 @@
 import React , {useState, useEffect, useCallback } from "react";
 import { connect } from 'react-redux';
 
-import {getAllUsers, deleteUsers, updateUsers, saveUsers } from "../../api/UsersAPI"
+import {getAllWeaponModels, deleteWeaponModels, updateWeaponModels, saveWeaponModels } from "../../api/WeaponModelAPI"
 import {replaceItemInArray, removeItemFromArray, addItemToArray} from "../../shared/utility";
 import Table from "../../components/UI/Table/MaterialTable/Table";
 import * as actions from '../../store/actions/index';
 
-const UserTable = "User Table";
+const WeaponTable = "Weapon Table";
 
 const tableOptions = {
   pageSize: 10,
@@ -15,105 +15,102 @@ const tableOptions = {
 
 const Users = props => {
 
-  const [users, setUsers] = useState([]);
+  const [weaponModel, setweaponModel] = useState([]);
   useEffect(() => {
-      getAllUsers()
+    getAllWeaponModels()
         .then((response) => {
           if (!response.error) {
             // (response.data).forEach(user => setUsers(user));
             console.log(response)
-            setUsers(response.data)
+            setweaponModel(response.data)
           }
         })
   }, []);
    const { addAlert } = props;
   // const [isLoading, setIsLoading] = useState(true);
 
-  const deleteUser = useCallback(
-    (oldUser) => {
+  const deleteWeaponModel = useCallback(
+    (oldWeapons) => {
       return new Promise((resolve, reject) => {
-        deleteUsers(oldUser.officerID)
+        deleteWeaponModels(oldWeapons.weaponModelID)
               .then((response) => {
                 console.log(response);
                   if (!response.error) {
                       addAlert({
-                          message: "User deletion Successful!",
+                          message: "Weapon deletion Successful!",
                       });
-                      setUsers(removeItemFromArray(users, 'officerID', oldUser.officerID, oldUser))
+                      setweaponModel(removeItemFromArray(weaponModel, 'officerID', oldWeapons.weaponModelID, oldWeapons))
                       return resolve();
                   }
                   return reject();
               })
       });
     },
-    [addAlert, users]
+    [addAlert, weaponModel]
   );
 
-  const updateUser = useCallback(
-    (newUser,oldUser) => {
+  const updateWeaponModel = useCallback(
+    (newWeapons,oldWeapons) => {
       return new Promise((resolve, reject) => {
-          updateUsers(oldUser.officerID, newUser)
+        updateWeaponModels(oldWeapons.weaponModelID, newWeapons)
               .then((response) => {
                   if (!response.error) {
                       addAlert({
-                          message: "User Updated Successfully!",
+                          message: "Weapon MOdel Updated Successfully!",
                       });
-                      setUsers(replaceItemInArray(users, 'officerID', newUser, oldUser.officerID))
+                      setweaponModel(replaceItemInArray(weaponModel, 'officerID', newWeapons, oldWeapons.weaponModelID))
                       return resolve();
                   }
                   return reject();
               })
       });
     },
-    [addAlert, users]
+    [addAlert, weaponModel]
   );
 
-  const saveUser = useCallback(
-    (newUser) => {
+  const saveWeaponMOdel = useCallback(
+    (newWeapons) => {
       var data=({
-        "officerID": newUser.officerID,
-        "name": newUser.name,
-        "email": newUser.email,
-        "stationID": newUser.stationID,
+        "weaponModelID": newWeapons.weaponModelID,
+        "name": newWeapons.name,
+        "description": newWeapons.description,
       })
       return new Promise((resolve, reject) => {
-        saveUsers(data)
+        saveWeaponModels(data)
               .then((response) => {
                   if (!response.error) {
                       addAlert({
-                          message: "User Saved Successfully!",
+                          message: "Weapon MOdel Saved Successfully!",
                       });
-                      setUsers(addItemToArray(users, data))
+                      setweaponModel(addItemToArray(weaponModel, data))
                       return resolve();
                   }
                   return reject();
               })
         });
     },
-    [addAlert, users]
+    [addAlert, weaponModel]
   );
   
 
   const tableColumns = [
-    { title: "Id", field: "officerID" },
+    { title: "Weapon Id", field: "weaponModelID" },
     { title: "Name", field: "name" },
-    { title: "Email", field: "email" },
-    { title: "Role", field: "role" },
-    { title: "stationId", field: "stationID" },
+    { title: "Description", field: "description" },
   ];
 
   if (false) {
     //return <Spinner />
   } else {
     return <Table
-      data={users}
-      title={UserTable}
+      data={weaponModel}
+      title={WeaponTable}
       columns={tableColumns}
       tableOptions={tableOptions}
       editable={{
-        onRowAdd: newData =>saveUser(newData),
-        onRowUpdate: (newData, oldData) =>updateUser(newData, oldData ),
-        onRowDelete: oldData => deleteUser(oldData),
+        onRowAdd: newData =>saveWeaponMOdel(newData),
+        onRowUpdate: (newData, oldData) =>updateWeaponModel(newData, oldData ),
+        onRowDelete: oldData => deleteWeaponModel(oldData),
       }}
     />
   }

@@ -5,6 +5,7 @@ import { authRedirectPath } from '../../shared/consts';
 const initialState = {
     token: null,
     usertype: null,
+    stationID:null,
     error: null,
     loading: false,
     authRedirectPath: authRedirectPath
@@ -26,6 +27,7 @@ const authSuccess = (state, action) => {
         {
             token: action.idToken,
             usertype: action.usertype,
+            stationID: action.station,
             error: null,
             loading: false
         }
@@ -38,6 +40,7 @@ const authFail = (state, action) => {
         {
             token: null,
             usertype: null,
+            stationID: null,
             error: action.error,
             loading: false
         }
@@ -50,6 +53,7 @@ const authLogout = (state) => {
         {
             token: null,
             usertype: null,
+            stationID: null,
         }
     );
 };

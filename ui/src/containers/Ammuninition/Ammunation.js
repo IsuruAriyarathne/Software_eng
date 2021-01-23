@@ -1,7 +1,8 @@
 import React , {useState, useEffect, useCallback} from "react";
 import { connect } from 'react-redux';
 
-import {getAllAmmunition, deleteAmmunition,updateAmmunition, saveAmmunition  } from "../../api/AmmunitionAPI"
+import {getAllAmmunition, updateAmmunition} from "../../api/AmmunitionAPI"
+import {replaceItemInArray} from "../../shared/utility";
 import Table from "../../components/UI/Table/MaterialTable/Table";
 import * as actions from '../../store/actions/index';
 
@@ -17,8 +18,9 @@ const Ammunation = props => {
   
   const [ammunition, setAmmunition] = useState([]);
   useEffect(() => {
-    getAllAmmunition()
+    getAllAmmunition(props.stationID)
       .then((response) => {
+        console.log(response.data);
         if (!response.error) {
           // (response.data).forEach(user => setUsers(user));
           setAmmunition(response.data)
@@ -29,58 +31,33 @@ const Ammunation = props => {
   const { addAlert } = props;
   // const [isLoading, setIsLoading] = useState(true);
 
-  const deleteAmmunitions = useCallback(
-    (ammoModelID) => {
-      alert("You want to delete " + ammoModelID)
-      deleteAmmunition(ammoModelID)
-        .then((response) => {
-            console.log(response);
-            addAlert({
-              message: "Ammunition deletion Successful!",
-            });
-          
-        })
-    },
-    [addAlert]
-  );
-
   const updateAmmunitions = useCallback(
-    (id,data) => {
-      console.log(data)
-      updateAmmunition(id,data)
-        .then((response) => {
-            console.log(response);
-            addAlert({
-              message: "Weapon Ammunition Updated Successfully!",
-            });
-          
-        })
+    (newAmmunition,oldAmmunition) => {
+      return new Promise((resolve, reject) => {
+        updateAmmunition(oldAmmunition.ammoModelID, newAmmunition)
+              .then((response) => {
+                  if (!response.error) {
+                      addAlert({
+                          message: "Ammunition Updated Successfully!",
+                      });
+                      setAmmunition(replaceItemInArray(ammunition, 'ammunitionID', newAmmunition, oldAmmunition.ammoModelID))
+                      return resolve();
+                  }
+                  return reject();
+              })
+      });
     },
-    [addAlert]
+    [addAlert, ammunition]
   );
 
-  const saveAmmunitions = useCallback(
-    (data) => {
-      saveAmmunition(data)
-        .then((response) => {
-          if (!response.error){
-            addAlert({
-              message: "Ammunition Saved Successfully!",
-            });
-          }else{
-            console.log(response.error)
-          }
-        })
-    },
-    [addAlert]
-  );
-  
 
   const tableColumns = [
     { title: "Ammunition Model ID", field: "ammoModelID" },
-    { title: "Weapon Model ID", field: "weaponModelID" },
-    
-    
+    { title: "count", field: "count" }, 
+    { title: "Name", field: "name" }, 
+    { title: "Remanig", field: "remaining" }, 
+    { title: "Description", field: "description" }, 
+    { title: "Allocated Date", field: "allocatedDate" }, 
   ];
 
   if (false) {
@@ -92,28 +69,18 @@ const Ammunation = props => {
     columns={tableColumns}
     tableOptions={tableOptions}
     editable={{
-        onRowAdd: newData =>{
-           var data=({
-            "ammoModelID": newData.ammoModelID,
-            "weaponModelID": newData.weaponModelID,
-             
-            })
-            saveAmmunitions(data)
-        },
-        onRowUpdate: (newData, oldData) =>{
-          updateAmmunitions(oldData.ammoModelID, newData )
-        },
-        onRowDelete: oldData =>
-          new Promise((resolve, reject) => {
-            deleteAmmunitions(oldData.ammoModelID);
-          }),
-          // {
-        //   deleteUser(oldData.officerID);
-        // },
-      }}
+      onRowUpdate: (newData, oldData) =>updateAmmunitions(newData, oldData ),
+    }}
     />
   }
 };
+
+const mapStateToProps = (state) => {
+  return {
+      error: state.auth.error,
+      stationID:state.auth.stationID,
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -121,6 +88,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-export default connect(null, mapDispatchToProps)(Ammunation);
+export default connect(mapStateToProps, mapDispatchToProps)(Ammunation);
 
 //export default (Ammunation);

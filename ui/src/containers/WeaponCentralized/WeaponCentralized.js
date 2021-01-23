@@ -1,7 +1,7 @@
 import React , {useState, useEffect, useCallback } from "react";
 import { connect } from 'react-redux';
 
-import {getAllUsers, deleteUsers, updateUsers, saveUsers } from "../../api/UsersAPI"
+import {getAllWeapons, deleteWeapons, updateWeapons, saveWeapons } from "../../api/WeaponCentralizedAPI"
 import {replaceItemInArray, removeItemFromArray, addItemToArray} from "../../shared/utility";
 import Table from "../../components/UI/Table/MaterialTable/Table";
 import * as actions from '../../store/actions/index';
@@ -17,7 +17,7 @@ const Users = props => {
 
   const [users, setUsers] = useState([]);
   useEffect(() => {
-      getAllUsers()
+    getAllWeapons()
         .then((response) => {
           if (!response.error) {
             // (response.data).forEach(user => setUsers(user));
@@ -32,7 +32,7 @@ const Users = props => {
   const deleteUser = useCallback(
     (oldUser) => {
       return new Promise((resolve, reject) => {
-        deleteUsers(oldUser.officerID)
+        deleteWeapons(oldUser.officerID)
               .then((response) => {
                 console.log(response);
                   if (!response.error) {
@@ -52,7 +52,7 @@ const Users = props => {
   const updateUser = useCallback(
     (newUser,oldUser) => {
       return new Promise((resolve, reject) => {
-          updateUsers(oldUser.officerID, newUser)
+        updateWeapons(oldUser.officerID, newUser)
               .then((response) => {
                   if (!response.error) {
                       addAlert({
@@ -77,7 +77,7 @@ const Users = props => {
         "stationID": newUser.stationID,
       })
       return new Promise((resolve, reject) => {
-        saveUsers(data)
+        saveWeapons(data)
               .then((response) => {
                   if (!response.error) {
                       addAlert({
