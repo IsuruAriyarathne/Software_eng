@@ -23,6 +23,17 @@ export const addItemToArray = (array, item) => {
     return newArray;
 }
 
+
+export const addItemRemoveDuplicate = (idtype,array,newarr) =>{
+    let result = [];
+    newarr.forEach(item => {
+        let index = array.findIndex(entry => entry[idtype] == item[idtype] )
+        if(index<0){
+            result.push(item)
+        }
+    })
+    return result;
+}
 /**
  * Used to remve item from an array immutabaly 
  * @param {array} array the original JS array

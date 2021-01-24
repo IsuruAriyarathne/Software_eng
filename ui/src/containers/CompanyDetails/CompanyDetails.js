@@ -8,8 +8,8 @@ import { getDetails } from '../../api/CompaniesAPI';
 // import { changePassword } from "../../api/UsersAPI";
 import * as actions from '../../store/actions/index';
 // import { SNACKBAR } from "../../components/UI/FHSnackBar/FHSnackBar";
-import { updateCompanies, saveCompanies,deleteCompanies } from '../../api/CompaniesAPI';
-import { replaceItemInArray, removeItemFromArray, addItemToArray } from '../../shared/utility';
+import { updateCompanies,deleteCompanyAmmuition, deleteCompanyWeapon} from '../../api/CompaniesAPI';
+import { replaceItemInArray, removeItemFromArray, addItemToArray, addItemRemoveDuplicate } from '../../shared/utility';
 import Table from '../../components/UI/Table/MaterialTable/Table';
 
 const ammunitionTable = 'Ammunition Supply Table';
@@ -42,7 +42,7 @@ const CompanyDetail = (props) => {
 	const deleteAmo = useCallback(
 		(oldData) => {
 			return new Promise((resolve, reject) => {
-				deleteCompanies(oldData.ammoModelID).then((response) => {
+				deleteCompanyAmmuition(id,oldData.ammoModelID).then((response) => {
 					console.log(response);
 					if (!response.error) {
 						addAlert({
@@ -76,8 +76,8 @@ const CompanyDetail = (props) => {
 						addAlert({
 							message: 'Ammunition Saved Successfully!',
             });
-            console.log(response.data);
-						setAmmunitionTypes(addItemToArray(ammunitionTypes, response.data.SupplyAmmunition));
+            let arr = addItemRemoveDuplicate('ammoModelID', ammunitionTypes,response.data.SupplyAmmunition);
+						setAmmunitionTypes(addItemToArray(ammunitionTypes,arr[0]));
 						return resolve();
 					}
 					return reject();
@@ -90,12 +90,13 @@ const CompanyDetail = (props) => {
 	const deleteWeapon = useCallback(
 		(oldData) => {
 			return new Promise((resolve, reject) => {
-				deleteCompanies(oldData.weaponModelID).then((response) => {
+				deleteCompanyWeapon(id,oldData.weaponModelID).then((response) => {
 					console.log(response);
 					if (!response.error) {
 						addAlert({
 							message: 'Weapon deletion Successful!',
-						});
+            });
+            
 						setWeaponModels(
 							removeItemFromArray(weaponModels, 'weaponModelID', oldData.weaponModelID, oldData)
 						);
@@ -118,8 +119,9 @@ const CompanyDetail = (props) => {
 					if (!response.error) {
 						addAlert({
 							message: 'Weapon Saved Successfully!',
-						});
-						setWeaponModels(addItemToArray([], response.data.SupplyWeapon));
+            });
+            let arr = addItemRemoveDuplicate('weaponModelID', weaponModels,response.data.SupplyWeapon);
+						setWeaponModels(addItemToArray(weaponModels,arr[0]));
 						return resolve();
 					}
 					return reject();
