@@ -1,12 +1,14 @@
 import React , {useState, useEffect, useCallback } from "react";
 import { connect } from 'react-redux';
+import { useHistory } from "react-router-dom";
 
 import {getAllWeapons, deleteWeapons, updateWeapons, saveWeapons } from "../../api/WeaponCentralizedAPI"
 import {replaceItemInArray, removeItemFromArray, addItemToArray} from "../../shared/utility";
 import Table from "../../components/UI/Table/MaterialTable/Table";
 import * as actions from '../../store/actions/index';
+import { Button } from "@material-ui/core";
 
-const UserTable = "User Table";
+const UserTable = "Weapons Table";
 
 const tableOptions = {
   pageSize: 10,
@@ -14,7 +16,7 @@ const tableOptions = {
 };
 
 const Users = props => {
-
+  let history = useHistory();
   const [users, setUsers] = useState([]);
   useEffect(() => {
     getAllWeapons()
@@ -94,12 +96,18 @@ const Users = props => {
     [addAlert, users]
   );
 
+  const renderRWeaponbtn = useCallback(
+    (rowData) => <Button color="primary" onClick={() => history.push(`recovery/weapons/${rowData.weaponID}`)}>View Weapon</Button>,
+    [history]
+  );
+
   const tableColumns = [
     { title: "Weapon ID", field: "weaponID" },
     { title: "Name", field: "name" },
     { title: "Total Cost", field: "totalCost" },
     { title: "Date", field: "date" },
     { title: "Supplier ID", field: "supplierID" },
+    { title: "Weapon", render: renderRWeaponbtn},
   ];
 
   if (false) {

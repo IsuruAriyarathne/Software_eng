@@ -1,33 +1,37 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
-import { connect } from "react-redux";
 
 import clsx from 'clsx';
 import grey from '@material-ui/core/colors/grey';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
+import Box from '@material-ui/core/Box';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
+import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import PeopleIcon from '@material-ui/icons/People';
-import HomeIcon from '@material-ui/icons/Home';
-import * as routez from '../../shared/routes';   //line 1
-import { authLogout } from "../../store/actions/index";   //line2
-import { Button } from "@material-ui/core";
+import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import BallotIcon from '@material-ui/icons/Ballot';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import * as routez from '../../shared/routes';
 
-import Users from '../../containers/Users/users'
+import WeaponDetails from '../../containers/WeaponsDetail/WeaponDetails'
+import Weapon from '../../containers/WeaponCentralized/WeaponCentralized'
 
 const drawerWidth = 240;
 
@@ -111,16 +115,12 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     backgroundColor: grey[300],
   },
-  //add meu button
-  menuButtonlog: {
-    color: "white"
-  }
   // fixedHeight: {
   //   height: '100%',
   // },
 }));
 
-function Dashboard(props) {
+export default function Dashboard() {
   const classes = useStyles();
   const history = useHistory();
   const [open, setOpen] = React.useState(true);
@@ -131,13 +131,6 @@ function Dashboard(props) {
     setOpen(false);
   };
   // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
-  const { onauthLogout, isAuthenticated } = props;
-
-  const handleLogout = () => {
-		onauthLogout();
-		history.push("/");
-	};
 
   return (
     <div className={classes.root}>
@@ -156,9 +149,11 @@ function Dashboard(props) {
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             SLFire
           </Typography>
-          <Button className={classes.menuButtonlog} onClick={() => handleLogout()}>
-            Logout
-          </Button>
+          <IconButton color="inherit">
+            <Badge badgeContent={4} color="secondary">
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -175,15 +170,51 @@ function Dashboard(props) {
         </div>
         <Divider />
         <List  className={classes.papernav}>
-          <ListItem button onClick={() => history.push(`${routez.USERS}`)}>
+          <ListItem button onClick={() => history.push(`${routez.COMPANIES}`)}>
             <ListItemIcon>
-              <PeopleIcon />
+              <ArrowDropDownCircleIcon />
             </ListItemIcon>
-            <ListItemText primary="Users" />
+            <ListItemText primary="Companies" />
           </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.STATIONS}`)}>
+          <ListItem button onClick={() => history.push(`${routez.AMMUNATIONSCEN}`)}>
             <ListItemIcon>
-              <HomeIcon />
+              <ArrowDropDownCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Ammunitions" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.WEAPONSCEN}`)}>
+            <ListItemIcon>
+              <ArrowDropDownCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Weapons" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.WEAPONMODELS}`)}>
+            <ListItemIcon>
+              <ArrowDropDownCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Weapon Moedls" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.AMMUNITIONMODELS}`)}>
+            <ListItemIcon>
+              <ArrowDropDownCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Ammunition Models" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.CENRECOVERY}`)}>
+            <ListItemIcon>
+              <AssignmentIcon />
+            </ListItemIcon>
+            <ListItemText primary="Recovery" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.CENMAINTENANCE}`)}>
+            <ListItemIcon>
+              <BallotIcon />
+            </ListItemIcon>
+            <ListItemText primary="Maintenance" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.CENSTATIONS}`)}>
+            <ListItemIcon>
+              <AccountBalanceIcon />
             </ListItemIcon>
             <ListItemText primary="Stations" />
           </ListItem>
@@ -195,7 +226,8 @@ function Dashboard(props) {
           <Grid container spacing={3}>
             {/* Chart */}
             <Grid item xs={12} md={12} lg={12}>
-                <Users />
+                <WeaponDetails />
+                <Weapon />
             </Grid>
           </Grid>
         </Container>
@@ -203,17 +235,3 @@ function Dashboard(props) {
     </div>
   );
 }
-
-const mapStateToProps = (state) => {
-	return {
-		isAuthenticated: state.auth.token != null,
-	};
-};
-
-const mapDispatchToProps = (dispatch) => {
-	return {
-		onauthLogout: () => dispatch(authLogout()),
-	};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

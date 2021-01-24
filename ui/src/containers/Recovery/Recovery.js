@@ -109,7 +109,7 @@ const RecoveryView = props => {
     { title: "Recovery ID", field: "recoveryID" },
     { title: "Recovery Date", field: "recoveryDate" },
     { title: "Description", field: "description" },
-    { title: "Profile", render: renderRecoverybtn},
+    { title: "Recovery", render: renderRecoverybtn},
     // { title: "station Id", field: "stationID" },
   ];
 

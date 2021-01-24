@@ -28,7 +28,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
 import * as routez from '../../shared/routes';
 
-import AmmunitionCentralized from '../../containers/AmmunitionCentralized/AmmunitionCentralized'
 import WeaponCentralized from '../../containers/WeaponCentralized/WeaponCentralized';
 
 const drawerWidth = 240;
