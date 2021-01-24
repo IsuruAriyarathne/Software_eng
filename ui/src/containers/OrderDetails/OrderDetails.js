@@ -20,7 +20,7 @@ const OrderDetail = (props) => {
 	const { orderID } = useParams();
 	const [orderWeapons, setorderWeapons] = useState([]);
 	const [orderAmmunitions, setorderAmmunitions] = useState([]);
-    console.log(orderID);
+	console.log(orderID);
 	useEffect(() => {
 		getOrder(orderID).then((response) => {
 			if (!response.error) {
@@ -62,8 +62,8 @@ const OrderDetail = (props) => {
 						});
 						setorderAmmunitions(
 							replaceItemInArray(orderAmmunitions, 'ammoModelID', newData, oldData.ammoModelID)
-                        );
-                        console.log(orderAmmunitions);
+						);
+						console.log(orderAmmunitions);
 						return resolve();
 					}
 					return reject();
@@ -78,7 +78,7 @@ const OrderDetail = (props) => {
 			var data = {
 				AmmoOrder: [
 					{
-                        orderID:orderID,
+						orderID: orderID,
 						ammoModelID: newStation.ammoModelID,
 						count: newStation.count,
 						state: newStation.state,
@@ -91,11 +91,7 @@ const OrderDetail = (props) => {
 						addAlert({
 							message: 'Order Saved Successfully!',
 						});
-						let arr = addItemRemoveDuplicate(
-							'ammoModelID',
-							orderAmmunitions,
-							response.data.AmmoOrder
-						);
+						let arr = addItemRemoveDuplicate('ammoModelID', orderAmmunitions, response.data.AmmoOrder);
 						setorderAmmunitions(addItemToArray(orderAmmunitions, arr[0]));
 						return resolve();
 					}
@@ -103,7 +99,7 @@ const OrderDetail = (props) => {
 				});
 			});
 		},
-		[orderID,addAlert, orderAmmunitions]
+		[orderID, addAlert, orderAmmunitions]
 	);
 
 	const deleteWeapon = useCallback(
@@ -124,7 +120,7 @@ const OrderDetail = (props) => {
 				});
 			});
 		},
-		[orderID,addAlert, orderWeapons]
+		[orderID, addAlert, orderWeapons]
 	);
 
 	const updateWeapon = useCallback(
@@ -137,8 +133,8 @@ const OrderDetail = (props) => {
 						});
 						setorderAmmunitions(
 							replaceItemInArray(orderWeapons, 'weaponModelID', newData, oldData.WeaponOrder)
-                        );
-                        
+						);
+
 						return resolve();
 					}
 					return reject();
@@ -153,7 +149,7 @@ const OrderDetail = (props) => {
 			var data = {
 				WeaponOrder: [
 					{
-                        orderID:orderID,
+						orderID: orderID,
 						weaponModelID: newStation.weaponModelID,
 						count: newStation.count,
 						state: newStation.state,
@@ -165,11 +161,11 @@ const OrderDetail = (props) => {
 					if (!response.error) {
 						addAlert({
 							message: 'Weapon Saved Successfully!',
-            });
-            console.log(response.data);
-            let arr = addItemRemoveDuplicate('weaponModelID',orderWeapons,response.data.WeaponOrder)
-            console.log(arr);
-					setorderWeapons(addItemToArray(orderWeapons, arr[0]));
+						});
+						console.log(response.data);
+						let arr = addItemRemoveDuplicate('weaponModelID', orderWeapons, response.data.WeaponOrder);
+						console.log(arr);
+						setorderWeapons(addItemToArray(orderWeapons, arr[0]));
 						return resolve();
 					}
 					return reject();
@@ -183,14 +179,22 @@ const OrderDetail = (props) => {
 		{ title: 'Model ID', field: 'ammoModelID' },
 		{ title: 'Name', field: 'name' },
 		{ title: 'Count', field: 'count' },
-		{ title: 'State', field: 'state' },
+		{
+			title: 'State',
+			field: 'state',
+			lookup: { Pending: 'Pending', Complete: 'Complete', Returned: 'Returned', Rejected: 'Rejected' },
+		},
 	];
 
 	const tableColumnsWeapon = [
 		{ title: 'Model ID', field: 'weaponModelID' },
 		{ title: 'Name', field: 'name' },
 		{ title: 'Count', field: 'count' },
-		{ title: 'State', field: 'state' },
+		{
+			title: 'State',
+			field: 'state',
+			lookup: { Pending: 'Pending', Complete: 'Complete', Returned: 'Returned', Rejected: 'Rejected' },
+		},
 	];
 
 	if (false) {
