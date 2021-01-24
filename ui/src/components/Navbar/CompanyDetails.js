@@ -33,6 +33,7 @@ import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import BallotIcon from '@material-ui/icons/Ballot';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import Button from '@material-ui/core/Button';
+import TouchAppIcon from '@material-ui/icons/TouchApp';
 
 import Company from '../../containers/Companies/Companies'
 import CompanyView from '../../containers/CompanyDetails/CompanyDetails';
@@ -238,6 +239,12 @@ function Dashboard(props) {
               <AccountBalanceIcon />
             </ListItemIcon>
             <ListItemText primary="Stations" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.VIEWREQUEST}`)}>
+            <ListItemIcon>
+              <TouchAppIcon />
+            </ListItemIcon>
+            <ListItemText primary="View Requests" />
           </ListItem>
         </List>
       </Drawer>

@@ -1,11 +1,13 @@
 import React , {useState, useEffect, useCallback } from "react";
 import { connect } from 'react-redux';
+import { useHistory } from "react-router-dom";
 
 import {deleteRecovery, updateRecovery } from "../../api/RecoverAPI"
 import {getAllOrders} from "../../api/OrderAPI"
 import {replaceItemInArray, removeItemFromArray} from "../../shared/utility";
 import Table from "../../components/UI/Table/MaterialTable/Table";
 import * as actions from '../../store/actions/index';
+import Button from '@material-ui/core/Button';
 
 const ReoveryTable = "Order Table";
 
@@ -15,6 +17,7 @@ const tableOptions = {
 };
 
 const ViewOrders = props => {
+  const history = useHistory();
   const [orders, setOrders] = useState([]);
   useEffect(() => {
     getAllOrders()
@@ -32,14 +35,14 @@ const ViewOrders = props => {
   const deleteOrders = useCallback(
     (oldWeapon) => {
       return new Promise((resolve, reject) => {
-        deleteRecovery(oldWeapon.supplierID)
+        deleteRecovery(oldWeapon.orderID)
               .then((response) => {
                 console.log(response);
                   if (!response.error) {
                       addAlert({
                           message: "Weapon deletion Successful!",
                       });
-                      setOrders(removeItemFromArray(orders, 'supplierID', oldWeapon.supplierID, oldWeapon))
+                      setOrders(removeItemFromArray(orders, 'orderID', oldWeapon.orderID, oldWeapon))
                       return resolve();
                   }
                   return reject();
@@ -52,13 +55,13 @@ const ViewOrders = props => {
   const updateOrders = useCallback(
     (newWeapon,oldWeapon) => {
       return new Promise((resolve, reject) => {
-        updateRecovery(oldWeapon.supplierID, newWeapon)
+        updateRecovery(oldWeapon.orderID, newWeapon)
               .then((response) => {
                   if (!response.error) {
                       addAlert({
                           message: "Weapon Updated Successfully!",
                       });
-                      setOrders(replaceItemInArray(orders, 'supplierID', newWeapon, oldWeapon.supplierID))
+                      setOrders(replaceItemInArray(orders, 'orderID', newWeapon, oldWeapon.orderID))
                       return resolve();
                   }
                   return reject();
@@ -94,15 +97,18 @@ const ViewOrders = props => {
 //     [addAlert, orders]
 //   );
   
-  // const renderRecoveries = useCallback(rowData => 
-  //   <RecoverySimpletable recoveries={[rowData.RecoveredAmmunitions]} />, []
-  // );
+  const renderViewbtn = useCallback(rowData => 
+    (rowData) => <Button color="primary" onClick={() => history.push(`order/${rowData.orderID}`)}>Company Details</Button>,
+    [history]
+  );
   
   const tableColumns = [
+    { title: "Order ID", field: "orderID", editable:"never" },
     { title: "Supplier ID", field: "supplierID", editable:"never" },
     { title: "Name", field: "name", editable:"never" },
     { title: "Date", field: "date", editable:"never" },
     { title: "State", field: "state", lookup: { Complete:"Complete", Returned:"Returned", Pending:"Pending"} },
+    { title: "View", render: renderViewbtn},
     // { title: "station Id", field: "stationID" },
   ];
 

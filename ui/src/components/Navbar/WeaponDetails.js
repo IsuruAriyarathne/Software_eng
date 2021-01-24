@@ -22,6 +22,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Button from '@material-ui/core/Button';
+import TouchAppIcon from '@material-ui/icons/TouchApp';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -236,6 +237,12 @@ function Dashboard(props) {
               <AccountBalanceIcon />
             </ListItemIcon>
             <ListItemText primary="Stations" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.VIEWREQUEST}`)}>
+            <ListItemIcon>
+              <TouchAppIcon />
+            </ListItemIcon>
+            <ListItemText primary="View Requests" />
           </ListItem>
         </List>
       </Drawer>

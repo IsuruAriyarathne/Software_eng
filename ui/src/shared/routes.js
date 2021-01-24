@@ -19,3 +19,4 @@ export const CENRECOVERY = '/cenrecovery';
 export const CENMAINTENANCE = '/cenmaintenance';
 export const CENSTATIONS = '/censtations';
 export const VIEWORDERS = '/vieworders';
+export const VIEWREQUEST = '/viewrequest'

@@ -23,6 +23,7 @@ import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import BallotIcon from '@material-ui/icons/Ballot';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import Button from '@material-ui/core/Button';
+import ShopIcon from '@material-ui/icons/Shop';  
 import TouchAppIcon from '@material-ui/icons/TouchApp';
 
 import ListItem from '@material-ui/core/ListItem';
@@ -30,13 +31,14 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
 import * as routez from '../../shared/routes';
-import { authLogout } from "../../store/actions/index";   
-import ShopIcon from '@material-ui/icons/Shop';
+import { authLogout } from "../../store/actions/index";
+
+import Maintenance from '../../containers/CENViews/CENMaintenance';
 
 import { removeAlert } from '../../store/actions/index';
 import Alert from '../../components/UI/FHAlert/FHAlert';
 
-import Orders from '../../containers/Orrders/Orders';
+import Users from '../../containers/Users/users';
 
 const drawerWidth = 240;
 
@@ -142,14 +144,16 @@ function Dashboard(props) {
 
   const { onauthLogout, isAuthenticated } = props;
 
-  const handleLogout = () => {
+    const handleLogout = () => {
 		onauthLogout();
 		history.push("/");
-  };
+   };
+   
   const removeAlert = props.removeAlert;
   const handleAlertClose = useCallback((alertId) => {
       removeAlert(alertId);
   }, [removeAlert]);
+
 
   return (
     <div className={classes.root}>
@@ -256,7 +260,7 @@ function Dashboard(props) {
             {/* Chart */}
             <Grid item xs={12} md={12} lg={12}>
                 <Alert handleAlertClose={handleAlertClose} alerts={props.alerts} />
-                <Orders />
+                <Maintenance />
             </Grid>
           </Grid>
         </Container>

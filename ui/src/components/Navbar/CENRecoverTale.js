@@ -31,6 +31,7 @@ import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
 import * as routez from '../../shared/routes';
 import { authLogout } from "../../store/actions/index";
 import Button from '@material-ui/core/Button';
+import TouchAppIcon from '@material-ui/icons/TouchApp';
 
 import Recover from '../../containers/CENViews/CENRecover';
 
@@ -243,6 +244,12 @@ function Dashboard(props) {
               <ShopIcon />
             </ListItemIcon>
             <ListItemText primary="ViewOrders" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.VIEWREQUEST}`)}>
+            <ListItemIcon>
+              <TouchAppIcon />
+            </ListItemIcon>
+            <ListItemText primary="View Requests" />
           </ListItem>
         </List>
       </Drawer>
