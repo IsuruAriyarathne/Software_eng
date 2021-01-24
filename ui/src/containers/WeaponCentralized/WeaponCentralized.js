@@ -31,6 +31,32 @@ const Users = props => {
    const { addAlert } = props;
   // const [isLoading, setIsLoading] = useState(true);
 
+<<<<<<< HEAD
+=======
+  const deleteUser = useCallback(
+    (oldUser) => {
+      return new Promise((resolve, reject) => {
+        deleteWeapons(oldUser.weaponID)
+              .then((response) => {
+                console.log(response);
+                  if (!response.error) {
+                      addAlert({
+                          message: "User deletion Successful!",
+                      });
+                      setUsers(removeItemFromArray(users, 'weaponID', oldUser.weaponID, oldUser))
+                      return resolve();
+                  }
+                  addAlert({
+                    message: "Failed!",
+                  });
+                  return reject();
+              })
+      });
+    },
+    [addAlert, users]
+  );
+
+>>>>>>> test
   const updateUser = useCallback(
     (newUser,oldUser) => {
       return new Promise((resolve, reject) => {
@@ -43,6 +69,9 @@ const Users = props => {
                       setUsers(replaceItemInArray(users, 'weaponID', newUser, oldUser.weaponID))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Failed!",
+                  });
                   return reject();
               })
       });

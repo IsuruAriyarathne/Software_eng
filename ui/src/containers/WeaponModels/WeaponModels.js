@@ -43,6 +43,9 @@ const Users = props => {
                       setweaponModel(removeItemFromArray(weaponModel, 'weaponModelID', oldWeapons.weaponModelID, oldWeapons))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Failed!",
+                  });
                   return reject();
               })
       });
@@ -62,6 +65,9 @@ const Users = props => {
                       setweaponModel(replaceItemInArray(weaponModel, 'weaponModelID', newWeapons, oldWeapons.weaponModelID))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Failed!",
+                  });
                   return reject();
               })
       });
@@ -86,6 +92,9 @@ const Users = props => {
                       setweaponModel(addItemToArray(weaponModel, response.data))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Failed!",
+                  });
                   return reject();
               })
         });

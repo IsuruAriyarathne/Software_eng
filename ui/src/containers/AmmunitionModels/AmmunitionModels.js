@@ -42,6 +42,9 @@ const Users = props => {
                       setammunitionModels(removeItemFromArray(ammunitionModels, 'ammoModelID', oldAmmunitions.ammoModelID, oldAmmunitions))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Failed!",
+                  });
                   return reject();
               })
       });
@@ -61,6 +64,9 @@ const Users = props => {
                       setammunitionModels(replaceItemInArray(ammunitionModels, 'ammoModelID', newAmmunitions, oldAmmunitions.ammoModelID))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Failed!",
+                  });
                   return reject();
               })
       });
@@ -85,6 +91,9 @@ const Users = props => {
                       setammunitionModels(addItemToArray(ammunitionModels, response.data))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Failed!",
+                  });
                   return reject();
               })
         });

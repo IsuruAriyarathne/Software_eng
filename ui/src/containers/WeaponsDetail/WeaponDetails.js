@@ -49,6 +49,9 @@ const WeaponDetails = props => {
                           setweaponDetails(removeItemFromArray(weaponDetails, 'weaponModelID', oldData.weaponModelID, oldData))
                           return resolve();
                       }
+                      addAlert({
+                        message: "Failed!",
+                      });
                       return reject();
                   })
           });
@@ -68,6 +71,9 @@ const WeaponDetails = props => {
                         setweaponDetails(replaceItemInArray(weaponDetails, 'weaponModelID', newData, oldData.weaponModelID))
                         return resolve();
                     }
+                    addAlert({
+                      message: "Failed!",
+                    });
                     return reject();
                 })
           })

@@ -49,6 +49,9 @@ const Ammunation = props => {
                       setAmmunition(replaceItemInArray(ammunition, 'ammunitionID', newAmmunition, oldAmmunition.ammoModelID))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Ammunition Updated Unsuccessfully!",
+                  });
                   return reject();
               })
       });

@@ -29,6 +29,7 @@ const Users = props => {
    const { addAlert } = props;
   // const [isLoading, setIsLoading] = useState(true);
 
+<<<<<<< HEAD
   // const deleteUser = useCallback(
   //   (oldUser) => {
   //     return new Promise((resolve, reject) => {
@@ -48,6 +49,30 @@ const Users = props => {
   //   },
   //   [addAlert, users]
   // );
+=======
+  const deleteUser = useCallback(
+    (oldUser) => {
+      return new Promise((resolve, reject) => {
+        deleteAmmunitions(oldUser.officerID)
+              .then((response) => {
+                console.log(response);
+                  if (!response.error) {
+                      addAlert({
+                          message: "User deletion Successful!",
+                      });
+                      setUsers(removeItemFromArray(users, 'officerID', oldUser.officerID, oldUser))
+                      return resolve();
+                  }
+                  addAlert({
+                    message: "User deletion Unsuccessful!",
+                  });
+                  return reject();
+              })
+      });
+    },
+    [addAlert, users]
+  );
+>>>>>>> test
 
   const updateUser = useCallback(
     (newUser,oldUser) => {
@@ -61,6 +86,9 @@ const Users = props => {
                       setUsers(replaceItemInArray(users, 'officerID', newUser, oldUser.officerID))
                       return resolve();
                   }
+                  addAlert({
+                    message: "User Updated Unsuccessfully!",
+                  });
                   return reject();
               })
       });

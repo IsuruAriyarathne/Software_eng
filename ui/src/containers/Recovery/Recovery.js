@@ -89,6 +89,9 @@ const RecoveryView = props => {
                       setRecovery(addItemToArray(recovery, response.data))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Failed!",
+                  });
                   return reject();
               })
         });

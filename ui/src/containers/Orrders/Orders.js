@@ -45,6 +45,9 @@ const ViewOrders = props => {
                       setOrders(removeItemFromArray(orders, 'orderID', oldWeapon.orderID, oldWeapon))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Failed!",
+                  });
                   return reject();
               })
       });
@@ -64,6 +67,9 @@ const ViewOrders = props => {
                       setOrders(replaceItemInArray(orders, 'orderID', newWeapon, oldWeapon.orderID))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Failed!",
+                  });
                   return reject();
               })
       });
