@@ -22,6 +22,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import BallotIcon from '@material-ui/icons/Ballot';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import Button from '@material-ui/core/Button';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';

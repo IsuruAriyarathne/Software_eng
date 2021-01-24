@@ -25,7 +25,7 @@ const Users = props => {
             setMaintenance(response.data)
           }
         })
-  }, []);
+  }, [props.stationID]);
    const { addAlert } = props;
   // const [isLoading, setIsLoading] = useState(true);
 

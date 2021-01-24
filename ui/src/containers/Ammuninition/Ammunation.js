@@ -26,7 +26,7 @@ const Ammunation = props => {
           setAmmunition(response.data)
         }
       })
-}, []);
+}, [props.stationID]);
 
   const { addAlert } = props;
   // const [isLoading, setIsLoading] = useState(true);

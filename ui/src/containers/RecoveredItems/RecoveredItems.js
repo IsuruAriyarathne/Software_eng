@@ -2,18 +2,12 @@ import { useEffect, useState ,useCallback} from 'react';
 import { connect } from 'react-redux';
 
 import { useParams } from "react-router-dom";
-import { Paper } from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles';
 // import Spinner from "../../components/UI/Spinner/Spinner";
 import { getRecovery } from '../../api/RecoverAPI';
-import Button from '@material-ui/core/Button';
-import { updateObject, formIsValid } from '../../shared/utility';
-import { checkValidity } from '../../shared/validate';
-import { buildTextFields } from '../../helpers/uiHelpers';
 // import { changePassword } from "../../api/UsersAPI";
 import * as actions from '../../store/actions/index';
 // import { SNACKBAR } from "../../components/UI/FHSnackBar/FHSnackBar";
-import {getAllStations, deleteStations, updateStations, saveStations } from "../../api/Stations"
+import { deleteStations, updateStations, saveStations } from "../../api/Stations"
 import {replaceItemInArray, removeItemFromArray, addItemToArray} from "../../shared/utility";
 import Table from "../../components/UI/Table/MaterialTable/Table";
 
@@ -43,7 +37,7 @@ const RecoveryDetail = props => {
                     setrecoveredweapons(response.data.RecoveredWeapons);
                 }
             })
-    }, [recoveredammunitions,recoveredweapons, id]);
+    }, [recoveredammunitions,recoveredweapons,props.stationID, id]);
 
     const deleteAmo = useCallback(
         (oldData) => {
