@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useCallback} from 'react';
 import { useHistory } from "react-router-dom";
 
 import clsx from 'clsx';
@@ -31,8 +31,12 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import * as routez from '../../shared/routes';
 import { authLogout } from "../../store/actions/index";   
 
-import WeaponDetails from '../../containers/WeaponsDetail/WeaponDetails'
-import Weapon from '../../containers/WeaponCentralized/WeaponCentralized'
+import WeaponDetails from '../../containers/WeaponsDetail/WeaponDetails';
+import Weapon from '../../containers/WeaponCentralized/WeaponCentralized';
+import { removeAlert } from '../../store/actions/index';
+import Alert from '../../components/UI/FHAlert/FHAlert';
+
+import Users from '../../containers/Users/users';
 
 const drawerWidth = 240;
 

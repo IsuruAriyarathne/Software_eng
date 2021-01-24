@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useCallback} from 'react';
 import { useHistory } from "react-router-dom";
 
 import clsx from 'clsx';
@@ -29,7 +29,12 @@ import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
 import * as routez from '../../shared/routes';
 import { authLogout } from "../../store/actions/index";
 
-import Stations from '../../containers/CENViews/CENStations'
+import Stations from '../../containers/CENViews/CENStations';
+
+import { removeAlert } from '../../store/actions/index';
+import Alert from '../../components/UI/FHAlert/FHAlert';
+
+import Users from '../../containers/Users/users';
 
 const drawerWidth = 240;
 

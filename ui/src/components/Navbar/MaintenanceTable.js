@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useCallback} from 'react';
 import { useHistory } from "react-router-dom";
 
 import clsx from 'clsx';
@@ -29,7 +29,12 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import * as routez from '../../shared/routes';
 import { authLogout } from "../../store/actions/index";
-import Maintenance from '../../containers/Maintenance/Maintenance'
+import Maintenance from '../../containers/Maintenance/Maintenance';
+
+import { removeAlert } from '../../store/actions/index';
+import Alert from '../../components/UI/FHAlert/FHAlert';
+
+import Users from '../../containers/Users/users';
 
 
 const drawerWidth = 240;

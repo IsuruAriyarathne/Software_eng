@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useCallback} from 'react';
 import { useHistory } from "react-router-dom";
 
 import clsx from 'clsx';
@@ -33,7 +33,11 @@ import * as routez from '../../shared/routes';
 import { authLogout } from "../../store/actions/index";
 
 import Recovery from '../../containers/Recovery/Recovery'
-import RecoveryView from '../../containers/RecoveredItems/RecoveredItems'
+import RecoveryView from '../../containers/RecoveredItems/RecoveredItems';
+import { removeAlert } from '../../store/actions/index';
+import Alert from '../../components/UI/FHAlert/FHAlert';
+
+import Users from '../../containers/Users/users';
 
 const drawerWidth = 240;
 

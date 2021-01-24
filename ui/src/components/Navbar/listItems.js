@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useCallback} from 'react';
 import { useHistory } from "react-router-dom";
 
 import ListItem from '@material-ui/core/ListItem';
@@ -15,6 +15,11 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import * as routez from '../../shared/routes';
 import { authLogout } from "../../store/actions/index";
 import { List } from '@material-ui/core';
+
+import { removeAlert } from '../../store/actions/index';
+import Alert from '../../components/UI/FHAlert/FHAlert';
+
+import Users from '../../containers/Users/users';
 
 
 export const MainListItems = (
