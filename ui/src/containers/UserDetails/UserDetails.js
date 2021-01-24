@@ -10,14 +10,9 @@ import Button from '@material-ui/core/Button';
 import { updateObject, formIsValid } from '../../shared/utility';
 import { checkValidity } from '../../shared/validate';
 import { buildTextFields } from '../../helpers/uiHelpers';
-// import { changePassword } from "../../api/UsersAPI";
+import { changePassword } from "../../api/UsersAPI";
 import * as actions from '../../store/actions/index';
-// import { SNACKBAR } from "../../components/UI/FHSnackBar/FHSnackBar";
-
-const tableOptions = {
-    pageSize: 10,
-    pageSizeOptions: [10, 30, 50]
-};
+import { SNACKBAR } from "../../components/UI/FHSnackBar/FHSnackBar";
 
 const inputDefinitions = {
     newPassword: {
@@ -55,7 +50,7 @@ const UsersDetail = props => {
     const { addAlert } = props;
     const classes = useStyles();
     const { id } = useParams();
-    const [isLoading, setIsLoading] = useState(true);
+    // const [isLoading, setIsLoading] = useState(true);
     const [user, setUser] = useState([]);
 
     useEffect(() => {
@@ -65,8 +60,8 @@ const UsersDetail = props => {
                     console.log(response.data);
                     setUser(response.data);
                 }
-            }).finally(() => setIsLoading(false))
-    }, [setIsLoading, setUser, id]);
+            })
+    }, [ setUser, id]);
 
     console.log(user);
     const [inputIsValid, setInputIsValid] = useState({
@@ -116,17 +111,17 @@ const UsersDetail = props => {
                 newPassword : password.newPassword,
                 confirmNewPassword : password.confirmPassword
             };
-            // changePassword(passworddata)
-            //     .then((response) => {
-            //         if (!response.error) {
-            //             addAlert({
-            //                 message: "Password Reset Successful!",
-            //                 type: SNACKBAR
-            //             });
-            //         }
-            //     });
+            changePassword(passworddata,user.officerID)
+                .then((response) => {
+                    if (!response.error) {
+                        addAlert({
+                            message: "Password Reset Successful!",
+                            type: SNACKBAR
+                        });
+                    }
+                });
         }
-    }, [password, checkInputValidity, inputIsValid, addAlert]);
+    }, [password, checkInputValidity, inputIsValid, addAlert,user.officerID]);
 
     let inputFields = buildTextFields(inputDefinitions, inputProperties, inputChangeHandler, inputIsValid);
 

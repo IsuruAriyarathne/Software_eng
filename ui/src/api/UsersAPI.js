@@ -11,3 +11,5 @@ export const updateUsers = (id,data) => putRequest(`${BASE_URL}/${id}`,data);
 export const saveUsers = (data) => postRequest(`${BASE_URL}`,data);
 
 export const getUser = (id) => getRequest(`${BASE_URL}/${id}`);
+
+export const changePassword = (data,id) => postRequest(`${BASE_URL}/${id}`,data);

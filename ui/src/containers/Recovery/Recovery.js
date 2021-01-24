@@ -27,7 +27,7 @@ const RecoveryView = props => {
             setRecovery(response.data)
           }
         })
-  }, []);
+  }, [props.stationID]);
    const { addAlert } = props;
   // const [isLoading, setIsLoading] = useState(true);
 
@@ -93,7 +93,7 @@ const RecoveryView = props => {
               })
         });
     },
-    [addAlert, recovery]
+    [addAlert, recovery,props.stationID]
   );
   
   // const renderRecoveries = useCallback(rowData => 

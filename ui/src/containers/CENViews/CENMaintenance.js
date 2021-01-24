@@ -1,4 +1,4 @@
-import React , {useState, useEffect, useCallback} from "react";
+import React , {useState, useEffect} from "react";
 import { connect } from 'react-redux';
 
 import {getAllMaintenance  } from "../../api/CENviews"
@@ -25,7 +25,6 @@ const Weapons = props => {
           }
         })
   }, []);
-  const { addAlert } = props;
   // const [isLoading, setIsLoading] = useState(true);
   
   const tableColumns = [

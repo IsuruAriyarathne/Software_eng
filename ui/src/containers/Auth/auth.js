@@ -17,6 +17,8 @@ import { auth } from '../../store/actions/index';
 import { addAlert } from '../../store/actions/index';
 import * as routez from '../../shared/routes';
 
+import backgroundImage from "../../shared/images/Bullet-2.jpg";
+
 const inputDefinitions = {
     gmail: {
         label: 'Email*',
@@ -41,13 +43,17 @@ const inputDefinitions = {
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    backgroundImage: `url(${backgroundImage})`,
+    position: 'absolute',
   },
   avatar: {
     margin: theme.spacing(1),
+    backgroundImage: `url(${backgroundImage})`,
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
@@ -122,7 +128,7 @@ function SignIn(props) {
                 authObj.password
             );
         }
-    }, [authObj, checkInputValidity, inputIsValid]);
+    }, [authObj, checkInputValidity, inputIsValid, props]);
 
     const authError = props.error;
     console.log(authError);
@@ -150,30 +156,32 @@ function SignIn(props) {
 
   return (
     <React.Fragment>
-        <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <div className={classes.paper}>
-                <form noValidate autoComplete="off" className={classes.form} onSubmit={onSubmitHandler}>
-                    <Avatar className={classes.avatar}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography variant="h5">
-                        Sign In
-                    </Typography>
-                    {inputFields}
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                        disabled={!formIsValid(inputIsValid)}
-                    >
-                        Sign In
-                    </Button>
-                </form>
-            </div>
-        </Container>
+        <div className={classes.paper}>
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <div >
+                    <form noValidate autoComplete="off" className={classes.form} onSubmit={onSubmitHandler}>
+                        <Avatar className={classes.avatar}>
+                            <LockOutlinedIcon />
+                        </Avatar>
+                        <Typography variant="h5">
+                            Sign In
+                        </Typography>
+                        {inputFields}
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                            disabled={!formIsValid(inputIsValid)}
+                        >
+                            Sign In
+                        </Button>
+                    </form>
+                </div>
+            </Container>
+        </div>
     </React.Fragment>
   );
 }

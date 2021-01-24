@@ -29,6 +29,9 @@ import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import * as routez from '../../shared/routes';
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import BallotIcon from '@material-ui/icons/Ballot';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 
 import Company from '../../containers/Companies/Companies'
 import CompanyView from '../../containers/CompanyDetails/CompanyDetails';
@@ -189,35 +192,53 @@ function Dashboard(props) {
         </div>
         <Divider />
         <List  className={classes.papernav}>
-          <ListItem button onClick={() => history.push(`${routez.WEAPONS}`)}>
+        <ListItem button onClick={() => history.push(`${routez.COMPANIES}`)}>
+            <ListItemIcon>
+              <ArrowDropDownCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Companies" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.AMMUNATIONSCEN}`)}>
+            <ListItemIcon>
+              <ArrowDropDownCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Ammunitions" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.WEAPONSCEN}`)}>
             <ListItemIcon>
               <ArrowDropDownCircleIcon />
             </ListItemIcon>
             <ListItemText primary="Weapons" />
           </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.AMMUNATIONS}`)}>
+          <ListItem button onClick={() => history.push(`${routez.WEAPONMODELS}`)}>
             <ListItemIcon>
-              <ArrowForwardIosIcon />
+              <ArrowDropDownCircleIcon />
             </ListItemIcon>
-            <ListItemText primary="Ammunation" />
+            <ListItemText primary="Weapon Moedls" />
           </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.RECOVERY}`)}>
+          <ListItem button onClick={() => history.push(`${routez.AMMUNITIONMODELS}`)}>
             <ListItemIcon>
-              <AddCircleOutlineIcon />
+              <ArrowDropDownCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Ammunition Models" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.CENRECOVERY}`)}>
+            <ListItemIcon>
+              <AssignmentIcon />
             </ListItemIcon>
             <ListItemText primary="Recovery" />
           </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.MAINTENANCE}`)}>
+          <ListItem button onClick={() => history.push(`${routez.CENMAINTENANCE}`)}>
             <ListItemIcon>
-              <LoopIcon />
+              <BallotIcon />
             </ListItemIcon>
             <ListItemText primary="Maintenance" />
           </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.REQUEST}`)}>
+          <ListItem button onClick={() => history.push(`${routez.CENSTATIONS}`)}>
             <ListItemIcon>
-              <ShoppingBasketIcon />
+              <AccountBalanceIcon />
             </ListItemIcon>
-            <ListItemText primary="Order Request" />
+            <ListItemText primary="Stations" />
           </ListItem>
         </List>
       </Drawer>
