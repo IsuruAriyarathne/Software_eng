@@ -227,6 +227,7 @@ function Dashboard(props) {
           <Grid container spacing={3}>
             {/* Chart */}
             <Grid item xs={12} md={12} lg={12}>
+                <Alert handleAlertClose={handleAlertClose} alerts={props.alerts} />
                 <CompanyView />
                 <Company />
             </Grid>

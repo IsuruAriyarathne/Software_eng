@@ -227,6 +227,7 @@ function Dashboard(props) {
           <Grid container spacing={3}>
             {/* Chart */}
             <Grid item xs={12} md={12} lg={12}>
+                <Alert handleAlertClose={handleAlertClose} alerts={props.alerts} />
                 <CriminalWeapons />
             </Grid>
           </Grid>
@@ -240,13 +241,15 @@ function Dashboard(props) {
 }
 const mapStateToProps = (state) => {
 	return {
-		isAuthenticated: state.auth.token != null,
+    isAuthenticated: state.auth.token != null,
+    alerts: state.alert.alerts
 	};
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		onauthLogout: () => dispatch(authLogout()),
+    onauthLogout: () => dispatch(authLogout()),
+    removeAlert: (alertId) => dispatch(removeAlert(alertId))
 	};
 };
 
