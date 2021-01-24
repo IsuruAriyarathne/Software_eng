@@ -1,5 +1,6 @@
 import React,{useCallback} from 'react';
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
 
 import clsx from 'clsx';
 import grey from '@material-ui/core/colors/grey';
@@ -34,7 +35,7 @@ import CompanyView from '../../containers/CompanyDetails/CompanyDetails';
 
 import { removeAlert } from '../../store/actions/index';
 import Alert from '../../components/UI/FHAlert/FHAlert';
-
+import { authLogout } from "../../store/actions/index";
 import Users from '../../containers/Users/users';
 
 const drawerWidth = 240;
@@ -119,12 +120,15 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     backgroundColor: grey[300],
   },
+  menuButtonlog: {
+    color: "white"
+  }
   // fixedHeight: {
   //   height: '100%',
   // },
 }));
 
-export default function Dashboard() {
+function Dashboard(props) {
   const classes = useStyles();
   const history = useHistory();
   const [open, setOpen] = React.useState(true);
@@ -134,8 +138,19 @@ export default function Dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+  // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const { onauthLogout, isAuthenticated } = props;
+
+  const handleLogout = () => {
+		onauthLogout();
+		history.push("/");
+  };
+  
+  const removeAlert = props.removeAlert;
+  const handleAlertClose = useCallback((alertId) => {
+      removeAlert(alertId);
+  }, [removeAlert]);
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -221,3 +236,18 @@ export default function Dashboard() {
     </div>
   );
 }
+const mapStateToProps = (state) => {
+	return {
+    isAuthenticated: state.auth.token != null,
+    alerts: state.alert.alerts
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+    onauthLogout: () => dispatch(authLogout()),
+    removeAlert: (alertId) => dispatch(removeAlert(alertId))
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

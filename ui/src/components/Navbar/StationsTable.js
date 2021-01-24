@@ -143,7 +143,11 @@ function Dashboard(props) {
   const handleLogout = () => {
 		onauthLogout();
 		history.push("/");
-	};
+  };
+  const removeAlert = props.removeAlert;
+  const handleAlertClose = useCallback((alertId) => {
+      removeAlert(alertId);
+  }, [removeAlert]);
 
   return (
     <div className={classes.root}>

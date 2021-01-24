@@ -1,5 +1,7 @@
 import React,{useCallback} from 'react';
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+
 
 import clsx from 'clsx';
 import grey from '@material-ui/core/colors/grey';
@@ -143,7 +145,13 @@ function Dashboard(props) {
     const handleLogout = () => {
 		onauthLogout();
 		history.push("/");
-	 };
+   };
+   
+  const removeAlert = props.removeAlert;
+  const handleAlertClose = useCallback((alertId) => {
+      removeAlert(alertId);
+  }, [removeAlert]);
+
 
   return (
     <div className={classes.root}>
