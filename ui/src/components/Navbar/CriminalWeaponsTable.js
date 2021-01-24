@@ -27,6 +27,7 @@ import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import * as routez from '../../shared/routes';
+import { authLogout } from "../../store/actions/index";
 
 import CriminalWeapons from '../../containers/CriminalWeapons/CriminalWeapons'
 
@@ -119,6 +120,9 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
     flexDirection: 'column',
   },
+  menuButtonlog: {
+    color: "white"
+  }
   // fixedHeight: {
   //   height: '100%',
   // },
@@ -134,7 +138,14 @@ export default function Dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  //const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  const { onauthLogout, isAuthenticated } = props;
+
+    const handleLogout = () => {
+		onauthLogout();
+		history.push("/");
+	 };
 
   return (
     <div className={classes.root}>

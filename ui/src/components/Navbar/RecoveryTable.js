@@ -30,6 +30,7 @@ import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import * as routez from '../../shared/routes';
+import { authLogout } from "../../store/actions/index";
 
 import Recovery from '../../containers/Recovery/Recovery'
 
@@ -115,6 +116,9 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     backgroundColor: grey[300],
   },
+  menuButtonlog: {
+    color: "white"
+  }
   // fixedHeight: {
   //   height: '100%',
   // },
@@ -131,6 +135,13 @@ export default function Dashboard() {
     setOpen(false);
   };
   // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  const { onauthLogout, isAuthenticated } = props;
+
+    const handleLogout = () => {
+		onauthLogout();
+		history.push("/");
+	 };
 
   return (
     <div className={classes.root}>

@@ -13,6 +13,7 @@ import LocationCityIcon from '@material-ui/icons/LocationCity';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 import * as routez from '../../shared/routes';
+import { authLogout } from "../../store/actions/index";
 import { List } from '@material-ui/core';
 
 

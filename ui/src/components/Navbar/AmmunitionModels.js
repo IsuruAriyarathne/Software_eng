@@ -27,6 +27,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
 import * as routez from '../../shared/routes';
+import { authLogout } from "../../store/actions/index";
 
 import AmmunitionModels from '../../containers/AmmunitionModels/AmmunitionModels'
 
@@ -112,6 +113,9 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     backgroundColor: grey[300],
   },
+  menuButtonlog: {
+    color: "white"
+  }
   // fixedHeight: {
   //   height: '100%',
   // },
@@ -129,6 +133,13 @@ export default function Dashboard() {
   };
   // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+  const { onauthLogout, isAuthenticated } = props;
+
+    const handleLogout = () => {
+		onauthLogout();
+		history.push("/");
+   };
+   
   return (
     <div className={classes.root}>
       <CssBaseline />

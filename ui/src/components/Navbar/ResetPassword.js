@@ -25,6 +25,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import PeopleIcon from '@material-ui/icons/People';
 import HomeIcon from '@material-ui/icons/Home';
 import * as routez from '../../shared/routes';
+import { authLogout } from "../../store/actions/index";
 
 import Users from '../../containers/Users/users'
 import ResetPAssword from '../../containers/UserDetails/UserDetails'
@@ -111,6 +112,9 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     backgroundColor: grey[300],
   },
+  menuButtonlog: {
+    color: "white"
+  }
   // fixedHeight: {
   //   height: '100%',
   // },
@@ -127,6 +131,13 @@ export default function Dashboard() {
     setOpen(false);
   };
   // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  const { onauthLogout, isAuthenticated } = props;
+
+    const handleLogout = () => {
+		onauthLogout();
+		history.push("/");
+	 };
 
   return (
     <div className={classes.root}>
