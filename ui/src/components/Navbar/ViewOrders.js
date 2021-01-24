@@ -13,29 +13,29 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
+import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import LoopIcon from '@material-ui/icons/Loop';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import BallotIcon from '@material-ui/icons/Ballot';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import Button from '@material-ui/core/Button';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import PeopleIcon from '@material-ui/icons/People';
-import HomeIcon from '@material-ui/icons/Home';
-import * as routez from '../../shared/routes';   //line 1
-import { authLogout } from "../../store/actions/index";   //line2
-import { Button } from "@material-ui/core";
+import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
+import * as routez from '../../shared/routes';
+import { authLogout } from "../../store/actions/index";   
+import ShopIcon from '@material-ui/icons/Shop';
 
 import { removeAlert } from '../../store/actions/index';
 import Alert from '../../components/UI/FHAlert/FHAlert';
 
-import Request from '../../containers/Request/Request';
+import Orders from '../../containers/Orrders/Orders';
 
 const drawerWidth = 240;
 
@@ -119,7 +119,6 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     backgroundColor: grey[300],
   },
-  //add meu button
   menuButtonlog: {
     color: "white"
   }
@@ -146,7 +145,6 @@ function Dashboard(props) {
 		onauthLogout();
 		history.push("/");
   };
-  
   const removeAlert = props.removeAlert;
   const handleAlertClose = useCallback((alertId) => {
       removeAlert(alertId);
@@ -188,35 +186,59 @@ function Dashboard(props) {
         </div>
         <Divider />
         <List  className={classes.papernav}>
-        <ListItem button onClick={() => history.push(`${routez.WEAPONS}`)}>
+          <ListItem button onClick={() => history.push(`${routez.COMPANIES}`)}>
+            <ListItemIcon>
+              <ArrowDropDownCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Companies" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.AMMUNATIONSCEN}`)}>
+            <ListItemIcon>
+              <ArrowDropDownCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Ammunitions" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.WEAPONSCEN}`)}>
             <ListItemIcon>
               <ArrowDropDownCircleIcon />
             </ListItemIcon>
             <ListItemText primary="Weapons" />
           </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.AMMUNATIONS}`)}>
+          <ListItem button onClick={() => history.push(`${routez.WEAPONMODELS}`)}>
             <ListItemIcon>
-              <ArrowForwardIosIcon />
+              <ArrowDropDownCircleIcon />
             </ListItemIcon>
-            <ListItemText primary="Ammunation" />
+            <ListItemText primary="Weapon Moedls" />
           </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.RECOVERY}`)}>
+          <ListItem button onClick={() => history.push(`${routez.AMMUNITIONMODELS}`)}>
             <ListItemIcon>
-              <AddCircleOutlineIcon />
+              <ArrowDropDownCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Ammunition Models" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.CENRECOVERY}`)}>
+            <ListItemIcon>
+              <AssignmentIcon />
             </ListItemIcon>
             <ListItemText primary="Recovery" />
           </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.MAINTENANCE}`)}>
+          <ListItem button onClick={() => history.push(`${routez.CENMAINTENANCE}`)}>
             <ListItemIcon>
-              <LoopIcon />
+              <BallotIcon />
             </ListItemIcon>
             <ListItemText primary="Maintenance" />
           </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.REQUEST}`)}>
+          <ListItem button onClick={() => history.push(`${routez.CENSTATIONS}`)}>
             <ListItemIcon>
-              <ShoppingBasketIcon />
+              <AccountBalanceIcon />
             </ListItemIcon>
-            <ListItemText primary="Order Request" />
+            <ListItemText primary="Stations" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.VIEWORDERS}`)}>
+            <ListItemIcon>
+              <ShopIcon />
+            </ListItemIcon>
+            <ListItemText primary="ViewOrders" />
           </ListItem>
         </List>
       </Drawer>
@@ -227,7 +249,7 @@ function Dashboard(props) {
             {/* Chart */}
             <Grid item xs={12} md={12} lg={12}>
                 <Alert handleAlertClose={handleAlertClose} alerts={props.alerts} />
-                <Request />
+                <Orders />
             </Grid>
           </Grid>
         </Container>
@@ -235,7 +257,6 @@ function Dashboard(props) {
     </div>
   );
 }
-
 const mapStateToProps = (state) => {
 	return {
     isAuthenticated: state.auth.token != null,

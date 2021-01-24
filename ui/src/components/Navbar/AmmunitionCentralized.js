@@ -24,6 +24,7 @@ import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import BallotIcon from '@material-ui/icons/Ballot';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import Button from '@material-ui/core/Button';
+import ShopIcon from '@material-ui/icons/Shop';  
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -237,6 +238,12 @@ function Dashboard(props) {
               <AccountBalanceIcon />
             </ListItemIcon>
             <ListItemText primary="Stations" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.VIEWORDERS}`)}>
+            <ListItemIcon>
+              <ShopIcon />
+            </ListItemIcon>
+            <ListItemText primary="ViewOrders" />
           </ListItem>
         </List>
       </Drawer>

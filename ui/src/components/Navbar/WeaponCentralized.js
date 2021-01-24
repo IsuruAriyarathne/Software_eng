@@ -29,7 +29,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
 import * as routez from '../../shared/routes';
-import { authLogout } from "../../store/actions/index";   
+import { authLogout } from "../../store/actions/index"; 
+import ShopIcon from '@material-ui/icons/Shop';  
 
 import { removeAlert } from '../../store/actions/index';
 import Alert from '../../components/UI/FHAlert/FHAlert';
@@ -186,7 +187,7 @@ function Dashboard(props) {
         </div>
         <Divider />
         <List  className={classes.papernav}>
-          <ListItem button onClick={() => history.push(`${routez.COMPANIES}`)}>
+        <ListItem button onClick={() => history.push(`${routez.COMPANIES}`)}>
             <ListItemIcon>
               <ArrowDropDownCircleIcon />
             </ListItemIcon>
@@ -233,6 +234,12 @@ function Dashboard(props) {
               <AccountBalanceIcon />
             </ListItemIcon>
             <ListItemText primary="Stations" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.VIEWORDERS}`)}>
+            <ListItemIcon>
+              <ShopIcon />
+            </ListItemIcon>
+            <ListItemText primary="ViewOrders" />
           </ListItem>
         </List>
       </Drawer>

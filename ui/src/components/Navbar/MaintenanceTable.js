@@ -22,6 +22,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import LoopIcon from '@material-ui/icons/Loop';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import Button from '@material-ui/core/Button';
+import ShopIcon from '@material-ui/icons/Shop';  
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -217,6 +218,12 @@ function Dashboard(props) {
               <ShoppingBasketIcon />
             </ListItemIcon>
             <ListItemText primary="Order Request" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.VIEWORDERS}`)}>
+            <ListItemIcon>
+              <ShopIcon />
+            </ListItemIcon>
+            <ListItemText primary="ViewOrders" />
           </ListItem>
         </List>
       </Drawer>

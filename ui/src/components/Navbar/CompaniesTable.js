@@ -30,6 +30,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
 import * as routez from '../../shared/routes';
 import { authLogout } from "../../store/actions/index";
+import ShopIcon from '@material-ui/icons/Shop';
 
 import Companies from '../../containers/Companies/Companies';
 
@@ -236,6 +237,12 @@ function Dashboard(props) {
               <AccountBalanceIcon />
             </ListItemIcon>
             <ListItemText primary="Stations" />
+          </ListItem>
+          <ListItem button onClick={() => history.push(`${routez.VIEWORDERS}`)}>
+            <ListItemIcon>
+              <ShopIcon />
+            </ListItemIcon>
+            <ListItemText primary="ViewOrders" />
           </ListItem>
         </List>
       </Drawer>
