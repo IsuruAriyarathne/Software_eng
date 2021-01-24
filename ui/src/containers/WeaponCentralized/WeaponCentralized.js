@@ -84,7 +84,7 @@ const Users = props => {
                       addAlert({
                           message: "User Saved Successfully!",
                       });
-                      setUsers(addItemToArray(users, data))
+                      setUsers(addItemToArray(users, response.data))
                       return resolve();
                   }
                   return reject();
@@ -98,7 +98,7 @@ const Users = props => {
     { title: "Weapon ID", field: "weaponID", editable:"never" },
     { title: "Name", field: "name" },
     { title: "Total Cost", field: "totalCost" },
-    { title: "Date", field: "date" },
+    { title: "Date", field: "date", type:"date" },
     { title: "Supplier ID", field: "supplierID" },
   ];
 

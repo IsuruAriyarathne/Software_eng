@@ -83,7 +83,7 @@ const Users = props => {
                       addAlert({
                           message: "User Saved Successfully!",
                       });
-                      setUsers(addItemToArray(users, data))
+                      setUsers(addItemToArray(users, response.data))
                       return resolve();
                   }
                   return reject();

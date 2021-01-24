@@ -100,7 +100,7 @@ const RecoveryDetail = props => {
                           addAlert({
                               message: "Ammunition Saved Successfully!",
                           });
-                          setrecoveredammunitions(addItemToArray(recoveredammunitions, data))
+                          setrecoveredammunitions(addItemToArray(recoveredammunitions, response.data))
                           return resolve();
                       }
                       return reject();

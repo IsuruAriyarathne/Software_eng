@@ -83,7 +83,7 @@ const Users = props => {
                       addAlert({
                           message: "Weapon MOdel Saved Successfully!",
                       });
-                      setweaponModel(addItemToArray(weaponModel, data))
+                      setweaponModel(addItemToArray(weaponModel, response.data))
                       return resolve();
                   }
                   return reject();

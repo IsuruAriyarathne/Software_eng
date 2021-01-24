@@ -55,9 +55,9 @@ const Ammunation = props => {
     { title: "Ammunition Model ID", field: "ammoModelID", editable: 'never' },
     { title: "count", field: "count", editable: 'never' }, 
     { title: "Name", field: "name", editable: 'never' }, 
-    { title: "Remanig", field: "remaining" }, 
+    { title: "Remaning", field: "remaining" }, 
     { title: "Description", field: "description", editable: 'never' }, 
-    { title: "Allocated Date", field: "allocatedDate", editable: 'never' }, 
+    { title: "Allocated Date", field: "allocatedDate", editable: 'never', type:'date' }, 
   ];
 
   if (false) {
