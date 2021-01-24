@@ -76,7 +76,7 @@ const OrderDetail = (props) => {
 	const saveAmo = useCallback(
 		(newStation) => {
 			var data = {
-				orderWeapons: [
+				AmmoOrder: [
 					{
                         orderID:orderID,
 						ammoModelID: newStation.ammoModelID,
@@ -166,8 +166,10 @@ const OrderDetail = (props) => {
 						addAlert({
 							message: 'Weapon Saved Successfully!',
             });
+            console.log(response.data);
             let arr = addItemRemoveDuplicate('weaponModelID',orderWeapons,response.data.WeaponOrder)
-						setorderAmmunitions(addItemToArray(orderWeapons, arr[0]));
+            console.log(arr);
+					setorderWeapons(addItemToArray(orderWeapons, arr[0]));
 						return resolve();
 					}
 					return reject();
