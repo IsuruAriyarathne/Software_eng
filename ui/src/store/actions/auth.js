@@ -75,10 +75,10 @@ export const auth = (email, password) => (dispatch) => {
                 dispatch(authSuccess(response.data.token, response.data.type,response.data.stationID));
                 dispatch(checkAuthTimeout(authRequestTimeoutSec));
             } else {
-                dispatch(authFail('User must be an admin'));
+                dispatch(authFail('Invalid Username or Password'));
             }
             if (response.error){
-                dispatch(authFail('User must be an admin'));
+                dispatch(authFail('Invalid Username or Password'));
             }
         });
 }
