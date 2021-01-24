@@ -123,7 +123,7 @@ const useStyles = makeStyles((theme) => ({
   // },
 }));
 
-export default function Dashboard() {
+function Dashboard(props) {
   const classes = useStyles();
   const history = useHistory();
   const [open, setOpen] = React.useState(true);
@@ -226,3 +226,8 @@ export default function Dashboard() {
     </div>
   );
 }
+const mapStateToProps = (state) => {
+	return {
+		isAuthenticated: state.auth.token != null,
+	};
+};
