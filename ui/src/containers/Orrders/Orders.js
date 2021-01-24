@@ -98,7 +98,7 @@ const ViewOrders = props => {
 //   );
   
   const renderProfilebtn = useCallback(
-    (rowData) => <Button color="primary" onClick={() => history.push(`/order/${rowData.orderID}`)}>Company Details</Button>,
+    (rowData) => <Button color="primary" onClick={() => history.push(`/order/${rowData.orderID}`)}>Order details</Button>,
     [history]
   );
   
@@ -107,7 +107,7 @@ const ViewOrders = props => {
     { title: "Supplier ID", field: "supplierID", editable:"never" },
     { title: "Name", field: "name", editable:"never" },
     { title: "Date", field: "date", editable:"never" },
-    { title: "State", field: "state", lookup: { Complete:"Complete", Returned:"Returned", Pending:"Pending"} },
+    { title: "State", field: "state", lookup: { Pending:"Pending", Complete:"Complete", Returned:"Returned", Rejected:"Rejected"} },
     { title: "Details", render: renderProfilebtn},
     // { title: "station Id", field: "stationID" },
   ];
