@@ -106,7 +106,7 @@ const RecoveryView = props => {
   );
   
   const tableColumns = [
-    { title: "Recovery ID", field: "recoveryID" },
+    { title: "Recovery ID", field: "recoveryID", editable:"never" },
     { title: "Recovery Date", field: "recoveryDate" },
     { title: "Description", field: "description" },
     { title: "Profile", render: renderRecoverybtn},

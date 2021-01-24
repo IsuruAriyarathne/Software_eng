@@ -94,7 +94,7 @@ const Users = props => {
   );
 
   const tableColumns = [
-    { title: "Id", field: "ammoModelID" },
+    { title: "Id", field: "ammoModelID", editable:"never" },
     { title: "Count", field: "count" },
     { title: "Order ID", field: "orderID" },
     { title: "Remain", field: "remain" },
