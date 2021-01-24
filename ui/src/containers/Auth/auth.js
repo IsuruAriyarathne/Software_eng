@@ -11,7 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import { checkValidity } from '../../shared/validate';
-import { updateObject, formIsValid } from '../../shared/utility';
+import { updateObject } from '../../shared/utility';
 import { buildTextFields } from '../../helpers/uiHelpers';
 import { auth } from '../../store/actions/index';
 import { addAlert } from '../../store/actions/index';
@@ -25,7 +25,7 @@ const inputDefinitions = {
         validations: {
             required: true,
             isEmail: true,
-            validationErrStr: 'Enter a valid email'
+            validationErrStr: 'Enter a valid email',
         }
     },
     password: {
@@ -35,7 +35,7 @@ const inputDefinitions = {
             required: true,
             minLength: 0,
             maxLength: 40,
-            validationErrStr: 'Use between 6 and 40 characters for your password'
+            validationErrStr: 'Use between 6 and 40 characters for your password',
         }
     }
 };
@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     backgroundImage: `url(${backgroundImage})`,
     position: 'absolute',
+    opacity: 0.8
   },
   avatar: {
     margin: theme.spacing(1),
@@ -67,7 +68,8 @@ const useStyles = makeStyles((theme) => ({
   },
   loginInput: {
     width: '100%',
-    marginTop: '20px'
+    marginTop: '20px',
+    color: 'white'
   },
 }));
 
@@ -164,7 +166,6 @@ function SignIn(props) {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
-                            disabled={!formIsValid(inputIsValid)}
                         >
                             Sign In
                         </Button>
