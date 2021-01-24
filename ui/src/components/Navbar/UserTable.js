@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useCallback} from 'react';
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -27,7 +27,10 @@ import * as routez from '../../shared/routes';   //line 1
 import { authLogout } from "../../store/actions/index";   //line2
 import { Button } from "@material-ui/core";
 
-import Users from '../../containers/Users/users'
+import { removeAlert } from '../../store/actions/index';
+import Alert from '../../components/UI/FHAlert/FHAlert';
+
+import Users from '../../containers/Users/users';
 
 const drawerWidth = 240;
 
@@ -137,7 +140,12 @@ function Dashboard(props) {
   const handleLogout = () => {
 		onauthLogout();
 		history.push("/");
-	};
+  };
+  
+  const removeAlert = props.removeAlert;
+  const handleAlertClose = useCallback((alertId) => {
+      removeAlert(alertId);
+  }, [removeAlert]);
 
   return (
     <div className={classes.root}>
@@ -195,6 +203,7 @@ function Dashboard(props) {
           <Grid container spacing={3}>
             {/* Chart */}
             <Grid item xs={12} md={12} lg={12}>
+                <Alert handleAlertClose={handleAlertClose} alerts={props.alerts} />
                 <Users />
             </Grid>
           </Grid>
@@ -206,13 +215,15 @@ function Dashboard(props) {
 
 const mapStateToProps = (state) => {
 	return {
-		isAuthenticated: state.auth.token != null,
+    isAuthenticated: state.auth.token != null,
+    alerts: state.alert.alerts
 	};
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		onauthLogout: () => dispatch(authLogout()),
+    onauthLogout: () => dispatch(authLogout()),
+    removeAlert: (alertId) => dispatch(removeAlert(alertId))
 	};
 };
 
