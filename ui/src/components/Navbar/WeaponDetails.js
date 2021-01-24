@@ -29,6 +29,7 @@ import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import BallotIcon from '@material-ui/icons/Ballot';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import * as routez from '../../shared/routes';
+import { authLogout } from "../../store/actions/index";   
 
 import WeaponDetails from '../../containers/WeaponsDetail/WeaponDetails'
 import Weapon from '../../containers/WeaponCentralized/WeaponCentralized'
@@ -115,6 +116,9 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     backgroundColor: grey[300],
   },
+  menuButtonlog: {
+    color: "white"
+  }
   // fixedHeight: {
   //   height: '100%',
   // },
@@ -131,6 +135,13 @@ export default function Dashboard() {
     setOpen(false);
   };
   // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  
+  const { onauthLogout, isAuthenticated } = props;
+
+  const handleLogout = () => {
+		onauthLogout();
+		history.push("/");
+	};
 
   return (
     <div className={classes.root}>
