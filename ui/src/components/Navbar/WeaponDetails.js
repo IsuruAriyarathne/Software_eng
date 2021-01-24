@@ -252,3 +252,11 @@ const mapStateToProps = (state) => {
 	};
 };
 
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onauthLogout: () => dispatch(authLogout()),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

@@ -231,3 +231,11 @@ const mapStateToProps = (state) => {
 		isAuthenticated: state.auth.token != null,
 	};
 };
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onauthLogout: () => dispatch(authLogout()),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
