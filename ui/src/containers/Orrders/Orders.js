@@ -28,7 +28,7 @@ const ViewOrders = props => {
             setOrders(response.data)
           }
         })
-  }, [props.stationID]);
+  }, []);
    const { addAlert } = props;
   // const [isLoading, setIsLoading] = useState(true);
 
@@ -97,7 +97,7 @@ const ViewOrders = props => {
 //     [addAlert, orders]
 //   );
   
-  const renderViewbtn = useCallback(rowData => 
+  const renderProfilebtn = useCallback(
     (rowData) => <Button color="primary" onClick={() => history.push(`order/${rowData.orderID}`)}>Company Details</Button>,
     [history]
   );
@@ -108,7 +108,7 @@ const ViewOrders = props => {
     { title: "Name", field: "name", editable:"never" },
     { title: "Date", field: "date", editable:"never" },
     { title: "State", field: "state", lookup: { Complete:"Complete", Returned:"Returned", Pending:"Pending"} },
-    { title: "View", render: renderViewbtn},
+    { title: "Details", render: renderProfilebtn},
     // { title: "station Id", field: "stationID" },
   ];
 
