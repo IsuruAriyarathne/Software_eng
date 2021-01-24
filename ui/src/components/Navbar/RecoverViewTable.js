@@ -32,6 +32,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import * as routez from '../../shared/routes';
 import { authLogout } from "../../store/actions/index";
+import Button from '@material-ui/core/Button';
 
 import Recovery from '../../containers/Recovery/Recovery'
 import RecoveryView from '../../containers/RecoveredItems/RecoveredItems';

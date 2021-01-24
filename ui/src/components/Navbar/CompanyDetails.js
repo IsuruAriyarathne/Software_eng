@@ -32,6 +32,7 @@ import * as routez from '../../shared/routes';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import BallotIcon from '@material-ui/icons/Ballot';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import Button from '@material-ui/core/Button';
 
 import Company from '../../containers/Companies/Companies'
 import CompanyView from '../../containers/CompanyDetails/CompanyDetails';

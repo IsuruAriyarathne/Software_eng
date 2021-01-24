@@ -30,7 +30,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import * as routez from '../../shared/routes';
 import { authLogout } from "../../store/actions/index";
-
+import Button from '@material-ui/core/Button';
 import Weapons from '../../containers/Weapons/Weapons';
 import { removeAlert } from '../../store/actions/index';
 import Alert from '../../components/UI/FHAlert/FHAlert';

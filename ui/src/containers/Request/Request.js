@@ -1,19 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import * as actions from '../../store/actions/index';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
+//   paper: {
+//     padding: theme.spacing(2),
+//     textAlign: 'center',
+//     color: theme.palette.text.secondary,
+//   },
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
@@ -21,20 +25,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CenteredGrid() {
+function Request(props) {
   const classes = useStyles();
-
   return (
     <div className={classes.root}>
-         <form noValidate autoComplete="off" className={classes.form} onSubmit={onSubmitHandler}>
+         <form noValidate autoComplete="off" className={classes.form} >
          <Grid container spacing={3}>
             <Grid item xs={6}>
-                <Typography variant="h2" gutterBottom>
-                    StationID
+                <Typography variant="h6" gutterBottom>
+                    StationID : {props.stationID}
                 </Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography variant="h2" gutterBottom>
+                <Typography variant="h6" gutterBottom>
                     Date
                 </Typography>
             </Grid>
@@ -44,8 +47,7 @@ export default function CenteredGrid() {
                     label="Description"
                     style={{ margin: 8 }}
                     placeholder="Placeholder"
-                    helperText="Full width!"
-                    fullWidth
+                    width= "50%"
                     margin="normal"
                     InputLabelProps={{
                         shrink: true,
@@ -53,7 +55,7 @@ export default function CenteredGrid() {
                 />
             </Grid>
             <Grid item xs={12}>
-                <Typography variant="h2" gutterBottom>
+                <Typography variant="h6" gutterBottom>
                     Weapons
                 </Typography>
             </Grid>
@@ -76,7 +78,7 @@ export default function CenteredGrid() {
                 />
             </Grid>
             <Grid item xs={12}>
-                <Typography variant="h2" gutterBottom>
+                <Typography variant="h6" gutterBottom>
                     Ammunition
                 </Typography>
             </Grid>
@@ -101,9 +103,9 @@ export default function CenteredGrid() {
             </Grid>
             <Button
                 type="submit"
-                fullWidth
                 variant="contained"
                 color="primary"
+                margin= "10px"
                 className={classes.submit}
             >
                 Submit
@@ -126,7 +128,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Stations);
+export default connect(mapStateToProps, mapDispatchToProps)(Request);
 
 
   
