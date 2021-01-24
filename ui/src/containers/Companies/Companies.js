@@ -76,7 +76,7 @@ const Companies = props => {
         "name": newStation.name,
         "contactNumber": newStation.contactNumber,
         "address": newStation.address,
-        "decription": newStation.decription,
+        "description": newStation.description,
       })
       return new Promise((resolve, reject) => {
         saveCompanies(data)
@@ -85,7 +85,7 @@ const Companies = props => {
                       addAlert({
                           message: "Company Saved Successfully!",
                       });
-                      setCompanies(addItemToArray(companies, data))
+                      setCompanies(addItemToArray(companies, response.data))
                       return resolve();
                   }
                   return reject();
@@ -97,11 +97,11 @@ const Companies = props => {
   
 
   const tableColumns = [
-    { title: "Supplier ID", field: "supplierID" },
+    { title: "Supplier ID", field: "supplierID", editable:"never" },
     { title: "Name", field: "name" },
     { title: "Contact Number", field: "contactNumber" },
     { title: "Address", field: "address" },
-    { title: "Description", field: "decription" },
+    { title: "Description", field: "description" },
   ];
 
   if (false) {

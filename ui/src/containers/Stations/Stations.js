@@ -84,7 +84,7 @@ const Stations = props => {
                       addAlert({
                           message: "Station Saved Successfully!",
                       });
-                      setStations(addItemToArray(stations, data))
+                      setStations(addItemToArray(stations, response.data))
                       return resolve();
                   }
                   return reject();
@@ -96,7 +96,7 @@ const Stations = props => {
   
 
   const tableColumns = [
-    { title: "ID", field: "stationID" },
+    { title: "ID", field: "stationID", editable:"never" },
     { title: "Name", field: "stationName" },
     { title: "Location", field: "location" },
     { title: "Type", field: "type",  lookup: { office:"office", inventory:"inventory"} },
