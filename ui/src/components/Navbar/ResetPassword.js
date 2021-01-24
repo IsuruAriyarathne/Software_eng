@@ -33,7 +33,6 @@ import ResetPAssword from '../../containers/UserDetails/UserDetails';
 import { removeAlert } from '../../store/actions/index';
 import Alert from '../../components/UI/FHAlert/FHAlert';
 
-import Users from '../../containers/Users/users';
 
 const drawerWidth = 240;
 
