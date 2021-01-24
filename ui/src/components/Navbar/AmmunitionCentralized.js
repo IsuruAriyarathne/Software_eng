@@ -170,11 +170,9 @@ function Dashboard(props) {
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             SLFire
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
+          <Button className={classes.menuButtonlog} onClick={() => handleLogout()}>
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer
