@@ -20,4 +20,4 @@ export const CENMAINTENANCE = '/cenmaintenance';
 export const CENSTATIONS = '/censtations';
 export const VIEWORDERS = '/vieworders';
 export const VIEWREQUEST = '/viewrequest'
-export const ORDERDETAILS = './order/:orderID'
+export const ORDERDETAILS = '/order/:orderID'

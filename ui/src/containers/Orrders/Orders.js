@@ -98,7 +98,7 @@ const ViewOrders = props => {
 //   );
   
   const renderProfilebtn = useCallback(
-    (rowData) => <Button color="primary" onClick={() => history.push(`order/${rowData.orderID}`)}>Company Details</Button>,
+    (rowData) => <Button color="primary" onClick={() => history.push(`/order/${rowData.orderID}`)}>Company Details</Button>,
     [history]
   );
   

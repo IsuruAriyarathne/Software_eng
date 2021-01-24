@@ -25,6 +25,7 @@ import BallotIcon from '@material-ui/icons/Ballot';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import Button from '@material-ui/core/Button';
 import ShopIcon from '@material-ui/icons/Shop';  
+import TouchAppIcon from '@material-ui/icons/TouchApp';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';

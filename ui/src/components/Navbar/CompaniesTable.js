@@ -243,7 +243,7 @@ function Dashboard(props) {
             <ListItemIcon>
               <ShopIcon />
             </ListItemIcon>
-            <ListItemText primary="ViewOrders" />
+            <ListItemText primary="View Orders" />
           </ListItem>
           <ListItem button onClick={() => history.push(`${routez.VIEWREQUEST}`)}>
             <ListItemIcon>

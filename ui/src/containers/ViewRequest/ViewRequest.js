@@ -28,12 +28,11 @@ const Weapons = props => {
   // const [isLoading, setIsLoading] = useState(true);
   
   const tableColumns = [
-    { title: "Station ID", field: "stationID", editable: 'never' },
-    { title: "Station Name", field: "stationName", editable: 'never' },
-    { title: "Name", field: "location", editable: 'never' },
+    { title: "Request ID", field: "requestID", editable: 'never' },
+    { title: "State", field: "state", editable: 'never' },
+    { title: "Comments", field: "comments", editable: 'never' },
     // { title: "Assigned", field: "assigned" },
-    { title: "Type", field: "type" , editable: 'never'},
-    { title: "Contact Number", field: "contactNo", editable: 'never' },
+    { title: "Date", field: "date" , editable: 'never'},
   ];
 
   if (false) {
