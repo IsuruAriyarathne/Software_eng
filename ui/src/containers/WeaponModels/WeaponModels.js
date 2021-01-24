@@ -40,7 +40,7 @@ const Users = props => {
                       addAlert({
                           message: "Weapon deletion Successful!",
                       });
-                      setweaponModel(removeItemFromArray(weaponModel, 'officerID', oldWeapons.weaponModelID, oldWeapons))
+                      setweaponModel(removeItemFromArray(weaponModel, 'weaponModelID', oldWeapons.weaponModelID, oldWeapons))
                       return resolve();
                   }
                   return reject();
@@ -57,9 +57,9 @@ const Users = props => {
               .then((response) => {
                   if (!response.error) {
                       addAlert({
-                          message: "Weapon MOdel Updated Successfully!",
+                          message: "Weapon Model Updated Successfully!",
                       });
-                      setweaponModel(replaceItemInArray(weaponModel, 'officerID', newWeapons, oldWeapons.weaponModelID))
+                      setweaponModel(replaceItemInArray(weaponModel, 'weaponModelID', newWeapons, oldWeapons.weaponModelID))
                       return resolve();
                   }
                   return reject();
@@ -81,7 +81,7 @@ const Users = props => {
               .then((response) => {
                   if (!response.error) {
                       addAlert({
-                          message: "Weapon MOdel Saved Successfully!",
+                          message: "Weapon Model Saved Successfully!",
                       });
                       setweaponModel(addItemToArray(weaponModel, response.data))
                       return resolve();

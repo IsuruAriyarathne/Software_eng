@@ -31,26 +31,6 @@ const Users = props => {
    const { addAlert } = props;
   // const [isLoading, setIsLoading] = useState(true);
 
-  const deleteUser = useCallback(
-    (oldUser) => {
-      return new Promise((resolve, reject) => {
-        deleteWeapons(oldUser.weaponID)
-              .then((response) => {
-                console.log(response);
-                  if (!response.error) {
-                      addAlert({
-                          message: "User deletion Successful!",
-                      });
-                      setUsers(removeItemFromArray(users, 'weaponID', oldUser.weaponID, oldUser))
-                      return resolve();
-                  }
-                  return reject();
-              })
-      });
-    },
-    [addAlert, users]
-  );
-
   const updateUser = useCallback(
     (newUser,oldUser) => {
       return new Promise((resolve, reject) => {
@@ -58,7 +38,7 @@ const Users = props => {
               .then((response) => {
                   if (!response.error) {
                       addAlert({
-                          message: "User Updated Successfully!",
+                          message: "Weapon Updated Successfully!",
                       });
                       setUsers(replaceItemInArray(users, 'weaponID', newUser, oldUser.weaponID))
                       return resolve();
@@ -84,7 +64,7 @@ const Users = props => {
               .then((response) => {
                   if (!response.error) {
                       addAlert({
-                          message: "User Saved Successfully!",
+                          message: "Weapon Saved Successfully!",
                       });
                       setUsers(addItemToArray(users, response.data))
                       return resolve();
@@ -103,10 +83,8 @@ const Users = props => {
 
   const tableColumns = [
     { title: "Weapon ID", field: "weaponID", editable:"never" },
-    { title: "Name", field: "name" },
-    { title: "Total Cost", field: "totalCost" },
-    { title: "Date", field: "date", type:"date" },
-    { title: "Supplier ID", field: "supplierID" },
+    { title: "Name", field: "name",editable:"never" },
+    { title: "State", field: "state",  lookup: { Maintainance:"Maintainance", Available:"Available", Lost:"Lost"} },
     { title: "Weapon", render: renderRWeaponbtn},
   ];
 
@@ -121,7 +99,6 @@ const Users = props => {
       editable={{
         onRowAdd: newData =>saveUser(newData),
         onRowUpdate: (newData, oldData) =>updateUser(newData, oldData ),
-        onRowDelete: oldData => deleteUser(oldData),
       }}
     />
   }

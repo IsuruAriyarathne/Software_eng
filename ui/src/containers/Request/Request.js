@@ -34,21 +34,18 @@ function Request(props) {
     event.preventDefault()
 
     let data={
-        "requestID": 1,
         "date": "2021-01-12",
         "comments": "\"Need urgently\"",
         "state": "Pending",
         "stationID": 1,
         "AmmunitionRequests": [
             {
-                "requestID": 1,
                 "amount": 100,
                 "ammoModelID": 1
             }
         ],
         "WeaponRequests": [
             {
-                "requestID": 1,
                 "amount": 20,
                 "weaponModelID": 1
     
@@ -59,6 +56,7 @@ function Request(props) {
     saveRequest(data)
         .then((response) => {
             if (!response.error) {
+                alert("Request successfully added")
               // (response.data).forEach(user => setUsers(user));
               console.log(response)
             }

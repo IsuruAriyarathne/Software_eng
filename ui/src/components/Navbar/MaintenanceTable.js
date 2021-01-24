@@ -219,12 +219,6 @@ function Dashboard(props) {
             </ListItemIcon>
             <ListItemText primary="Order Request" />
           </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.VIEWORDERS}`)}>
-            <ListItemIcon>
-              <ShopIcon />
-            </ListItemIcon>
-            <ListItemText primary="ViewOrders" />
-          </ListItem>
         </List>
       </Drawer>
       <main className={classes.content}>

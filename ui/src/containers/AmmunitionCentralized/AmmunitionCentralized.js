@@ -29,34 +29,34 @@ const Users = props => {
    const { addAlert } = props;
   // const [isLoading, setIsLoading] = useState(true);
 
-  const deleteUser = useCallback(
-    (oldUser) => {
-      return new Promise((resolve, reject) => {
-        deleteAmmunitions(oldUser.officerID)
-              .then((response) => {
-                console.log(response);
-                  if (!response.error) {
-                      addAlert({
-                          message: "User deletion Successful!",
-                      });
-                      setUsers(removeItemFromArray(users, 'officerID', oldUser.officerID, oldUser))
-                      return resolve();
-                  }
-                  return reject();
-              })
-      });
-    },
-    [addAlert, users]
-  );
+  // const deleteUser = useCallback(
+  //   (oldUser) => {
+  //     return new Promise((resolve, reject) => {
+  //       deleteAmmunitions(oldUser.officerID)
+  //             .then((response) => {
+  //               console.log(response);
+  //                 if (!response.error) {
+  //                     addAlert({
+  //                         message: "Ammunition deletion Successful!",
+  //                     });
+  //                     setUsers(removeItemFromArray(users, 'officerID', oldUser.officerID, oldUser))
+  //                     return resolve();
+  //                 }
+  //                 return reject();
+  //             })
+  //     });
+  //   },
+  //   [addAlert, users]
+  // );
 
   const updateUser = useCallback(
     (newUser,oldUser) => {
       return new Promise((resolve, reject) => {
-        updateAmmunitions(oldUser.officerID, newUser)
+        updateAmmunitions(oldUser.ammoModelID,oldUser.orderID, newUser)
               .then((response) => {
                   if (!response.error) {
                       addAlert({
-                          message: "User Updated Successfully!",
+                          message: "Ammunition Updated Successfully!",
                       });
                       setUsers(replaceItemInArray(users, 'officerID', newUser, oldUser.officerID))
                       return resolve();
@@ -81,7 +81,7 @@ const Users = props => {
               .then((response) => {
                   if (!response.error) {
                       addAlert({
-                          message: "User Saved Successfully!",
+                          message: "Ammunition Saved Successfully!",
                       });
                       setUsers(addItemToArray(users, response.data))
                       return resolve();
@@ -95,8 +95,8 @@ const Users = props => {
 
   const tableColumns = [
     { title: "Id", field: "ammoModelID", editable:"never" },
-    { title: "Count", field: "count" },
-    { title: "Order ID", field: "orderID" },
+    { title: "Count", field: "count",editable:"never" },
+    { title: "Order ID", field: "orderID",editable:"never" },
     { title: "Remain", field: "remain" },
   ];
 
@@ -111,7 +111,7 @@ const Users = props => {
       editable={{
         onRowAdd: newData =>saveUser(newData),
         onRowUpdate: (newData, oldData) =>updateUser(newData, oldData ),
-        onRowDelete: oldData => deleteUser(oldData),
+        // onRowDelete: oldData => deleteUser(oldData),
       }}
     />
   }

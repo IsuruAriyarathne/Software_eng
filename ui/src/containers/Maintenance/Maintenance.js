@@ -56,7 +56,7 @@ const Users = props => {
               .then((response) => {
                   if (!response.error) {
                       addAlert({
-                          message: "User Updated Successfully!",
+                          message: "Maintainance records Updated Successfully!",
                       });
                       setMaintenance(replaceItemInArray(maintenance, 'id', newUser, oldUser.id))
                       return resolve();
@@ -81,7 +81,7 @@ const Users = props => {
               .then((response) => {
                   if (!response.error) {
                       addAlert({
-                          message: "User Saved Successfully!",
+                          message: "Maintainance Record Saved Successfully!",
                       });
                       setMaintenance(addItemToArray(maintenance, response.data))
                       return resolve();

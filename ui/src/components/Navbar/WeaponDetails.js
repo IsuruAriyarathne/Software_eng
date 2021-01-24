@@ -212,7 +212,7 @@ function Dashboard(props) {
             <ListItemIcon>
               <ArrowDropDownCircleIcon />
             </ListItemIcon>
-            <ListItemText primary="Weapon Moedls" />
+            <ListItemText primary="Weapon Models" />
           </ListItem>
           <ListItem button onClick={() => history.push(`${routez.AMMUNITIONMODELS}`)}>
             <ListItemIcon>

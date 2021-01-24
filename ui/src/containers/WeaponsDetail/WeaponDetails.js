@@ -101,7 +101,7 @@ const WeaponDetails = props => {
       
     
       const tableColumns= [
-        { title: "Weapon ID", field: "weaponID" },
+        { title: "Assigned", field: "assigned" },
         { title: "Assigned Date", field: "assignedDate" },
         { title: "Station Name", field: "stationName" },
         { title: "Contact Number", field: "contactNo" },

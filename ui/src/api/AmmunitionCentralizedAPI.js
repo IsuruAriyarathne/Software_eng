@@ -6,6 +6,6 @@ export const getAllAmmunitions = () => getRequest(`${BASE_URL}`);
 
 export const deleteAmmunitions = (id) => deleteRequest(`${BASE_URL}/${id}`);
 
-export const updateAmmunitions = (id,data) => putRequest(`${BASE_URL}/${id}`,data);
+export const updateAmmunitions = (ammoModelID,orderID,data) => putRequest(`${BASE_URL}/${ammoModelID}/${orderID}`,data);
 
 export const saveAmmunitions = (data) => postRequest(`${BASE_URL}`,data);
