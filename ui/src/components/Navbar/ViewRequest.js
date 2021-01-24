@@ -38,7 +38,7 @@ import Maintenance from '../../containers/CENViews/CENMaintenance';
 import { removeAlert } from '../../store/actions/index';
 import Alert from '../../components/UI/FHAlert/FHAlert';
 
-import Users from '../../containers/Users/users';
+import ViewRequest from '../../containers/ViewRequest/ViewRequest';
 
 const drawerWidth = 240;
 
@@ -260,7 +260,7 @@ function Dashboard(props) {
             {/* Chart */}
             <Grid item xs={12} md={12} lg={12}>
                 <Alert handleAlertClose={handleAlertClose} alerts={props.alerts} />
-                <Maintenance />
+                <ViewRequest />
             </Grid>
           </Grid>
         </Container>

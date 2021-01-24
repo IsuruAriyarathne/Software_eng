@@ -22,6 +22,8 @@ import WeaponDetails from './components/Navbar/WeaponDetails'
 import CompanyDetails from './components/Navbar/CompanyDetails'
 import Request from './components/Navbar/Request'
 import Orders from './components/Navbar/ViewOrders'
+import ViewRequest from './components/Navbar/ViewRequest'
+import orderDetail from './components/Navbar/orderDetail'
 
 import * as routez from './shared/routes';
 
@@ -53,6 +55,8 @@ function App() {
         <Route exact path={routez.CENMAINTENANCE} component={CenMaintenance}/>
         <Route exact path={routez.REQUEST} component={Request}/>
         <Route exact path={routez.VIEWORDERS} component={Orders}/>
+        <Route exact path={routez.VIEWREQUEST} component={ViewRequest}/>
+        <Route exact path={routez.ORDERDETAILS} component={orderDetail}/>
         <Redirect path="/" to={routez.SIGNIN} />
       </Switch>
     </Suspense>
