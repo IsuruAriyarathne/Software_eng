@@ -31,8 +31,6 @@ const Users = props => {
    const { addAlert } = props;
   // const [isLoading, setIsLoading] = useState(true);
 
-<<<<<<< HEAD
-=======
   const deleteUser = useCallback(
     (oldUser) => {
       return new Promise((resolve, reject) => {
@@ -56,7 +54,6 @@ const Users = props => {
     [addAlert, users]
   );
 
->>>>>>> test
   const updateUser = useCallback(
     (newUser,oldUser) => {
       return new Promise((resolve, reject) => {
