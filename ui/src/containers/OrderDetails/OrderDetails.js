@@ -45,6 +45,9 @@ const OrderDetail = (props) => {
 						);
 						return resolve();
 					}
+					addAlert({
+						message: "Failed!",
+					  });
 					return reject();
 				});
 			});
@@ -66,6 +69,9 @@ const OrderDetail = (props) => {
 						console.log(orderAmmunitions);
 						return resolve();
 					}
+					addAlert({
+						message: "Failed!",
+					  });
 					return reject();
 				});
 			});
@@ -95,6 +101,9 @@ const OrderDetail = (props) => {
 						setorderAmmunitions(addItemToArray(orderAmmunitions, arr[0]));
 						return resolve();
 					}
+					addAlert({
+						message: "Failed!",
+					  });
 					return reject();
 				});
 			});
@@ -116,6 +125,9 @@ const OrderDetail = (props) => {
 						);
 						return resolve();
 					}
+					addAlert({
+						message: "Failed!",
+					  });
 					return reject();
 				});
 			});
@@ -137,6 +149,9 @@ const OrderDetail = (props) => {
 
 						return resolve();
 					}
+					addAlert({
+						message: "Failed!",
+					  });
 					return reject();
 				});
 			});
@@ -168,6 +183,9 @@ const OrderDetail = (props) => {
 						setorderWeapons(addItemToArray(orderWeapons, arr[0]));
 						return resolve();
 					}
+					addAlert({
+						message: "Failed!",
+					  });
 					return reject();
 				});
 			});

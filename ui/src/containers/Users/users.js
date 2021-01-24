@@ -45,6 +45,9 @@ const Users = props => {
                       setUsers(removeItemFromArray(users, 'officerID', oldUser.officerID, oldUser))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Failed!",
+                  });
                   return reject();
               })
       });
@@ -64,6 +67,9 @@ const Users = props => {
                       setUsers(replaceItemInArray(users, 'officerID', newUser, oldUser.officerID))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Failed!",
+                  });
                   return reject();
               })
       });
@@ -90,6 +96,9 @@ const Users = props => {
                       setUsers(addItemToArray(users, response.data))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Failed!",
+                  });
                   return reject();
               })
         });

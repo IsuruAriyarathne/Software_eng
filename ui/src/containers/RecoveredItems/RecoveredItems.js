@@ -47,6 +47,9 @@ const RecoveryDetail = (props) => {
 						);
 						return resolve();
 					}
+					addAlert({
+						message: "Failed!",
+					  });
 					return reject();
 				});
 			});
@@ -67,6 +70,9 @@ const RecoveryDetail = (props) => {
 						);
 						return resolve();
 					}
+					addAlert({
+						message: "Failed!",
+					  });
 					return reject();
 				});
 			});
@@ -100,6 +106,9 @@ const RecoveryDetail = (props) => {
 						setrecoveredammunitions(addItemToArray(recoveredammunitions, arr[0]));
 						return resolve();
 					}
+					addAlert({
+						message: "Failed!",
+					  });
 					return reject();
 				});
 			});
@@ -121,6 +130,9 @@ const RecoveryDetail = (props) => {
 						);
 						return resolve();
 					}
+					addAlert({
+						message: "Failed!",
+					  });
 					return reject();
 				});
 			});
@@ -141,6 +153,9 @@ const RecoveryDetail = (props) => {
 						);
 						return resolve();
 					}
+					addAlert({
+						message: "Failed!",
+					  });
 					return reject();
 				});
 			});
@@ -170,6 +185,9 @@ const RecoveryDetail = (props) => {
 						setrecoveredweapons(addItemToArray(recoveredweapons, arr[0]));
 						return resolve();
 					}
+					addAlert({
+						message: "Failed!",
+					  });
 					return reject();
 				});
 			});

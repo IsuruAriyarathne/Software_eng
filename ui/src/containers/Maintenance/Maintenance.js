@@ -42,6 +42,9 @@ const Users = props => {
                       setMaintenance(removeItemFromArray(maintenance, 'id', oldUser.id, oldUser))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Failed!",
+                  });
                   return reject();
               })
       });
@@ -61,6 +64,9 @@ const Users = props => {
                       setMaintenance(replaceItemInArray(maintenance, 'id', newUser, oldUser.id))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Failed!",
+                  });
                   return reject();
               })
       });
@@ -86,6 +92,9 @@ const Users = props => {
                       setMaintenance(addItemToArray(maintenance, response.data))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Failed!",
+                  });
                   return reject();
               })
         });

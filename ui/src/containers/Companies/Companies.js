@@ -45,6 +45,9 @@ const Companies = props => {
                       setCompanies(removeItemFromArray(companies, 'stationID', oldData.supplierID, oldData))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Failed!",
+                  });
                   return reject();
               })
       });
@@ -64,6 +67,9 @@ const Companies = props => {
                     setCompanies(replaceItemInArray(companies, 'supplierID', newData, oldData.supplierID))
                     return resolve();
                 }
+                addAlert({
+                  message: "Failed!",
+                });
                 return reject();
             })
       })
@@ -90,6 +96,9 @@ const Companies = props => {
                       setCompanies(addItemToArray(companies, response.data))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Failed!",
+                  });
                   return reject();
               })
         });

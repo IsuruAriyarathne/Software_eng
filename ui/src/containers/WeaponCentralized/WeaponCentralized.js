@@ -44,6 +44,9 @@ const Users = props => {
                       setUsers(removeItemFromArray(users, 'weaponID', oldUser.weaponID, oldUser))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Failed!",
+                  });
                   return reject();
               })
       });
@@ -63,6 +66,9 @@ const Users = props => {
                       setUsers(replaceItemInArray(users, 'weaponID', newUser, oldUser.weaponID))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Failed!",
+                  });
                   return reject();
               })
       });

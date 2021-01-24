@@ -42,6 +42,9 @@ const Users = props => {
                       setUsers(removeItemFromArray(users, 'officerID', oldUser.officerID, oldUser))
                       return resolve();
                   }
+                  addAlert({
+                    message: "User deletion Unsuccessful!",
+                  });
                   return reject();
               })
       });
@@ -61,6 +64,9 @@ const Users = props => {
                       setUsers(replaceItemInArray(users, 'officerID', newUser, oldUser.officerID))
                       return resolve();
                   }
+                  addAlert({
+                    message: "User Updated Unsuccessfully!",
+                  });
                   return reject();
               })
       });

@@ -42,6 +42,9 @@ const Stations = props => {
                       setStations(removeItemFromArray(stations, 'stationID', oldData.stationID, oldData))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Failed!",
+                  });
                   return reject();
               })
       });
@@ -61,6 +64,9 @@ const Stations = props => {
                     setStations(replaceItemInArray(stations, 'stationID', newData, oldData.stationID))
                     return resolve();
                 }
+                addAlert({
+                  message: "Failed!",
+                });
                 return reject();
             })
       })

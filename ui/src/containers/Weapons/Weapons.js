@@ -42,6 +42,9 @@ const Weapons = props => {
                       setWeapons(replaceItemInArray(weapons, 'weaponID', newWeapon, oldWeapon.weaponID))
                       return resolve();
                   }
+                  addAlert({
+                    message: "Failed!",
+                  });
                   return reject();
               })
       });

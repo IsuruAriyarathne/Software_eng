@@ -53,6 +53,9 @@ const CompanyDetail = (props) => {
 						);
 						return resolve();
 					}
+					addAlert({
+						message: "Failed!",
+					  });
 					return reject();
 				});
 			});
@@ -80,6 +83,9 @@ const CompanyDetail = (props) => {
 						setAmmunitionTypes(addItemToArray(ammunitionTypes,arr[0]));
 						return resolve();
 					}
+					addAlert({
+						message: "Failed!",
+					});
 					return reject();
 				});
 			});
@@ -102,6 +108,9 @@ const CompanyDetail = (props) => {
 						);
 						return resolve();
 					}
+					addAlert({
+						message: "Failed!",
+					});
 					return reject();
 				});
 			});
@@ -124,6 +133,9 @@ const CompanyDetail = (props) => {
 						setWeaponModels(addItemToArray(weaponModels,arr[0]));
 						return resolve();
 					}
+					addAlert({
+						message: "Failed!",
+					});
 					return reject();
 				});
 			});
