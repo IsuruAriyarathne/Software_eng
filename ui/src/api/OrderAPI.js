@@ -4,8 +4,14 @@ const BASE_URL = "/centralizedofficer/orders";
 
 export const getAllOrders = () => getRequest(`${BASE_URL}`);
 
-export const deleteAmmunitionsModels = (id) => deleteRequest(`${BASE_URL}/${id}`);
+export const getOrder = (id) => getRequest(`${BASE_URL}/${id}`);
 
-export const updateAmmunitionsModels = (id,data) => putRequest(`${BASE_URL}/${id}`,data);
+export const deleteOrder = (id) => deleteRequest(`${BASE_URL}/${id}`);
 
-export const saveAmmunitionsModels = (data) => postRequest(`${BASE_URL}`,data);
+export const deleteOrderWeapon = (id,weaponModelID) => deleteRequest(`${BASE_URL}/weapon/${id}/${weaponModelID}`);
+
+export const deleteOrderAmmunition = (id,ammoModelID) => deleteRequest(`${BASE_URL}/ammo/${id}/${ammoModelID}`);
+
+export const updateOrder = (id,data) => putRequest(`${BASE_URL}/${id}`,data);
+
+export const saveOrder = (data) => postRequest(`${BASE_URL}`,data);
