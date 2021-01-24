@@ -19,6 +19,7 @@ import CenStations from './components/Navbar/CENStations'
 import CenRecovery from './components/Navbar/CENRecoverTale'
 import CenMaintenance from './components/Navbar/CENMaintenance'
 import WeaponDetails from './components/Navbar/WeaponDetails'
+import CompanyDetails from './components/Navbar/CompanyDetails'
 
 import * as routez from './shared/routes';
 
@@ -46,6 +47,7 @@ function App() {
         <Route exact path={routez.CENSTATIONS} component={CenStations}/>
         <Route exact path={routez.CENRECOVERY} component={CenRecovery}/>
         <Route exact path={routez.WEAPON_DETAIL} component={WeaponDetails}/>
+        <Route exact path={routez.COMPANY_DETAIL} component={CompanyDetails}/>
         <Route exact path={routez.CENMAINTENANCE} component={CenMaintenance}/>
         <Redirect path="/" to={routez.SIGNIN} />
       </Switch>

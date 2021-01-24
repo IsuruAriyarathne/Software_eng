@@ -9,3 +9,5 @@ export const deleteCompanies = (id) => deleteRequest(`${BASE_URL}/${id}`);
 export const updateCompanies = (id,data) => putRequest(`${BASE_URL}/${id}`,data);
 
 export const saveCompanies = (data) => postRequest(`${BASE_URL}`,data);
+
+export const getDetails = (id) => getRequest(`${BASE_URL}/${id}`);

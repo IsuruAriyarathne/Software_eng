@@ -1,10 +1,12 @@
 import React , {useState, useEffect, useCallback } from "react";
 import { connect } from 'react-redux';
+import { useHistory } from "react-router-dom";
 
 import {getAllCompanies, deleteCompanies, updateCompanies,saveCompanies } from "../../api/CompaniesAPI"
 import {replaceItemInArray, removeItemFromArray, addItemToArray} from "../../shared/utility";
 import Table from "../../components/UI/Table/MaterialTable/Table";
 import * as actions from '../../store/actions/index';
+import Button from '@material-ui/core/Button';
 
 const CompaniesTable = "Companies Table";
 
@@ -14,7 +16,7 @@ const tableOptions = {
 };
 
 const Companies = props => {
-  
+  const history = useHistory();
   const [companies, setCompanies] = useState([]);
   useEffect(() => {
     getAllCompanies()
@@ -95,6 +97,10 @@ const Companies = props => {
     [addAlert,companies]
   );
   
+  const renderProfilebtn = useCallback(
+    (rowData) => <Button color="primary" onClick={() => history.push(`companies/${rowData.supplierID}`)}>Company Details</Button>,
+    [history]
+  );
 
   const tableColumns = [
     { title: "Supplier ID", field: "supplierID", editable:"never" },
@@ -102,6 +108,7 @@ const Companies = props => {
     { title: "Contact Number", field: "contactNumber" },
     { title: "Address", field: "address" },
     { title: "Description", field: "description" },
+    { title: "Details", render: renderProfilebtn},
   ];
 
   if (false) {

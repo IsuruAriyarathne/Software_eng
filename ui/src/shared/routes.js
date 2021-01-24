@@ -14,6 +14,7 @@ export const REQUEST = '/request';
 export const USERS_DETAIL = '/users/:id';
 export const RECOVERY_DETAIL = '/recovery/stationid/:id';
 export const WEAPON_DETAIL = '/recovery/weapons/:id';
+export const COMPANY_DETAIL = '/companies/:id';
 export const CENRECOVERY = '/cenrecovery';
 export const CENMAINTENANCE = '/cenmaintenance';
 export const CENSTATIONS = '/censtations';
