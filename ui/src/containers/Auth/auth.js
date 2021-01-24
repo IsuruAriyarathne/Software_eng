@@ -17,16 +17,15 @@ import { auth } from '../../store/actions/index';
 import { addAlert } from '../../store/actions/index';
 import * as routez from '../../shared/routes';
 
-import backgroundImage from "../../shared/images/Bullet-2.jpg";
+import backgroundImage from "../../shared/images/cover.jpg";
 
 const inputDefinitions = {
     gmail: {
         label: 'Email*',
         validations: {
             required: true,
-            minLength: 0,
-            maxLength: 40,
-            validationErrStr: 'Use between 2 and 40 characters for your password'
+            isEmail: true,
+            validationErrStr: 'Enter a valid email'
         }
     },
     password: {
@@ -121,8 +120,6 @@ function SignIn(props) {
         setInputIsValid(localInputIsValid);
 
         if (localInputIsValid['gmail'] && localInputIsValid['password']) {
-            console.log(authObj.username)
-            console.log(authObj.password)
             props.onAuth(
                 authObj.gmail,
                 authObj.password
@@ -131,25 +128,18 @@ function SignIn(props) {
     }, [authObj, checkInputValidity, inputIsValid, props]);
 
     const authError = props.error;
-    console.log(authError);
-    const addAlert = props.addAlert;
     useEffect(() => {
         if (authError) {
-            addAlert({
-                severity: 'error',
-                message: authError
-            });
+            alert(authError)
         }
-    }, [authError, addAlert]);
+    }, [authError,history]);
 
     if (props.isAuthenticated){
         if(props.usertype.toUpperCase()==="ADMIN" ){
-            console.log("hiiii")
             history.push(routez.USERS);
         }else if (props.usertype.toUpperCase()==="OFFICER"){
             history.push(routez.WEAPONS);
         } else {
-            console.log("hiiii");
             history.push(routez.COMPANIES);
         }
     }

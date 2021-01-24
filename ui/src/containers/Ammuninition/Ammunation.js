@@ -1,10 +1,13 @@
 import React , {useState, useEffect, useCallback} from "react";
 import { connect } from 'react-redux';
+import { useHistory } from "react-router-dom";
+import * as routez from '../../shared/routes';
 
 import {getAllAmmunition, updateAmmunition} from "../../api/AmmunitionAPI"
 import {replaceItemInArray} from "../../shared/utility";
 import Table from "../../components/UI/Table/MaterialTable/Table";
 import * as actions from '../../store/actions/index';
+
 
 const AmmunitionTable = "Ammunation Table";
 
@@ -15,7 +18,10 @@ const tableOptions = {
 };
 
 const Ammunation = props => {
-  
+  let history = useHistory();
+  if (!props.isAuthenticated){
+    history.push(routez.SIGNIN);
+  } 
   const [ammunition, setAmmunition] = useState([]);
   useEffect(() => {
     getAllAmmunition(props.stationID)
@@ -79,6 +85,7 @@ const mapStateToProps = (state) => {
   return {
       error: state.auth.error,
       stationID:state.auth.stationID,
+      isAuthenticated: state.auth.token != null,
   }
 }
 

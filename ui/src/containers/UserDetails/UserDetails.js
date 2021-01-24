@@ -1,5 +1,7 @@
 import { useEffect, useState ,useCallback} from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from "react-router-dom";
+import * as routez from '../../shared/routes';
 
 import { useParams } from "react-router-dom";
 import { Paper } from "@material-ui/core";
@@ -47,6 +49,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const UsersDetail = props => {
+    let history = useHistory();
+    if (!props.isAuthenticated){
+        history.push(routez.SIGNIN);
+      }
     const { addAlert } = props;
     const classes = useStyles();
     const { id } = useParams();

@@ -11,8 +11,6 @@ const authStart = () => {
 };
 
 const authSuccess = (token, type, stationId) => {
-    console.log(type);
-    console.log(stationId);
     authRequestInterceptor = axios.interceptors.request.use(request => {
         request.headers.Authorization = `Bearer ${token}`;
         return request;
@@ -27,6 +25,7 @@ const authSuccess = (token, type, stationId) => {
 };
 
 const authFail = (error) => {
+    console.log("hiii")
     return {
         type: actionTypes.AUTH_FAIL,
         error: error
@@ -57,12 +56,14 @@ export const auth = (email, password) => (dispatch) => {
         password: password,
     }
     let url = loginRoute;
-    console.log(authData);
 
     axios.post(url,
         authData)
         .then((response) => {
-            if (response.data) {
+            console.log(response)
+            console.log(response.data)
+            console.log(response.data.success)
+            if (response.data.success) {
                 console.log(response);
                 const expirationDate = new Date(new Date().getTime() + authRequestTimeoutSec * 1000);
                 console.log(response.data.type);
@@ -74,6 +75,9 @@ export const auth = (email, password) => (dispatch) => {
                 dispatch(authSuccess(response.data.token, response.data.type,response.data.stationID));
                 dispatch(checkAuthTimeout(authRequestTimeoutSec));
             } else {
+                dispatch(authFail('User must be an admin'));
+            }
+            if (response.error){
                 dispatch(authFail('User must be an admin'));
             }
         });
