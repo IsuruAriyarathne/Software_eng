@@ -83,7 +83,7 @@ const Users = props => {
                       addAlert({
                           message: "Weapon MOdel Saved Successfully!",
                       });
-                      setweaponModel(addItemToArray(weaponModel, data))
+                      setweaponModel(addItemToArray(weaponModel, response.data))
                       return resolve();
                   }
                   return reject();
@@ -95,7 +95,7 @@ const Users = props => {
   
 
   const tableColumns = [
-    { title: "Weapon Id", field: "weaponModelID" },
+    { title: "Weapon Id", field: "weaponModelID", editable:"never" },
     { title: "Name", field: "name" },
     { title: "Description", field: "description" },
   ];

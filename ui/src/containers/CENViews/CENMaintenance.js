@@ -30,7 +30,8 @@ const Weapons = props => {
   
   const tableColumns = [
     { title: "weapon ID", field: "id", editable: 'never' },
-    { title: "Name", field: "date", editable: 'never' },
+    { title: "Date", field: "date", editable: 'never' },
+    { title: "Amount", field: "amount", editable: 'never' },
   ];
 
   if (false) {

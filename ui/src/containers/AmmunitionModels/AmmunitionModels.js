@@ -82,7 +82,7 @@ const Users = props => {
                       addAlert({
                           message: "Ammunition Model Saved Successfully!",
                       });
-                      setammunitionModels(addItemToArray(ammunitionModels, data))
+                      setammunitionModels(addItemToArray(ammunitionModels, response.data))
                       return resolve();
                   }
                   return reject();
@@ -94,7 +94,7 @@ const Users = props => {
   
 
   const tableColumns = [
-    { title: "Ammunition Id", field: "ammoModelID" },
+    { title: "Ammunition Id", field: "ammoModelID", editable:"never" },
     { title: "Name", field: "name" },
     { title: "Description", field: "description" },
   ];

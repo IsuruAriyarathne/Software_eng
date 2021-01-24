@@ -86,7 +86,7 @@ const RecoveryView = props => {
                       addAlert({
                           message: "Recovery Saved Successfully!",
                       });
-                      setRecovery(addItemToArray(recovery, data))
+                      setRecovery(addItemToArray(recovery, response.data))
                       return resolve();
                   }
                   return reject();
@@ -106,8 +106,8 @@ const RecoveryView = props => {
   );
   
   const tableColumns = [
-    { title: "Recovery ID", field: "recoveryID" },
-    { title: "Recovery Date", field: "recoveryDate" },
+    { title: "Recovery ID", field: "recoveryID", editable:"never" },
+    { title: "Recovery Date", field: "recoveryDate",type: "date" },
     { title: "Description", field: "description" },
     { title: "Recovery", render: renderRecoverybtn},
     // { title: "station Id", field: "stationID" },

@@ -83,7 +83,7 @@ const Users = props => {
                       addAlert({
                           message: "User Saved Successfully!",
                       });
-                      setMaintenance(addItemToArray(maintenance, data))
+                      setMaintenance(addItemToArray(maintenance, response.data))
                       return resolve();
                   }
                   return reject();
@@ -95,10 +95,10 @@ const Users = props => {
   
 
   const tableColumns = [
-    { title: "Id", field: "id" },
+    { title: "Id", field: "id", editable:"never" },
     { title: "Weapon ID", field: "weaponID" },
-    { title: "Ammount", field: "amount" },
-    { title: "Date", field: "date" },
+    { title: "Amount", field: "amount" },
+    { title: "Date", field: "date", type:"date" },
     { title: "Description", field: "description" },
   ];
 

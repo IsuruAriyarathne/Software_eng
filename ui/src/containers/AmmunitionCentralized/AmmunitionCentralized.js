@@ -83,7 +83,7 @@ const Users = props => {
                       addAlert({
                           message: "User Saved Successfully!",
                       });
-                      setUsers(addItemToArray(users, data))
+                      setUsers(addItemToArray(users, response.data))
                       return resolve();
                   }
                   return reject();
@@ -94,7 +94,7 @@ const Users = props => {
   );
 
   const tableColumns = [
-    { title: "Id", field: "ammoModelID" },
+    { title: "Id", field: "ammoModelID", editable:"never" },
     { title: "Count", field: "count" },
     { title: "Order ID", field: "orderID" },
     { title: "Remain", field: "remain" },
