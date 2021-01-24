@@ -27,6 +27,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
 import * as routez from '../../shared/routes';
+import { authLogout } from "../../store/actions/index";
 
 import AmmunitionCentralized from '../../containers/AmmunitionCentralized/AmmunitionCentralized'
 
@@ -112,12 +113,15 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     backgroundColor: grey[300],
   },
+  menuButtonlog: {
+    color: "white"
+  }
   // fixedHeight: {
   //   height: '100%',
   // },
 }));
 
-export default function Dashboard() {
+function Dashboard(props) {
   const classes = useStyles();
   const history = useHistory();
   const [open, setOpen] = React.useState(true);
@@ -128,6 +132,13 @@ export default function Dashboard() {
     setOpen(false);
   };
   // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  const { onauthLogout, isAuthenticated } = props;
+
+    const handleLogout = () => {
+		onauthLogout();
+		history.push("/");
+	 };
 
   return (
     <div className={classes.root}>
@@ -231,3 +242,16 @@ export default function Dashboard() {
     </div>
   );
 }
+const mapStateToProps = (state) => {
+	return {
+		isAuthenticated: state.auth.token != null,
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onauthLogout: () => dispatch(authLogout()),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
