@@ -15,5 +15,13 @@ describe('Login', function(){
         cy.get('li[data-value="admin"]').click()
         cy.get('input[placeholder="station Name"]').type('Matara')
         cy.get('button[title="Save"]').click()
+        cy.reload()
     })
+
+    it('Delete a user', function(){
+        cy.get('input[placeholder="Search"]').type('Sugath',{force: true})
+        cy.get('button[title="Delete"]').click()
+        cy.get('button[title="Save"]').click()
+    })
+
 })
