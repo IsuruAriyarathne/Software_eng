@@ -1,9 +1,12 @@
 import React , {useState, useEffect, useCallback } from "react";
 import { connect } from 'react-redux';
+import { useHistory } from "react-router-dom";
 
 import {getAllUsers, deleteUsers, updateUsers, saveUsers } from "../../api/UsersAPI"
+import {replaceItemInArray, removeItemFromArray, addItemToArray} from "../../shared/utility";
 import Table from "../../components/UI/Table/MaterialTable/Table";
 import * as actions from '../../store/actions/index';
+import { Button } from "@material-ui/core";
 
 const UserTable = "User Table";
 
@@ -13,12 +16,15 @@ const tableOptions = {
 };
 
 const Users = props => {
+  let history = useHistory();
+
   const [users, setUsers] = useState([]);
   useEffect(() => {
       getAllUsers()
         .then((response) => {
           if (!response.error) {
             // (response.data).forEach(user => setUsers(user));
+            console.log(response)
             setUsers(response.data)
           }
         })
@@ -27,57 +33,91 @@ const Users = props => {
   // const [isLoading, setIsLoading] = useState(true);
 
   const deleteUser = useCallback(
-    (officerID) => {
-      alert("You want to delete " + officerID)
-      deleteUsers(officerID)
-        .then((response) => {
-            console.log(response);
-            addAlert({
-              message: "User deletion Successful!",
-            });
-          
-        })
+    (oldUser) => {
+      return new Promise((resolve, reject) => {
+        deleteUsers(oldUser.officerID)
+              .then((response) => {
+                console.log(response);
+                  if (!response.error) {
+                      addAlert({
+                          message: "User deletion Successful!",
+                      });
+                      setUsers(removeItemFromArray(users, 'officerID', oldUser.officerID, oldUser))
+                      return resolve();
+                  }
+                  addAlert({
+                    message: "Failed!",
+                  });
+                  return reject();
+              })
+      });
     },
-    [addAlert]
+    [addAlert, users]
   );
 
   const updateUser = useCallback(
-    (id,data) => {
-      console.log(data)
-      updateUsers(id,data)
-        .then((response) => {
-            console.log(response);
-            addAlert({
-              message: "User Updated Successfully!",
-            });
-          
-        })
+    (newUser,oldUser) => {
+      return new Promise((resolve, reject) => {
+          updateUsers(oldUser.officerID, newUser)
+              .then((response) => {
+                  if (!response.error) {
+                      addAlert({
+                          message: "User Updated Successfully!",
+                      });
+                      setUsers(replaceItemInArray(users, 'officerID', newUser, oldUser.officerID))
+                      return resolve();
+                  }
+                  addAlert({
+                    message: "Failed!",
+                  });
+                  return reject();
+              })
+      });
     },
-    [addAlert]
+    [addAlert, users]
   );
 
   const saveUser = useCallback(
-    (data) => {
-      saveUsers(data)
-        .then((response) => {
-          if (!response.error){
-            addAlert({
-              message: "User Saved Successfully!",
-            });
-          }else{
-            console.log(response.error)
-          }
-        })
+    (newUser) => {
+      var data=({
+        "officerID": newUser.officerID,
+        "name": newUser.name,
+        "email": newUser.email,
+        "role": newUser.role,
+        "stationName": newUser.stationName,
+      })
+      return new Promise((resolve, reject) => {
+        saveUsers(data)
+              .then((response) => {
+                  if (!response.error) {
+                      addAlert({
+                          message: "User Saved Successfully!",
+                      });
+                      setUsers(addItemToArray(users, response.data))
+                      return resolve();
+                  }
+                  addAlert({
+                    message: "Failed!",
+                  });
+                  return reject();
+              })
+        });
     },
-    [addAlert]
+    [addAlert, users]
   );
   
+  const renderProfileBtn = useCallback(
+    (rowData) => <Button color="primary" onClick={() => history.push(`users/${rowData.officerID}`)}>Profile</Button>,
+    [history]
+  );
 
   const tableColumns = [
-    { title: "Id", field: "officerId" },
+    { title: "Id", field: "officerID", editable:"never" },
     { title: "Name", field: "name" },
-    { title: "Location", field: "location" },
-    { title: "stationId", field: "stationID" },
+    { title: "Email", field: "email" },
+    { title: "Role", field: "role", lookup: { admin:"admin", cenofficer:"cenofficer", officer:"officer"} },
+    { title: "station Name", field: "stationName" },
+    { title: "Profile", render: renderProfileBtn },
   ];
 
   if (false) {
@@ -89,21 +129,9 @@ const Users = props => {
       columns={tableColumns}
       tableOptions={tableOptions}
       editable={{
-        onRowAdd: newData =>{
-          var data=({
-            "officerId": newData.officerId,
-            "name": newData.name,
-            "location": newData.location,
-            "stationID": newData.stationID,
-          })
-          saveUser(data)
-        },
-        onRowUpdate: (newData, oldData) =>{
-          updateUser(oldData.officerId, newData )
-        },
-        onRowDelete: oldData =>{
-          deleteUser(oldData.officerId);
-        },
+        onRowAdd: newData =>saveUser(newData),
+        onRowUpdate: (newData, oldData) =>updateUser(newData, oldData ),
+        onRowDelete: oldData => deleteUser(oldData),
       }}
     />
   }

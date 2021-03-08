@@ -1,5 +1,6 @@
-import React from 'react';
+import React,{useCallback} from 'react';
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
 
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,24 +16,26 @@ import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import Button from '@material-ui/core/Button';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import PeopleIcon from '@material-ui/icons/People';
-import HomeIcon from '@material-ui/icons/Home';
 import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import LocationCityIcon from '@material-ui/icons/LocationCity';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import * as routez from '../../shared/routes';
+import { authLogout } from "../../store/actions/index";
 
-import { MainListItems } from './listItems';
+import { removeAlert } from '../../store/actions/index';
+import Alert from '../../components/UI/FHAlert/FHAlert';
+
+import Users from '../../containers/Users/users';
+
 import CriminalWeapons from '../../containers/CriminalWeapons/CriminalWeapons'
 
 function Copyright() {
@@ -124,12 +127,15 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
     flexDirection: 'column',
   },
-  fixedHeight: {
-    height: '100%',
-  },
+  menuButtonlog: {
+    color: "white"
+  }
+  // fixedHeight: {
+  //   height: '100%',
+  // },
 }));
 
-export default function Dashboard() {
+function Dashboard(props) {
   const classes = useStyles();
   const history = useHistory();
   const [open, setOpen] = React.useState(true);
@@ -139,7 +145,18 @@ export default function Dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  //const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  const { onauthLogout, isAuthenticated } = props;
+
+    const handleLogout = () => {
+		onauthLogout();
+		history.push("/");
+   };
+   const removeAlert = props.removeAlert;
+  const handleAlertClose = useCallback((alertId) => {
+      removeAlert(alertId);
+  }, [removeAlert]);
 
   return (
     <div className={classes.root}>
@@ -156,13 +173,11 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
+          SLFire
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
+          <Button className={classes.menuButtonlog} onClick={() => handleLogout()}>
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -179,18 +194,6 @@ export default function Dashboard() {
         </div>
         <Divider />
         <List>
-          <ListItem button onClick={() => history.push(`${routez.USERS}`)}>
-            <ListItemIcon>
-              <PeopleIcon />
-            </ListItemIcon>
-            <ListItemText primary="Users" />
-          </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.STATIONS}`)}>
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary="Stations" />
-          </ListItem>
           <ListItem button onClick={() => history.push(`${routez.WEAPONS}`)}>
             <ListItemIcon>
               <ArrowDropDownCircleIcon />
@@ -202,12 +205,6 @@ export default function Dashboard() {
               <ArrowForwardIosIcon />
             </ListItemIcon>
             <ListItemText primary="Ammunation" />
-          </ListItem>
-          <ListItem button onClick={() => history.push(`${routez.COMPANIES}`)}>
-            <ListItemIcon>
-              <LocationCityIcon />
-            </ListItemIcon>
-            <ListItemText primary="Companies" />
           </ListItem>
           <ListItem button onClick={() => history.push(`${routez.CRIMINALWEAPONS}`)}>
             <ListItemIcon>
@@ -229,9 +226,8 @@ export default function Dashboard() {
           <Grid container spacing={3}>
             {/* Chart */}
             <Grid item xs={12} md={12} lg={12}>
-              <Paper className={fixedHeightPaper}>
+                <Alert handleAlertClose={handleAlertClose} alerts={props.alerts} />
                 <CriminalWeapons />
-              </Paper>
             </Grid>
           </Grid>
           <Box pt={4}>
@@ -242,3 +238,18 @@ export default function Dashboard() {
     </div>
   );
 }
+const mapStateToProps = (state) => {
+	return {
+    isAuthenticated: state.auth.token != null,
+    alerts: state.alert.alerts
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+    onauthLogout: () => dispatch(authLogout()),
+    removeAlert: (alertId) => dispatch(removeAlert(alertId))
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

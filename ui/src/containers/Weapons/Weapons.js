@@ -1,7 +1,10 @@
-import React , {useState, useEffect} from "react";
+import React , {useState, useEffect, useCallback} from "react";
+import { connect } from 'react-redux';
 
-import {getAllWeapons } from "../../api/WeaponsAPI"
+import {getAllWeapons,updateWeapons  } from "../../api/WeaponsAPI"
+import {replaceItemInArray} from "../../shared/utility";
 import Table from "../../components/UI/Table/MaterialTable/Table";
+import * as actions from '../../store/actions/index';
 
 const WeaponTable = "Weapons Table";
 
@@ -11,10 +14,10 @@ const tableOptions = {
 };
 
 const Weapons = props => {
-  
+  console.log(props.stationID);
   const [weapons, setWeapons] = useState([]);
   useEffect(() => {
-    getAllWeapons()
+    getAllWeapons(props.stationID)
         .then((response) => {
           console.log(response.data);
           if (!response.error) {
@@ -22,14 +25,40 @@ const Weapons = props => {
             setWeapons(response.data)
           }
         })
-  }, []);
+  }, [props.stationID]);
+  const { addAlert } = props;
+  // const [isLoading, setIsLoading] = useState(true);
 
+
+  const updateWeapon = useCallback(
+    (newWeapon,oldWeapon) => {
+      return new Promise((resolve, reject) => {
+        updateWeapons(oldWeapon.weaponID, newWeapon)
+              .then((response) => {
+                  if (!response.error) {
+                      addAlert({
+                          message: "Weapon Updated Successfully!",
+                      });
+                      setWeapons(replaceItemInArray(weapons, 'weaponID', newWeapon, oldWeapon.weaponID))
+                      return resolve();
+                  }
+                  addAlert({
+                    message: "Failed!",
+                  });
+                  return reject();
+              })
+      });
+    },
+    [addAlert, weapons]
+  );
+  
   const tableColumns = [
-    { title: "Id", field: "id" },
-    { title: "Title", field: "title" },
-    { title: "Topic Id", field: "topicid" },
-    { title: "Video URL", field: "videoUrl" },
-    { title: "Description", field: "description" },
+    { title: "weapon ID", field: "weaponID", editable: 'never' },
+    { title: "Name", field: "name", editable: 'never' },
+    // { title: "Assigned", field: "assigned" },
+    { title: "Assigned Date", field: "assignedDate" , editable: 'never'},
+    { title: "Description", field: "description", editable: 'never' },
+    { title: "Status", field: "state",  lookup: { Available:"Available", Lost:"Lost", Maintainance:"Maintainance"},},
   ];
 
   if (false) {
@@ -41,25 +70,25 @@ const Weapons = props => {
       columns={tableColumns}
       tableOptions={tableOptions}
       editable={{
-        onRowAdd: newData =>{
-        //   var data=({
-        //     "id": newData.id,
-        //     "title": newData.title,
-        //     "topicId": newData.topic.id,
-        //     "videoUrl": newData.videoUrl,
-        //     "description": newData.description
-        //   })
-        //   saveLesson(data)
-        },
-        onRowUpdate: (newData, oldData) =>{
-          //updateLesson(oldData.id, newData )
-        },
-        onRowDelete: oldData =>{
-          //deleteLesson(oldData.id);
-        },
+        onRowUpdate: (newData, oldData) =>updateWeapon(newData, oldData ),
       }}
     />
   }
 };
 
-export default (Weapons);
+const mapStateToProps = (state) => {
+  return {
+      error: state.auth.error,
+      stationID:state.auth.stationID,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addAlert: alert => dispatch(actions.addAlert(alert))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Weapons);
+
+//export default (Weapons);

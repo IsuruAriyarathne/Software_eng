@@ -1,5 +1,6 @@
-import React, { useState, useCallback}  from 'react';
+import React, { useState, useCallback, useEffect}  from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from "react-router-dom";
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -10,19 +11,21 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import { checkValidity } from '../../shared/validate';
-import { updateObject, formIsValid } from '../../shared/utility';
+import { updateObject } from '../../shared/utility';
 import { buildTextFields } from '../../helpers/uiHelpers';
 import { auth } from '../../store/actions/index';
-import { addAlert } from '../../store/actions/index'
+import { addAlert } from '../../store/actions/index';
+import * as routez from '../../shared/routes';
+
+import backgroundImage from "../../shared/images/cover.jpg";
 
 const inputDefinitions = {
-    username: {
-        label: 'Username*',
+    gmail: {
+        label: 'Email*',
         validations: {
             required: true,
-            minLength: 2,
-            maxLength: 40,
-            validationErrStr: 'Use between 2 and 40 characters for your password'
+            isEmail: true,
+            validationErrStr: 'Enter a valid email',
         }
     },
     password: {
@@ -30,22 +33,27 @@ const inputDefinitions = {
         type: 'password',
         validations: {
             required: true,
-            minLength: 6,
+            minLength: 0,
             maxLength: 40,
-            validationErrStr: 'Use between 6 and 40 characters for your password'
+            validationErrStr: 'Use between 6 and 40 characters for your password',
         }
     }
 };
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    backgroundImage: `url(${backgroundImage})`,
+    position: 'absolute',
+    opacity: 0.8
   },
   avatar: {
     margin: theme.spacing(1),
+    backgroundImage: `url(${backgroundImage})`,
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
@@ -60,25 +68,27 @@ const useStyles = makeStyles((theme) => ({
   },
   loginInput: {
     width: '100%',
-    marginTop: '20px'
+    marginTop: '20px',
+    color: 'white'
   },
 }));
 
 function SignIn(props) {
     const classes = useStyles();
+    let history = useHistory();
 
     const [inputIsValid, setInputIsValid] = useState({
-        username: true,
+        gmail: true,
         password: true
     });
 
     const [authObj, setAuthObj] = useState({
-        username: '',
+        gmail: '',
         password: ''
     });
 
     const inputProperties = {
-        username: {
+        gmail: {
             styleClass: classes.loginInput
         },
         password: {
@@ -107,62 +117,81 @@ function SignIn(props) {
         event.preventDefault()
 
         let localInputIsValid = { ...inputIsValid };
-        localInputIsValid['username'] = checkInputValidity('username');
+        localInputIsValid['gmail'] = checkInputValidity('gmail');
         localInputIsValid['password'] = checkInputValidity('password');
         setInputIsValid(localInputIsValid);
 
-        if (localInputIsValid['username'] && localInputIsValid['password']) {
-            console.log(authObj.email)
-            console.log(authObj.password)
+        if (localInputIsValid['gmail'] && localInputIsValid['password']) {
             props.onAuth(
-                authObj.email,
+                authObj.gmail,
                 authObj.password
             );
         }
-    }, [authObj, checkInputValidity, inputIsValid]);
+    }, [authObj, checkInputValidity, inputIsValid, props]);
+
+    const authError = props.error;
+    useEffect(() => {
+        if (authError) {
+            alert(authError)
+        }
+    }, [authError,history]);
+
+    if (props.isAuthenticated){
+        if(props.usertype.toUpperCase()==="ADMIN" ){
+            history.push(routez.USERS);
+        }else if (props.usertype.toUpperCase()==="OFFICER"){
+            history.push(routez.WEAPONS);
+        } else {
+            history.push(routez.COMPANIES);
+        }
+    }
 
   return (
     <React.Fragment>
-        <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <div className={classes.paper}>
-                <form noValidate autoComplete="off" className={classes.form} onSubmit={onSubmitHandler}>
-                    <Avatar className={classes.avatar}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography variant="h5">
-                        Sign In
-                    </Typography>
-                    {inputFields}
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                    >
-                        Sign In
-                    </Button>
-                </form>
-            </div>
-        </Container>
+        <div className={classes.paper}>
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <div >
+                    <form noValidate autoComplete="off" className={classes.form} onSubmit={onSubmitHandler}>
+                        <Avatar className={classes.avatar}>
+                            <LockOutlinedIcon />
+                        </Avatar>
+                        <Typography variant="h5">
+                            Sign In
+                        </Typography>
+                        {inputFields}
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                        >
+                            Sign In
+                        </Button>
+                    </form>
+                </div>
+            </Container>
+        </div>
     </React.Fragment>
   );
 }
 
 const mapStateToProps = (state) => {
     return {
-        // error: state.auth.error,
-        // loading: state.auth.loading,
-        // isAuthenticated: state.auth.token != null,
-        // authRedirectPath: state.auth.authRedirectPath
+        error: state.auth.error,
+        loading: state.auth.loading,
+        isAuthenticated: state.auth.token != null,
+        authRedirectPath: state.auth.authRedirectPath,
+        usertype:state.auth.usertype,
+        stationID:state.auth.stationID,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAuth: (email, password) => dispatch(auth(email, password)),
-        // addAlert: (alert) => dispatch(addAlert(alert))
+        onAuth: (gmail, password) => dispatch(auth(gmail, password)),
+        addAlert: (alert) => dispatch(addAlert(alert))
     }
 };
 
