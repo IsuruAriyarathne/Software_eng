@@ -57,7 +57,7 @@ export const auth = (email, password) => (dispatch) => {
     }
     let url = loginRoute;
 
-    axios.post(url,
+    axios.post('http://localhost:4000/',
         authData)
         .then((response) => {
             console.log(response)
