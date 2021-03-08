@@ -18,8 +18,18 @@ describe('Login', function(){
         cy.reload()
     })
 
-    it('Delete a user', function(){
+    it('Edit a user', function(){
         cy.get('input[placeholder="Search"]').type('Sugath',{force: true})
+        cy.get('button[title="Edit"]').click()
+        cy.get('input[placeholder="Name"]').type('apala')
+        cy.get('div[aria-label="Role"]').click()
+        cy.get('li[data-value="officer"]').click()
+        cy.get('button[title="Save"]').click()
+        cy.reload()
+    })
+
+    it('Delete a user', function(){
+        cy.get('input[placeholder="Search"]').type('Sugathapala',{force: true})
         cy.get('button[title="Delete"]').click()
         cy.get('button[title="Save"]').click()
     })
