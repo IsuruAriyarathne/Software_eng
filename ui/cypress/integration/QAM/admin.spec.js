@@ -1,5 +1,5 @@
-describe('Login', function(){
-    it('Sign in', function(){
+describe('Admin', function(){
+    it('Log in', function(){
         cy.visit('http://localhost:3000/login')
         cy.get('input[type="text"]').type('isuru.18@cse.mrt.ac.lk')
         cy.get('input[type="password"]').type('b2lqpQ8444')
