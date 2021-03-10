@@ -1,5 +1,6 @@
-import React, { Suspense }  from 'react';
+import React, { Suspense, useEffect }  from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import { connect } from "react-redux";
 
 import SignIn from '../src/containers/Auth/auth';
 import UserTable from './components/Navbar/UserTable'
@@ -26,10 +27,17 @@ import ViewRequest from './components/Navbar/ViewRequest'
 import orderDetail from './components/Navbar/orderDetail'
 
 import * as routez from './shared/routes';
+import * as actions from "./store/actions/index";
 
 import './App.css';
 
-function App() {
+function App(props) {
+
+  const onTryAutoSignIn = props.onTryAutoSignIn;
+
+  useEffect(() => {
+    onTryAutoSignIn();
+  }, [onTryAutoSignIn]);
 
   let routes = (
     <Suspense >
@@ -69,5 +77,22 @@ function App() {
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.token !== null,
+  };
+};
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onTryAutoSignIn: () => dispatch(actions.authCheckState()),
+  };
+};
+
+// const withErrorhandlerWrappedComponent = withErrorHandler(App, axios);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
+

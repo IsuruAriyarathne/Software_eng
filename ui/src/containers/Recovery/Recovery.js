@@ -39,7 +39,7 @@ const RecoveryView = props => {
                 console.log(response);
                   if (!response.error) {
                       addAlert({
-                          message: "Weapon deletion Successful!",
+                          message: "Recovery deletion Successful!",
                       });
                       setRecovery(removeItemFromArray(recovery, 'recoveryID', oldWeapon.recoveryID, oldWeapon))
                       return resolve();
@@ -58,7 +58,7 @@ const RecoveryView = props => {
               .then((response) => {
                   if (!response.error) {
                       addAlert({
-                          message: "Weapon Updated Successfully!",
+                          message: "Recovery Updated Successfully!",
                       });
                       setRecovery(replaceItemInArray(recovery, 'officerID', newWeapon, oldWeapon.recoveryID))
                       return resolve();
