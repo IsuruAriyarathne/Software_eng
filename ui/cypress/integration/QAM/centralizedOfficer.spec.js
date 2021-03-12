@@ -187,4 +187,29 @@ describe('Login', function(){
         cy.get('.MuiAlert-message').contains('Ammunition Model deletion Successful!', {timeout:5000}).should('be.visible') 
         cy.reload()
     })
+
+    it('View recovery', function(){
+        cy.get('.MuiTypography-root').contains('Recovery').click()
+        cy.contains('Recovery Table', {timeout:10000}).should('be.visible')
+    })
+
+    it('View maintenance', function(){
+        cy.get('.MuiTypography-root').contains('Maintenance').click()
+        cy.contains('Maintenance Table', {timeout:10000}).should('be.visible')
+    })
+
+    it('View stations', function(){
+        cy.get('.MuiTypography-root').contains('Stations').click()
+        cy.contains('Stations Table', {timeout:10000}).should('be.visible')
+    })
+
+    it('View orders', function(){
+        cy.get('.MuiTypography-root').contains('ViewOrders').click()
+        cy.contains('Order Table', {timeout:10000}).should('be.visible')
+    })
+
+    it('View requests', function(){
+        cy.get('.MuiTypography-root').contains('View Requests').click()
+        cy.contains('Stations Table', {timeout:10000}).should('be.visible')
+    })
 })
